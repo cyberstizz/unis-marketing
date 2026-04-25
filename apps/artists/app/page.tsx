@@ -59,7 +59,7 @@ export default function ArtistsHome() {
         site="artists"
         links={NAV_LINKS}
         getAccessHref="https://unismusic.com"
-        loginHref="https://unismusic.com"
+        loginHref="https://unismusic.com/login"
       />
       <main>
         <Hero />
