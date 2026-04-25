@@ -43,7 +43,7 @@ export function FinalCTA() {
             label="I have a code"
             description="Enter it and sign up in 60 seconds. Keep 100% of your music. Start earning the same day."
             ctaLabel="Sign up"
-            ctaHref="/signup"
+            ctaHref="https://unismusic.com"
             variant="primary"
           />
           <CTACard
