@@ -81,7 +81,7 @@ export function PillarSection({
             )}
           >
             <SectionEyebrow>{eyebrow}</SectionEyebrow>
-            <h2 className="font-display font-semibold text-white mt-6 mb-8 leading-[0.95] tracking-[-0.04em] text-[clamp(40px,5vw,72px)]">
+            <h2 className="font-display font-semibold text-white mt-6 mb-8 leading-[0.95] tracking-[-0.04em] text-[clamp(32px,3.8vw,56px)]">
               {headline}
             </h2>
             <p className="text-text-secondary text-body-lg max-w-[60ch] mb-10">
