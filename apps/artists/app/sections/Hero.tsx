@@ -79,10 +79,10 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 1.0, ease: [0.2, 0.8, 0.2, 1] }}
           className="flex gap-3 flex-wrap"
         >
-          <Button as="a" href="#get-access" variant="primary" size="lg">
+          <Button as="a" href="https://unismusic.com" variant="primary" size="lg">
             Get access
           </Button>
-          <Button as="a" href="/login" variant="secondary" size="lg">
+          <Button as="a" href="https://unismusic.com" variant="secondary" size="lg">
             Log in
           </Button>
         </motion.div>

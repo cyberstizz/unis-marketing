@@ -58,8 +58,8 @@ export default function ArtistsHome() {
       <NavBar
         site="artists"
         links={NAV_LINKS}
-        getAccessHref="#get-access"
-        loginHref="/login"
+        getAccessHref="https://unismusic.com"
+        loginHref="https://unismusic.com"
       />
       <main>
         <Hero />
