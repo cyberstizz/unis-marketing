@@ -45,7 +45,7 @@ function MarqueeRow({ row }: { row: MarqueeRow }) {
     row.direction === "left" ? "animate-marquee-left" : "animate-marquee-right";
 
   const textClass = clsx(
-    "font-display font-semibold text-[clamp(48px,10vw,140px)] leading-none whitespace-nowrap tracking-[-0.04em]",
+    "font-display font-semibold text-[clamp(38px,10vw,120px)] leading-none whitespace-nowrap tracking-[-0.04em]",
     row.style === "solid-white" && "text-white",
     row.style === "solid-blue" && "text-brand-electric",
     row.style === "outline-blue" && "outline-text"
