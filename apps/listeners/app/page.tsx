@@ -31,10 +31,10 @@ const FOOTER_GROUPS = [
   {
     title: "Community",
     links: [
-      { label: "Find a code", href: "/map" },
-      { label: "Waitlist", href: "/waitlist" },
-      { label: "Referrals", href: "/referrals" },
-      { label: "Blog", href: "/blog" },
+      { label: "Find a code", href: "/" },
+      { label: "Waitlist", href: "https://unismusic.com/waitlist" },
+      { label: "Referrals", href: "/" },
+      { label: "Blog", href: "/" },
     ],
   },
   {
