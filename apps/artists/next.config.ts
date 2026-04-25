@@ -1,11 +1,11 @@
 import type { NextConfig } from "next";
 
 const config: NextConfig = {
+  output: "export",
   transpilePackages: ["@unis/ui"],
   reactStrictMode: true,
-  output: "export",
   images: {
-    formats: ["image/avif", "image/webp"],
+    unoptimized: true,
   },
 };
 
