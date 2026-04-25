@@ -26,7 +26,7 @@ const FOOTER_GROUPS = [
     title: "Platform",
     links: [
       { label: "For artists", href: "/" },
-      { label: "For listeners", href: "https://unismusic.com" },
+      { label: "For listeners", href: "https://listeners.unismusic.com" },
       { label: "How it works", href: "/how-it-works" },
       { label: "The math", href: "/math" },
     ],
