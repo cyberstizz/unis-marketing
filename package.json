@@ -1,0 +1,18 @@
+{
+  "name": "unis-marketing",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Marketing sites for Unis — where music lives.",
+  "scripts": {
+    "dev:artists": "pnpm --filter @unis/artists dev",
+    "dev:listeners": "pnpm --filter @unis/listeners dev",
+    "build:artists": "pnpm --filter @unis/artists build",
+    "build:listeners": "pnpm --filter @unis/listeners build",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint"
+  },
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
