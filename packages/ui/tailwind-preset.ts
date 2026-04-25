@@ -1,5 +1,4 @@
-import type { Config } from "tailwindcss";
-
+type Config = Record<string, unknown>;
 /**
  * Shared Tailwind preset. Apps extend this so their utilities stay in sync
  * with the CSS variables in tokens.css.
