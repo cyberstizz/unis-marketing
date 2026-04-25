@@ -56,7 +56,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
         >
-          <h1 className="font-display font-semibold text-white leading-[0.88] tracking-[-0.05em] text-[clamp(48px,7.5vw,128px)] mb-8">
+          <h1 className="font-display font-semibold text-white leading-[0.88] tracking-[-0.05em] text-[clamp(40px,7.5vw,120px)] mb-8">
             Where music
             <br />
             <span className="chrome-text">lives.</span>
