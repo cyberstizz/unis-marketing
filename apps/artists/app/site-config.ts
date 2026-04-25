@@ -41,6 +41,6 @@ export const ARTIST_FOOTER_GROUPS = [
 ];
 
 export const ARTIST_AUTH = {
-  getAccessHref: "/#get-access",
+  getAccessHref: "https://unismusic.com",
   loginHref: "/login",
 };
