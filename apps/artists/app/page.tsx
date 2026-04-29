@@ -86,10 +86,10 @@ export default function ArtistsHome() {
           ]}
         />
         <TheMath />
-        <OwnItAll />
         <WinYourNeighborhood />
         <GetPaidWhileYouSleep />
         <ArtistWall />
+        <OwnItAll />
         <NewAndNoteworthy />
         <FinalCTA />
         <PowerToThePeople />
