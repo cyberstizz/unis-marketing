@@ -85,8 +85,8 @@ export default function ArtistsHome() {
             },
           ]}
         />
-        <TheMath />
         <WinYourNeighborhood />
+        <TheMath />
         <GetPaidWhileYouSleep />
         <ArtistWall />
         <OwnItAll />
