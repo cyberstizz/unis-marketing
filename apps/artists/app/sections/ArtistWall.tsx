@@ -1,37 +1,34 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { SectionEyebrow } from "@unis/ui";
 
 /**
- * Artist wall — 12-up portrait grid.
+ * Artist wall — 8-up portrait grid.
  *
- * Tile images: Replace the gradient placeholders with the AI-generated
- * portraits (see BRAND.md for the Midjourney/Flux prompts — one per
- * neighborhood, consistent navy/purple color grading).
+ * Photos live in apps/artists/public/ as 01.png – 08.png.
+ * If you ever move them into a subfolder (e.g. apps/artists/public/artists/),
+ * change each `image` path below from "/01.png" to "/artists/01.png".
  */
 
 type Artist = {
   name: string;
   neighborhood: string;
   genre: string;
-  // Placeholder gradient until real portraits are dropped in /public/artists/
-  gradient: string;
+  image: string;
+  gradient: string; // fallback color behind the image while it loads
 };
 
 const ARTISTS: Artist[] = [
-  { name: "Mila Reyes", neighborhood: "Washington Heights", genre: "R&B", gradient: "linear-gradient(135deg, #163387 0%, #8b5cf6 100%)" },
-  { name: "KT Banks", neighborhood: "Harlem", genre: "Hip-hop", gradient: "linear-gradient(135deg, #2563eb 0%, #163387 100%)" },
-  { name: "Dee Vance", neighborhood: "Bed-Stuy", genre: "Soul", gradient: "linear-gradient(135deg, #6d28d9 0%, #2563eb 100%)" },
-  { name: "Luz Marín", neighborhood: "South Bronx", genre: "Latin trap", gradient: "linear-gradient(135deg, #f59e0b 0%, #6d28d9 100%)" },
-  { name: "Obi Ajayi", neighborhood: "Crown Heights", genre: "Afrobeat", gradient: "linear-gradient(135deg, #163387 0%, #3b82f6 100%)" },
-  { name: "Jacinta Wu", neighborhood: "LES", genre: "Electronic", gradient: "linear-gradient(135deg, #8b5cf6 0%, #163387 100%)" },
-  { name: "Ray Soto", neighborhood: "East Harlem", genre: "Jazz", gradient: "linear-gradient(135deg, #0a0e1a 0%, #2563eb 100%)" },
-  { name: "Nico Beaumont", neighborhood: "Flatbush", genre: "Dancehall", gradient: "linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)" },
-  { name: "Saige Ifeoma", neighborhood: "Morningside", genre: "Neo-soul", gradient: "linear-gradient(135deg, #6d28d9 0%, #163387 100%)" },
-  { name: "Terry Klein", neighborhood: "Bushwick", genre: "Indie rock", gradient: "linear-gradient(135deg, #3b82f6 0%, #6d28d9 100%)" },
-  { name: "Cam Ogilvie", neighborhood: "Inwood", genre: "Drill", gradient: "linear-gradient(135deg, #163387 0%, #0a0e1a 100%)" },
-  { name: "Shae Dubois", neighborhood: "Sugar Hill", genre: "Gospel", gradient: "linear-gradient(135deg, #8b5cf6 0%, #2563eb 100%)" },
+  { name: "Mila Reyes",    neighborhood: "Washington Heights", genre: "R&B",         image: "/01.png", gradient: "linear-gradient(135deg, #163387 0%, #8b5cf6 100%)" },
+  { name: "KT Banks",      neighborhood: "Harlem",             genre: "Hip-hop",     image: "/02.png", gradient: "linear-gradient(135deg, #2563eb 0%, #163387 100%)" },
+  { name: "Dee Vance",     neighborhood: "Bed-Stuy",           genre: "Soul",        image: "/03.png", gradient: "linear-gradient(135deg, #6d28d9 0%, #2563eb 100%)" },
+  { name: "Luz Marín",     neighborhood: "South Bronx",        genre: "Latin trap",  image: "/04.png", gradient: "linear-gradient(135deg, #f59e0b 0%, #6d28d9 100%)" },
+  { name: "Obi Ajayi",     neighborhood: "Crown Heights",      genre: "Afrobeat",    image: "/05.png", gradient: "linear-gradient(135deg, #163387 0%, #3b82f6 100%)" },
+  { name: "Jacinta Wu",    neighborhood: "LES",                genre: "Electronic",  image: "/06.png", gradient: "linear-gradient(135deg, #8b5cf6 0%, #163387 100%)" },
+  { name: "Ray Soto",      neighborhood: "East Harlem",        genre: "Jazz",        image: "/07.png", gradient: "linear-gradient(135deg, #0a0e1a 0%, #2563eb 100%)" },
+  { name: "Nico Beaumont", neighborhood: "Flatbush",           genre: "Dancehall",   image: "/08.png", gradient: "linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)" },
 ];
 
 export function ArtistWall() {
@@ -40,10 +37,7 @@ export function ArtistWall() {
       id="artists"
       style={{ padding: "var(--section-py) var(--content-px)" }}
     >
-      <div
-        className="mx-auto"
-        style={{ maxWidth: "var(--max-w)" }}
-      >
+      <div className="mx-auto" style={{ maxWidth: "var(--max-w)" }}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -79,12 +73,14 @@ export function ArtistWall() {
               className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer"
               style={{ background: artist.gradient }}
             >
-              {/* Placeholder initials — swap for real portrait <img> */}
-              <div className="absolute inset-0 flex items-center justify-center opacity-30">
-                <span className="font-display font-semibold text-white text-[56px] tracking-[-0.04em]">
-                  {artist.name.split(" ").map((n) => n[0]).join("")}
-                </span>
-              </div>
+              {/* Portrait */}
+              <Image
+                src={artist.image}
+                alt={artist.name}
+                fill
+                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                className="object-cover"
+              />
 
               {/* Hover scrim with name + neighborhood */}
               <div
