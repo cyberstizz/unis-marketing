@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { SectionEyebrow } from "@unis/ui";
 
@@ -9,6 +10,7 @@ const CARDS = [
     description:
       "Founder's note on the problem with algorithmic discovery — and why geography is the fix.",
     href: "/blog/why-harlem",
+    image: "/why.png",
     accent: "var(--brand-electric)",
   },
   {
@@ -16,6 +18,7 @@ const CARDS = [
     description:
       "How we pay artists more without charging fans more. A line-by-line breakdown.",
     href: "/blog/the-math",
+    image: "/themathBehind.png",
     accent: "var(--accent-violet)",
   },
   {
@@ -23,6 +26,7 @@ const CARDS = [
     description:
       "Why permanent public records beat trending charts. The case for verifiable legacy.",
     href: "/blog/permanent-record",
+    image: "/artistOfTheDay.png",
     accent: "var(--brand-electric-hover)",
   },
   {
@@ -30,6 +34,7 @@ const CARDS = [
     description:
       "See who's actually listening, block by block. Book the tour where the fans already are.",
     href: "/blog/jurisdiction-analytics",
+    image: "/jurisdictionAnalytics.png",
     accent: "var(--accent-violet-deep)",
   },
 ];
@@ -66,20 +71,19 @@ export function NewAndNoteworthy() {
               }}
               className="group block bg-bg-surface rounded-2xl overflow-hidden border border-divider hover:border-brand-electric transition-all duration-300 ease-out-quart"
             >
-              {/* Thumbnail — gradient placeholder */}
+              {/* Thumbnail */}
               <div
-                className="aspect-[16/10] relative"
+                className="aspect-[16/10] relative overflow-hidden"
                 style={{
                   background: `linear-gradient(135deg, ${card.accent} 0%, var(--bg-deep) 100%)`,
                 }}
               >
-                <div
-                  aria-hidden
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    backgroundImage:
-                      "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-                  }}
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
                 />
               </div>
               <div className="p-6">
