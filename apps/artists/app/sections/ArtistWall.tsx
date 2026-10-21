@@ -1,108 +1,67 @@
 "use client";
 
-import Image from "next/image";
+import { DriftGallery, SectionEyebrow } from "@unis/ui";
 import { motion } from "motion/react";
-import { SectionEyebrow } from "@unis/ui";
 
 /**
- * Artist wall — 8-up portrait grid.
+ * "Every sound" — the portrait wall, reworked.
  *
- * Photos live in apps/artists/public/ as 01.png – 08.png.
- * If you ever move them into a subfolder (e.g. apps/artists/public/artists/),
- * change each `image` path below from "/01.png" to "/artists/01.png".
+ * The portraits are illustrations, so they carry no names and make no claim
+ * about who is on Unis. The section says what is true for every artist: three
+ * awards races, with subgenres and moods inside them (help center, "Genres,
+ * subgenres and moods").
+ *
+ * Images: apps/artists/public/01.webp – 08.webp (web-sized copies of the PNGs).
  */
+const PORTRAITS = ["01", "02", "03", "04", "05", "06", "07", "08"].map((n) => ({
+  src: `/${n}.webp`,
+  alt: "",
+}));
 
-type Artist = {
-  name: string;
-  neighborhood: string;
-  genre: string;
-  image: string;
-  gradient: string; // fallback color behind the image while it loads
-};
-
-const ARTISTS: Artist[] = [
-  { name: "Mila Reyes",    neighborhood: "Washington Heights", genre: "R&B",         image: "/01.png", gradient: "linear-gradient(135deg, #163387 0%, #8b5cf6 100%)" },
-  { name: "KT Banks",      neighborhood: "Harlem",             genre: "Hip-hop",     image: "/02.png", gradient: "linear-gradient(135deg, #2563eb 0%, #163387 100%)" },
-  { name: "Dee Vance",     neighborhood: "Bed-Stuy",           genre: "Soul",        image: "/03.png", gradient: "linear-gradient(135deg, #6d28d9 0%, #2563eb 100%)" },
-  { name: "Luz Marín",     neighborhood: "South Bronx",        genre: "Latin trap",  image: "/04.png", gradient: "linear-gradient(135deg, #f59e0b 0%, #6d28d9 100%)" },
-  { name: "Obi Ajayi",     neighborhood: "Crown Heights",      genre: "Afrobeat",    image: "/05.png", gradient: "linear-gradient(135deg, #163387 0%, #3b82f6 100%)" },
-  { name: "Jacinta Wu",    neighborhood: "LES",                genre: "Electronic",  image: "/06.png", gradient: "linear-gradient(135deg, #8b5cf6 0%, #163387 100%)" },
-  { name: "Ray Soto",      neighborhood: "East Harlem",        genre: "Jazz",        image: "/07.png", gradient: "linear-gradient(135deg, #0a0e1a 0%, #2563eb 100%)" },
-  { name: "Nico Beaumont", neighborhood: "Flatbush",           genre: "Dancehall",   image: "/08.png", gradient: "linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%)" },
-];
+const RACES = ["Rap", "Rock", "Pop"];
+const TAGS = ["Drill", "Conscious", "Afrobeats", "R&B / Soul", "Punk / Emo", "Hype", "Chill", "Heartbreak"];
 
 export function ArtistWall() {
   return (
-    <section
-      id="artists"
-      style={{ padding: "var(--section-py) var(--content-px)" }}
-    >
-      <div className="mx-auto" style={{ maxWidth: "var(--max-w)" }}>
+    <section id="artists" style={{ padding: "var(--section-py) 0" }}>
+      <div className="mx-auto mb-14 lg:mb-20" style={{ maxWidth: "var(--max-w)", padding: "0 var(--content-px)" }}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
-          className="mb-16 max-w-[60ch]"
+          className="grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-end"
         >
-          <SectionEyebrow>Built in Harlem</SectionEyebrow>
-          <h2 className="font-display font-semibold text-white mt-6 mb-6 leading-[0.95] tracking-[-0.04em] text-[clamp(40px,5vw,72px)]">
-            Made by an artist.
-            <br />
-            For every artist.
-          </h2>
-          <p className="text-text-secondary text-body-lg">
-            Unis was built by an independent artist who got tired of watching
-            good music disappear into a scroll. Everyone below is already
-            earning while you read this.
-          </p>
+          <div>
+            <SectionEyebrow>Every sound</SectionEyebrow>
+            <h2 className="font-display font-semibold text-white mt-6 leading-[0.95] tracking-[-0.045em] text-[clamp(40px,5.4vw,84px)]">
+              Rap. Rock. Pop.
+              <br />
+              And everything inside them.
+            </h2>
+          </div>
+          <div>
+            <p className="text-text-secondary text-body-lg mb-6">
+              Three awards races. Inside each, subgenres and moods help the right
+              listeners find you, and songs from their own area come up first.
+            </p>
+            <ul className="flex flex-wrap gap-2" aria-label="Awards races and example tags">
+              {RACES.map((r) => (
+                <li key={r} className="rounded-full bg-white text-bg-deep px-4 py-1.5 text-[14px] font-semibold">
+                  {r}
+                </li>
+              ))}
+              {TAGS.map((t) => (
+                <li key={t} className="rounded-full border border-white/15 px-4 py-1.5 text-[14px] text-text-secondary">
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
         </motion.div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-          {ARTISTS.map((artist, i) => (
-            <motion.div
-              key={artist.name}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{
-                duration: 0.5,
-                delay: i * 0.04,
-                ease: [0.2, 0.8, 0.2, 1],
-              }}
-              className="group relative aspect-square rounded-xl overflow-hidden cursor-pointer"
-              style={{ background: artist.gradient }}
-            >
-              {/* Portrait */}
-              <Image
-                src={artist.image}
-                alt={artist.name}
-                fill
-                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                className="object-cover"
-              />
-
-              {/* Hover scrim with name + neighborhood */}
-              <div
-                className="absolute inset-0 flex flex-col justify-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(10,14,26,0) 40%, rgba(10,14,26,0.95) 100%)",
-                }}
-              >
-                <div className="text-white font-display font-semibold text-[17px] tracking-tight">
-                  {artist.name}
-                </div>
-                <div className="text-text-muted text-[13px] flex items-center gap-1.5 mt-0.5">
-                  <span>{artist.neighborhood}</span>
-                  <span className="text-brand-electric">·</span>
-                  <span>{artist.genre}</span>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
+
+      <DriftGallery images={PORTRAITS} />
     </section>
   );
 }

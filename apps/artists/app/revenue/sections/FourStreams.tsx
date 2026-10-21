@@ -20,160 +20,150 @@ type Stream = {
 const STREAMS: Stream[] = [
   {
     number: "01",
-    name: "Display ad supporter income",
-    tag: "15% of display ad revenue · passive · daily",
+    name: "Supporters",
+    tag: "15% of each supporter's monthly share",
     tagColor: "var(--brand-electric)",
-    headline: "Every day your fan opens the app, you earn. Even if they don't press play.",
+    headline: "Your supporters pay you whenever they listen. To anyone.",
     accent: "var(--brand-electric)",
     what: (
       <>
-        When someone picks you as their artist at signup, Unis sends{" "}
-        <strong className="text-white">15% of every display ad</strong> they
-        generate — scrolling, browsing, tapping around the app — straight to
-        you. Every day. Whether they press play on your music or not.
+        Every listener backs one artist. When that&rsquo;s you,{" "}
+        <strong className="text-white">15% of their slice</strong> of the
+        monthly Community Share comes to you. Their slice is set by how much
+        they listen while signed in, to any artist, so they don&rsquo;t have to
+        be playing you.
       </>
     ),
     compare: (
       <>
-        Spotify has no mechanism for a listener to fund a specific artist
-        without streaming. On Unis, you're earning from every second they have
-        the app open.
+        Spotify has no way for a listener to fund one specific artist from all
+        of their listening. On Unis it&rsquo;s built into every account, and it
+        costs the listener nothing.
       </>
     ),
     math: (
       <>
+        <div>The month&rsquo;s pot is $1,000 and Unis counted 100,000 plays.</div>
+        <div>A supporter who made 500 of them has a $5.00 slice.</div>
         <div>
-          An active supporter sees ~<strong className="text-white">$0.70</strong>{" "}
-          in display ads per month.
-        </div>
-        <div>
-          After the 15% supporter share →{" "}
-          <strong className="text-white">$0.11</strong> to you, per active
-          supporter, per month.
+          Your 15% → <strong className="text-white">$0.75</strong> from that one supporter.
         </div>
         <div className="pt-3 mt-3 border-t border-divider">
-          <div>100 supporters · 40% daily active = <strong className="text-brand-electric">~$4/month</strong> passive.</div>
-          <div>1,000 supporters · 40% active = <strong className="text-brand-electric">~$42/month</strong> passive.</div>
-          <div className="text-text-muted text-[12px] pt-1">(Active-day rate adjustable in the calculator above.)</div>
+          <div>
+            200 supporters who listen like that ={" "}
+            <strong className="text-brand-electric">$150 that month</strong>.
+          </div>
+          <div className="text-text-muted text-[12px] pt-1">
+            (The help center&rsquo;s own example. Real figures depend on what Unis earns each month.)
+          </div>
         </div>
       </>
     ),
   },
   {
     number: "02",
-    name: "Audio ad streaming income",
-    tag: "60% of net audio ad revenue · performance-based",
+    name: "Audio ads",
+    tag: "60% of net · not live yet",
     tagColor: "var(--accent-violet)",
     comingSoon: true,
-    headline: "Your plays fund you directly. Not a shared pool.",
+    headline: "Ads played with your songs pay you 60%.",
     accent: "var(--accent-violet)",
     what: (
       <>
-        Pre-roll audio ads before your songs. Artist gets{" "}
-        <strong className="text-white">60% of net</strong> after MLC
-        compulsory royalties are paid. The referral pool (10/5/2%) fires on
-        top. Unis keeps 23%.{" "}
-        <strong className="text-white">
-          This stream is not yet live — audio ads launch once Unis completes
-          agreements with an audio ad partner.
-        </strong>
+        When audio ads arrive, <strong className="text-white">60% of the net</strong>{" "}
+        revenue from ads played with your songs goes to you. Unis&rsquo;s 40%
+        joins the Community Share pot.{" "}
+        <strong className="text-white">Audio ads aren&rsquo;t live yet.</strong>
       </>
     ),
     compare: (
       <>
-        Spotify's pro-rata pool means your streams get averaged against
-        Drake's and Taylor Swift's, so a small artist earns $0.003–$0.005
-        per stream. Unis pays you directly on <em>your</em> ad revenue, not a
-        shared pool.
+        Spotify pools ad money and pays it out by share of all streams. On
+        Unis, the ads tied to your plays pay you first.
       </>
     ),
     math: (
       <>
-        <div>5,000 monthly plays · 60% audio ad fill rate · $0.015 per filled ad</div>
-        <div>= ~$45 gross revenue tied to your plays</div>
-        <div>After MLC (~15.3%) → ~$38 net</div>
+        <div>5,000 plays of your songs · 60% carry an ad · $0.015 net per ad</div>
+        <div>= $45 net tied to your plays</div>
         <div className="pt-3 mt-3 border-t border-divider">
-          Artist's 60% →{" "}
-          <strong className="text-accent-violet">~$23/month</strong> for that
-          level of play.
+          Your 60% →{" "}
+          <strong className="text-accent-violet">about $27/month</strong> at that level of play.
+          <div className="text-text-muted text-[12px] pt-1">(Assumed rates. Not live yet.)</div>
         </div>
       </>
     ),
   },
   {
     number: "03",
-    name: "Paid tier subscription income",
-    tag: "50% of $5.99/month · direct · predictable",
+    name: "Unis Plus",
+    tag: "60% of $4.99, after Stripe's fees · by plays",
     tagColor: "var(--accent-violet-deep)",
-    headline: "Every paid fan sends you $2.99 a month. Directly. No pool.",
+    headline: "Every Plus subscriber pays the artists they actually play.",
     accent: "var(--accent-violet-deep)",
     what: (
       <>
-        Every Unis user who upgrades to ad-free is still tied to their
-        supported artist. When they pay $5.99/month, half of that —{" "}
-        <strong className="text-white">$2.99</strong> — goes straight to
-        you. Not pooled. Not pro-rata. Direct.
+        Unis Plus is the ad-free plan at $4.99 a month. Each month,{" "}
+        <strong className="text-white">60% of a subscriber&rsquo;s fee</strong>{" "}
+        after Stripe&rsquo;s fees (about $2.70) is shared among the artists that
+        subscriber played, by their counted plays. If they played nobody, it
+        goes to the artist they support.
       </>
     ),
     compare: (
       <>
-        Spotify Premium revenue goes into a global pool that splits across
-        every artist by stream share. Your share of a Premium user who
-        streams Drake 90% of the time is effectively zero. On Unis, if that
-        user <em>chose you</em>, you get half their subscription no matter
-        what they listen to.
+        Spotify Premium money goes into one global pool split by total stream
+        share, so a subscriber who mostly plays you still mostly pays the
+        biggest artists. On Unis, each subscriber&rsquo;s money follows that
+        subscriber&rsquo;s own plays.
       </>
     ),
     math: (
       <>
-        <div>100 supporters · 8% paid conversion rate = 8 paid supporters</div>
-        <div>8 × $2.99 = <strong className="text-white">$23.92/month</strong></div>
+        <div>A subscriber whose plays this month were 25% you:</div>
+        <div>
+          $2.70 × 25% = <strong className="text-white">$0.68</strong>
+        </div>
         <div className="pt-3 mt-3 border-t border-divider">
-          500 supporters at 8% conversion = 40 paid →{" "}
-          <strong style={{ color: "var(--accent-violet-deep)" }}>
-            $119.60/month
-          </strong>{" "}
-          predictable.
+          40 subscribers like that →{" "}
+          <strong style={{ color: "var(--accent-violet-deep)" }}>$27/month</strong>.
         </div>
       </>
     ),
   },
   {
     number: "04",
-    name: "Direct sales",
-    tag: "85% of sale price · paid in 2 business days",
+    name: "Song sales and support",
+    tag: "Your price, minus 10% · from $0.94",
     tagColor: "var(--accent-amber)",
-    headline: "Sell directly to your fans. Keep 85%. Paid in 2 business days.",
+    headline: "Sell your songs for less than iTunes. Keep almost all of it.",
     accent: "var(--accent-amber)",
     what: (
       <>
-        Set your own price ($1.99 floor, no ceiling). Fan pays, you keep{" "}
-        <strong className="text-white">85%</strong>. Unis takes 15% to cover
-        payment processing and platform costs. Stripe deposits to your bank
-        in two business days.
+        Set your price from <strong className="text-white">$0.94</strong>, 5¢
+        under the iTunes Store&rsquo;s 99¢ songs. Unis keeps{" "}
+        <strong className="text-white">10%</strong>, or only the card fee plus
+        1¢ on small sales, whichever is higher. Fans can send you support
+        directly on the same terms. The money lands in your Stripe account the
+        moment they pay.
       </>
     ),
     compare: (
       <>
-        Bandcamp takes 15% and pays at similar speed, so we're comparable on
-        cut — but most streaming platforms don't offer direct sales at all.
-        Compared to iTunes, you net more per sale and wait days instead of
-        months.
+        Card companies charge about 30¢ on every payment, so on small prices
+        Unis takes that fee plus one cent and nothing more. From about $4.35 up
+        it&rsquo;s a flat 10%.
       </>
     ),
     math: (
       <>
-        <div>20 tracks sold at $1.99/month → $39.80 gross</div>
-        <div>
-          85% to artist →{" "}
-          <strong className="text-white">$33.83/month</strong>
-        </div>
+        <div>$0.94 → you get $0.60</div>
+        <div>$1.99 → you get $1.62</div>
+        <div>$10.00 → you get $9.00</div>
         <div className="pt-3 mt-3 border-t border-divider">
-          Paid out{" "}
-          <strong style={{ color: "var(--accent-amber)" }}>
-            twice a week
-          </strong>
-          , not monthly.
+          20 songs a month at $1.99 →{" "}
+          <strong style={{ color: "var(--accent-amber)" }}>$32.40/month</strong>, paid
+          to your Stripe account as each sale happens.
         </div>
       </>
     ),
@@ -196,9 +186,9 @@ export function FourStreams() {
             The math, broken down.
           </h2>
           <p className="text-text-secondary text-body-lg">
-            Here's exactly what each stream is, how it pays, and what it looks
-            like in dollars. Every split below is encoded in the Unis platform —
-            not marketing, not promise. Code.
+            Here&rsquo;s exactly what each stream is, how it pays, and what it
+            looks like in dollars. Every split below is the same one the Unis
+            platform runs and the help center publishes.
           </p>
         </motion.div>
 
@@ -225,17 +215,16 @@ export function FourStreams() {
             Plus, for every Unis user · not just artists
           </div>
           <h3 className="font-display font-semibold text-white text-[clamp(24px,3vw,36px)] leading-tight tracking-[-0.02em] mb-4">
-            10% / 5% / 2% referrals, three levels deep. Lifetime.
+            10% / 5% / 2% referrals, three levels deep.
           </h3>
           <p className="text-text-secondary text-[16px] leading-[1.6] max-w-[72ch]">
-            When you bring someone to Unis, you earn{" "}
-            <strong className="text-white">10%</strong> of their ad revenue
-            for as long as they use the app. Their referrals earn you{" "}
-            <strong className="text-white">5%</strong>. Their referrals'
-            referrals earn you <strong className="text-white">2%</strong>.
-            Applied to both display and audio ads. Not artist-specific —
-            every Unis user earns this way, stacked on top of whatever else
-            they have going.
+            When you bring someone to Unis, you get{" "}
+            <strong className="text-white">10%</strong> of their slice of the
+            monthly Community Share for as long as they keep listening. The
+            people they invite earn you <strong className="text-white">5%</strong>,
+            and one step further, <strong className="text-white">2%</strong>.
+            Every Unis member earns this way, not only artists. Nobody is paid
+            for seeing or clicking ads.
           </p>
         </motion.div>
       </div>

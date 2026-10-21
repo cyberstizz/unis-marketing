@@ -12,7 +12,7 @@ Marketing sites for Unis. Two Next.js 15 apps in a pnpm monorepo sharing a desig
 unis-marketing/
 ├── apps/
 │   ├── artists/      → artists.unismusic.com (port 3001)
-│   └── listeners/    → unismusic.com         (port 3000)
+│   └── listeners/    → listeners.unismusic.com (port 3000)
 ├── packages/
 │   └── ui/           → @unis/ui — shared design system
 │       ├── src/styles/tokens.css   ← single source of truth for color/type/motion
@@ -76,19 +76,24 @@ locked and one edit away from a global refresh.
 
 Both apps import from `@unis/ui`:
 
-- `Button` — polymorphic (button or anchor) with primary/secondary/ghost
-  variants and sm/md/lg sizes
-- `NavBar` — floats transparent over hero, solidifies on scroll
-- `Logo` — the chrome-gradient UNIS wordmark as SVG
-- `PillarSection` — the 60/40 alternating block used for every feature
-  pillar on both sites
-- `PillarMarquee` — the rotating pillar names that link down the page
-- `CheckBullet` — animated circular check bullets for pillar lists
-- `SectionEyebrow` — the letter-spaced uppercase label with an electric-blue
-  accent line
-- `PowerToThePeople` — the full-bleed electric-blue closing band
-- `ScrollProgress` — thin scroll indicator fixed to top
-- `FooterBar` — shared footer with configurable link groups
+- `SubPageShell` — every page (home included) renders inside it: smooth
+  scroll, scroll progress, nav, closing band, footer
+- `SmoothScroll` — Lenis inertial scrolling; off for reduced-motion visitors
+- `NavBar` — transparent over the hero, solid on scroll, hides while you
+  scroll down, full-screen menu under 768px
+- `HeroStage` — full-bleed video hero that pulls back into a rounded card as
+  you scroll; headline rises in line by line
+- `PillarMarquee` — the jump bands under the hero; speed and direction follow
+  your scroll
+- `LaunchBanner` — the time-boxed campaign slot ("Opening soon in Harlem")
+- `ShowcaseModules` — the four pillar modules; visual pins and changes as you
+  scroll on wide screens
+- `ScrubText` — a statement that lights up word by word with scroll
+- `RollingNumber` — odometer-style numbers (NumberFlow)
+- `DriftGallery`, `CardRail`, `ThreeDoors`, `VisualPanel`, `CheckBullet`,
+  `SectionEyebrow`, `Button`, `Logo`, `PowerToThePeople`, `FooterBar`
+- `UNIS_LINKS` / `helpLink()` — every outbound URL (sign up, waitlist,
+  sponsor, help-center deep links) in one place
 
 ### App-specific sections
 
@@ -115,10 +120,11 @@ and `sections/TheMath.tsx`.
 
 ## Deployment
 
-Both apps deploy independently to Vercel. Point each one at a different
-project, configure the domain (`artists.unismusic.com` vs `unismusic.com`),
-and Vercel handles the rest. Both apps use `next.config.ts` with
-`transpilePackages: ["@unis/ui"]` which Vercel supports natively.
+Both apps are static exports (`output: "export"`) deployed as two Cloudflare
+Pages projects: `artists.unismusic.com` and `listeners.unismusic.com`.
+Every claim on both sites must match the help center in the Unis app
+(unis-sample `src/data/helpContent.jsx`); the in-app Artist Agreement
+incorporates the terms published on artists.unismusic.com.
 
 ## Post-launch checklist
 

@@ -28,10 +28,10 @@ export function SpotifyComparison() {
             <span className="chrome-text">on Unis.</span>
           </h2>
           <p className="text-text-secondary text-body-lg">
-            Let's take the same person — a dedicated fan who listens to your
-            music 20 times a month, streams other artists 300 times a month,
-            and is already paying Spotify Premium. Here's what each platform
-            pays you for that one human.
+            Take the same person: a dedicated fan who plays your music 20
+            times a month, plays other artists 300 times a month, and pays for
+            ad-free listening. Here&rsquo;s what each platform pays you for
+            that one human.
           </p>
         </motion.div>
 
@@ -43,36 +43,36 @@ export function SpotifyComparison() {
           className="grid gap-4 lg:gap-6 md:grid-cols-2"
         >
           <ComparisonCard
-            title="Spotify Premium user"
+            title="Spotify Premium subscriber"
             subdued
             rows={[
-              { label: "They pay their platform", value: "$11.99/mo" },
+              { label: "They pay Spotify", value: "$12.99/mo" },
               {
-                label: "Your share of that payment",
-                value: "~$0.003 × 20 streams = $0.06",
+                label: "Your share of their 20 plays",
+                value: "~$0.003–$0.005 × 20",
               },
               {
-                label: "Plus daily activity (non-music)",
+                label: "From their other 300 plays",
                 value: "$0",
               },
             ]}
-            total="~$0.06"
+            total="~$0.08"
             totalLabel="Your take per month · this one fan"
           />
           <ComparisonCard
-            title="Unis supporter (paid tier)"
+            title="Unis Plus subscriber who backs you"
             rows={[
-              { label: "They pay their platform", value: "$5.99/mo" },
+              { label: "They pay Unis Plus", value: "$4.99/mo" },
               {
-                label: "Your share of that payment",
-                value: "50% of $5.99 = $2.99",
+                label: "Unis Plus by plays: 20 of their 320 are you",
+                value: "$2.70 × 6.25% = $0.17",
               },
               {
-                label: "Plus daily activity (supporter share)",
-                value: "15% of ~$0.70/mo = $0.11",
+                label: "Supporter share of all 320 plays",
+                value: "15% of $3.20 = $0.48",
               },
             ]}
-            total="~$3.10"
+            total="~$0.65"
             totalLabel="Your take per month · this one fan"
           />
         </motion.div>
@@ -85,23 +85,24 @@ export function SpotifyComparison() {
           className="mt-12 text-center"
         >
           <p className="font-display font-semibold text-white tracking-[-0.03em] text-[clamp(28px,4vw,56px)] leading-[1.15] max-w-[22ch] mx-auto">
-            That's a{" "}
-            <span className="chrome-text">51x difference</span> per dedicated
-            fan.
+            About{" "}
+            <span className="chrome-text">8x more</span> per dedicated fan.
           </p>
           <p className="text-text-secondary text-body-lg mt-6 max-w-[60ch] mx-auto">
-            Not because Unis is magic —{" "}
-            <em>because Unis is built differently.</em> You're not a number in
-            a pool. You're the business.
+            Not because Unis is magic, but because a fan who backs you pays you
+            from <em>all</em> of their listening, and their subscription follows
+            their own plays instead of a global pool.
           </p>
         </motion.div>
 
         <p className="mt-10 text-text-subtle text-[12px] italic max-w-[80ch] mx-auto text-center">
-          Spotify per-stream rate based on 2025 industry average ($0.003–$0.005).
-          Assumes ~20 streams/mo of the artist's music in a rotation of ~320
-          total monthly streams on Premium. Unis calculation assumes $0.70/month
-          display ad revenue per active user, 15% supporter share, 50%
-          paid-tier split at $5.99/mo.
+          Spotify Premium Individual is $12.99/month in the US (from February
+          2026). Spotify per-stream rate is the commonly cited industry range of
+          $0.003–$0.005. The Unis figures assume the month&rsquo;s Community
+          Share works out to 1¢ per counted play (the help center&rsquo;s own
+          example); the real value depends on what Unis earns each month and
+          will be lower in the early months. Unis Plus artists&rsquo; pool is
+          60% of $4.99 after Stripe&rsquo;s fees, about $2.70.
         </p>
       </div>
     </section>

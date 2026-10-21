@@ -6,30 +6,31 @@ import { SectionEyebrow } from "@unis/ui";
 const BLOCKS = [
   {
     number: "01",
-    title: "Platform share of display ads",
+    title: "Unis's part of the Community Share",
     pct: "68%",
-    body: "Every display ad routes 68% to Unis, 15% to the user's chosen artist, 17% to the referral chain. We build and run on the 68%.",
+    sub: "of each listener's monthly slice",
+    body: "Everything Unis earns (ads, local sponsorships, its small fee margins) goes into one monthly pot. Each listener's slice splits 15% to their artist and 17% up their referral chain. Unis runs the platform on the other 68%.",
   },
   {
     number: "02",
-    title: "Platform share of audio ads",
-    pct: "23%",
-    sub: "of net · once audio launches",
-    body: "After MLC royalties come off the top, Unis takes 23% of what's left. The artist takes 60%; the referral chain takes 17%.",
+    title: "Unis Plus",
+    pct: "40%",
+    sub: "of each subscription, after Stripe's fees",
+    body: "60% goes to the artists each subscriber played, by plays. Unis's 40% joins the Community Share pot.",
   },
   {
     number: "03",
-    title: "Platform share of paid subscriptions",
-    pct: "50%",
-    sub: "of every $5.99/mo",
-    body: "Half of every paid subscription funds operations. The other half goes directly to the artist that user supports.",
+    title: "Song sales and support",
+    pct: "10%",
+    sub: "or card fee + 1¢ on small sales",
+    body: "Covers the card company's fee and leaves Unis about a cent on small sales. Whatever Unis keeps after the card fee joins the pot.",
   },
   {
     number: "04",
-    title: "Platform share of direct sales",
-    pct: "15%",
-    sub: "of every $1.99+ sale",
-    body: "Covers payment processing (Stripe takes ~3%) and platform operating costs. You keep 85%.",
+    title: "Audio ads",
+    pct: "40%",
+    sub: "of net · once audio launches",
+    body: "Artists get 60% of the net from ads played with their songs. Unis's 40% joins the Community Share pot.",
   },
 ];
 
@@ -51,8 +52,8 @@ export function BusinessModel() {
             then?
           </h2>
           <p className="text-text-secondary text-body-lg">
-            Fair question — a platform paying 60–85% cuts needs to fund
-            itself somehow. Here's exactly where.
+            Fair question. A platform that pays artists 60–90% of what they
+            bring in needs to fund itself somehow. Here&rsquo;s exactly where.
           </p>
         </motion.div>
 

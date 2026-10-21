@@ -31,11 +31,12 @@ export function OwnershipHero() {
             Every other platform asks you to trust their{" "}
             <span className="text-text-muted">Terms of Service.</span>
             <br />
-            <span className="chrome-text">Unis gives you a signed PDF.</span>
+            <span className="chrome-text">Unis puts it in writing, in your name.</span>
           </h1>
           <p className="text-text-secondary text-body-lg max-w-[58ch] mb-10">
-            A personalized, downloadable ownership agreement — naming you,
-            listing your songs, countersigned, dated. Every upload. Every time.
+            A downloadable ownership and revenue-share agreement with your name
+            and the date on it, from your dashboard, any time. It says in plain
+            words that your music is yours, and exactly what you&rsquo;re paid.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button
@@ -120,7 +121,7 @@ function ContractMockup() {
             .
           </p>
           <p>
-            <span className="font-bold">Between:</span> UNIS MUSIC PLATFORM
+            <span className="font-bold">Between:</span> Unis Music Corporation
             ("Unis") and{" "}
             <span
               className="font-semibold"
@@ -136,11 +137,11 @@ function ContractMockup() {
               className="font-bold"
               style={{ color: "#163387", fontSize: "9px" }}
             >
-              1. Grant of Non-Exclusive License
+              2. Ownership of Your Content
             </span>
           </p>
           <p>
-            Artist hereby grants Unis a <span className="font-bold">non-exclusive</span>, royalty-free, worldwide license to reproduce, distribute, publicly perform, publicly display…
+            You retain all right, title, and interest in and to your Content, including all Master Recordings and underlying compositions… <span className="font-bold">Unis claims no ownership of your music.</span>
           </p>
 
           <p className="pt-1">
@@ -148,11 +149,11 @@ function ContractMockup() {
               className="font-bold"
               style={{ color: "#163387", fontSize: "9px" }}
             >
-              2. Ownership Retained by Artist
+              3. License Grant
             </span>
           </p>
           <p>
-            Artist retains <span className="font-bold">100% ownership</span> of all rights in the sound recordings (masters) and underlying musical compositions (publishing)…
+            You grant Unis a <span className="font-bold">non-exclusive</span>, worldwide, revocable license to host, stream, publicly perform and display your Content on the Platform…
           </p>
 
           <p className="pt-1">
@@ -160,46 +161,28 @@ function ContractMockup() {
               className="font-bold"
               style={{ color: "#163387", fontSize: "9px" }}
             >
-              3. Revenue Share
-            </span>
-          </p>
-          <p>
-            Unis shall pay Artist <span className="font-bold">60% of Net Streaming Revenue</span> attributable to plays of the Uploaded Works…
-          </p>
-
-          <p className="pt-1">
-            <span
-              className="font-bold"
-              style={{ color: "#163387", fontSize: "9px" }}
-            >
-              4. Uploaded Works
+              4. Revenue Share Schedule
             </span>
           </p>
           <div
             className="mt-1 text-[7px] border rounded-sm"
             style={{ borderColor: "#e2e8f0" }}
           >
-            <div
-              className="flex font-semibold px-2 py-1 text-white"
-              style={{ background: "#163387" }}
-            >
-              <span className="w-4">#</span>
-              <span className="flex-1">Title</span>
-              <span>Upload Date</span>
-            </div>
-            <div className="px-2 py-1 flex border-t" style={{ borderColor: "#e2e8f0" }}>
-              <span className="w-4">1</span>
-              <span className="flex-1 italic">"bomb diggity"</span>
-              <span>1/7/2026</span>
-            </div>
-            <div
-              className="px-2 py-1 flex border-t"
-              style={{ borderColor: "#e2e8f0", background: "#f8fafc" }}
-            >
-              <span className="w-4">2</span>
-              <span className="flex-1 italic">"oatmeal"</span>
-              <span>11/8/2025</span>
-            </div>
+            {[
+              ["Direct song sales & downloads", "90% to Artist*"],
+              ["Unis Plus subscriptions, by plays", "60% to Artist"],
+              ["Audio ads on your songs (coming soon)", "60% to Artist"],
+              ["Community Share from your supporters", "15% to Artist"],
+            ].map(([what, share], i) => (
+              <div
+                key={what}
+                className="px-2 py-1 flex border-t first:border-t-0"
+                style={{ borderColor: "#e2e8f0", background: i % 2 === 0 ? "#f8fafc" : "#ffffff" }}
+              >
+                <span className="flex-1">{what}</span>
+                <span className="font-bold">{share}</span>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -259,7 +242,7 @@ function ContractMockup() {
                 className="text-[7px] mt-0.5 italic"
                 style={{ color: "#64748b" }}
               >
-                Authorized Representative
+                Authorized Officer
               </div>
             </div>
           </div>

@@ -1,95 +1,43 @@
-import {
-  NavBar,
-  PillarMarquee,
-  PowerToThePeople,
-  ScrollProgress,
-  FooterBar,
-} from "@unis/ui";
+import { LaunchBanner, PillarMarquee, SubPageShell, UNIS_LINKS } from "@unis/ui";
+import { LISTENER_SHELL } from "./site-config";
 import { Hero } from "./sections/Hero";
+import { Pillars } from "./sections/Pillars";
 import { TheMath } from "./sections/TheMath";
-import { YouDecide } from "./sections/YouDecide";
-import { GetPaidToListen } from "./sections/GetPaidToListen";
-import { RepYourNeighborhood } from "./sections/RepYourNeighborhood";
 import { FinalCTA } from "./sections/FinalCTA";
 
-const NAV_LINKS = [
-  { label: "Discovery", href: "#you-decide" },
-  { label: "Earn", href: "#get-paid-to-listen" },
-  { label: "Neighborhoods", href: "#rep-your-neighborhood" },
-];
-
-const FOOTER_GROUPS = [
-  {
-    title: "Platform",
-    links: [
-      { label: "For listeners", href: "/" },
-      { label: "For artists", href: "https://artists.unismusic.com" },
-      { label: "How it works", href: "/how-it-works" },
-      { label: "The math", href: "/math" },
-    ],
-  },
-  {
-    title: "Community",
-    links: [
-      { label: "Find a code", href: "/" },
-      { label: "Waitlist", href: "https://unismusic.com/waitlist" },
-      { label: "Referrals", href: "/" },
-      { label: "Blog", href: "/" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About", href: "/about" },
-      { label: "Careers", href: "/careers" },
-      { label: "Press", href: "/press" },
-      { label: "Support", href: "/support" },
-    ],
-  },
-];
-
+/**
+ * Listeners home. Same running order as the artists home so the two sites
+ * read as one family: hero → jump bands → launch slot → four modules →
+ * transparency → closing call to action.
+ */
 export default function ListenersHome() {
   return (
-    <>
-      <ScrollProgress />
-      <NavBar
-        site="listeners"
-        links={NAV_LINKS}
-        getAccessHref="#get-access"
-        loginHref="/login"
+    <SubPageShell {...LISTENER_SHELL} flushTop>
+      <Hero />
+      <PillarMarquee
+        rows={[
+          { label: "You decide", href: "#you-decide", style: "solid-white", direction: "left" },
+          { label: "Rep your neighborhood", href: "#rep-your-neighborhood", style: "outline-blue", direction: "right" },
+          { label: "Back an artist", href: "#back-an-artist", style: "solid-blue", direction: "left" },
+          { label: "Bring your people", href: "#bring-your-people", style: "outline-blue", direction: "right" },
+        ]}
       />
-      <main>
-        <Hero />
-        <PillarMarquee
-          rows={[
-            {
-              label: "You decide",
-              href: "#you-decide",
-              style: "solid-white",
-              direction: "left",
-            },
-            {
-              label: "Get paid to listen",
-              href: "#get-paid-to-listen",
-              style: "outline-blue",
-              direction: "right",
-            },
-            {
-              label: "Rep your neighborhood",
-              href: "#rep-your-neighborhood",
-              style: "solid-blue",
-              direction: "left",
-            },
-          ]}
-        />
-        <TheMath />
-        <YouDecide />
-        <GetPaidToListen />
-        <RepYourNeighborhood />
-        <FinalCTA />
-        <PowerToThePeople />
-      </main>
-      <FooterBar site="listeners" groups={FOOTER_GROUPS} />
-    </>
+      <LaunchBanner
+        label="Opening soon in Harlem"
+        headline={
+          <>
+            Harlem decides
+            <br />
+            what plays next.
+          </>
+        }
+        body="Sign up now and your account is ready the day Unis opens. Your username is yours from today, in every capitalization."
+        cta={{ label: "Sign up", href: UNIS_LINKS.signup }}
+        note={{ label: "Not in Harlem? Join the waitlist", href: UNIS_LINKS.waitlist }}
+      />
+      <Pillars />
+      <TheMath />
+      <FinalCTA />
+    </SubPageShell>
   );
 }

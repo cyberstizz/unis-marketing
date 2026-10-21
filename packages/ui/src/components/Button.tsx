@@ -3,7 +3,7 @@
 import clsx from "clsx";
 import { ComponentPropsWithoutRef, ReactNode } from "react";
 
-type Variant = "primary" | "secondary" | "ghost";
+type Variant = "primary" | "secondary" | "ghost" | "light";
 type Size = "sm" | "md" | "lg";
 
 type ButtonProps = ComponentPropsWithoutRef<"button"> & {
@@ -34,6 +34,9 @@ const variants: Record<Variant, string> = {
   secondary:
     "bg-transparent text-white border border-white/20 hover:border-white/60 hover:bg-white/5",
   ghost: "bg-transparent text-text-secondary hover:text-white",
+  /** White pill for use on electric-blue or photo backgrounds. */
+  light:
+    "bg-white text-brand-navy hover:bg-white/90 active:scale-[0.98] shadow-[0_8px_32px_-12px_rgba(10,14,26,0.6)]",
 };
 
 const sizes: Record<Size, string> = {

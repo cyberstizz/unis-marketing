@@ -14,7 +14,7 @@ const FAQS: FAQ[] = [
     question: "What happens to my music if Unis shuts down?",
     answer: (
       <>
-        Your signed agreement grants Unis a{" "}
+        Your agreement grants Unis a{" "}
         <strong className="text-white">non-exclusive</strong> license. If Unis
         ceases operations, that license becomes moot — your rights were never
         transferred in the first place. Your downloaded PDF remains legal proof
@@ -52,10 +52,9 @@ const FAQS: FAQ[] = [
       <>
         Yes — performing rights organizations (PROs) collect public performance
         royalties from radio, TV, and live venues, and every artist should be
-        registered with one regardless of platform. Unis handles your{" "}
-        <em>mechanical</em> royalties with the MLC for free (that's the
-        streaming-specific compulsory portion). PRO registration is separate
-        and covers a different income stream.
+        registered with one regardless of platform. Unis claims no rights in
+        your compositions, so your publishing, and how you register and
+        administer it, stays entirely with you.
       </>
     ),
   },
@@ -65,8 +64,8 @@ const FAQS: FAQ[] = [
       <>
         Go for it. Your non-exclusive license to Unis doesn't prevent you from
         signing any other deal — including an exclusive one with a label.
-        You'd simply give 30 days' notice to remove the song from Unis (or
-        keep it on, if the label agrees, because Unis is non-exclusive).
+        You can take the song down from Unis whenever you like (or keep it on,
+        if the label agrees, because Unis is non-exclusive).
       </>
     ),
   },

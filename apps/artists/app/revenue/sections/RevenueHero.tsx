@@ -34,9 +34,10 @@ export function RevenueHero() {
             <span className="chrome-text">four ways.</span>
           </h1>
           <p className="text-text-secondary text-body-lg max-w-[58ch] mb-10">
-            Every Unis user funds their chosen artist every day — not just
-            when they press play. Plug in your numbers below and see what
-            your fanbase is actually worth.
+            Every Unis listener backs one artist, and 15% of their monthly
+            share goes to that artist whatever they play. Then there&rsquo;s
+            Unis Plus, song sales and referrals. Plug in your numbers below and
+            see what your fanbase is worth.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button as="a" href="#calculator" variant="primary" size="lg">
@@ -74,21 +75,23 @@ export function RevenueHero() {
 function IncomeStackColumn() {
   const streams = [
     {
-      label: "Direct sales",
-      share: "85%",
+      label: "Song sales",
+      share: "90%",
       color: "var(--accent-amber)",
       delay: 0.3,
       h: "clamp(56px, 7vw, 90px)",
+      tag: undefined as string | undefined,
     },
     {
-      label: "Paid tier subscriptions",
-      share: "50%",
+      label: "Unis Plus, by plays",
+      share: "60%",
       color: "var(--accent-violet-deep)",
       delay: 0.5,
       h: "clamp(70px, 9vw, 120px)",
+      tag: undefined,
     },
     {
-      label: "Audio ads (coming soon)",
+      label: "Audio ads",
       share: "60%",
       color: "var(--accent-violet)",
       delay: 0.7,
@@ -96,11 +99,12 @@ function IncomeStackColumn() {
       tag: "Coming soon",
     },
     {
-      label: "Display ad supporter share",
+      label: "Supporters' Community Share",
       share: "15%",
       color: "var(--brand-electric)",
       delay: 0.9,
       h: "clamp(90px, 11vw, 160px)",
+      tag: undefined,
     },
   ];
 
@@ -180,7 +184,7 @@ function IncomeStackColumn() {
         transition={{ delay: 1.3, duration: 0.6 }}
         className="relative mt-4 pt-3 border-t border-divider-soft text-text-muted text-[11px] flex justify-between"
       >
-        <span>Plus 10/5/2% referrals on every user</span>
+        <span>Plus 10/5/2% of the monthly share of people you invite</span>
         <span className="text-brand-electric">●</span>
       </motion.div>
     </div>

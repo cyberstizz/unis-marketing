@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Button } from "@unis/ui";
+import { Button, UNIS_LINKS } from "@unis/ui";
 import { WAITLIST_URL } from "../data";
 
 export function JurisdictionsFinalCTA() {
@@ -28,9 +28,10 @@ export function JurisdictionsFinalCTA() {
           </span>
         </h2>
         <p className="text-text-secondary text-body-lg mb-12 max-w-[56ch] mx-auto">
-          Two ways in, depending on where you are. If you're in Harlem, you
-          can start competing today. If you're anywhere else, the waitlist
-          decides how fast your neighborhood goes live.
+          Two ways in, depending on where you are. If you&rsquo;re in Harlem,
+          sign up now and you&rsquo;re in the first race the day Unis opens. If
+          you&rsquo;re anywhere else, the waitlist decides how fast your city
+          goes live.
         </p>
         <div className="grid gap-4 md:grid-cols-2 max-w-[820px] mx-auto">
           <motion.div
@@ -49,20 +50,19 @@ export function JurisdictionsFinalCTA() {
               If you're in Harlem
             </div>
             <h3 className="font-display font-semibold text-white text-[26px] lg:text-[32px] leading-[1.1] tracking-[-0.03em] mb-4">
-              Start competing today.
+              Be in the first race.
             </h3>
             <p className="text-white/85 text-[15px] leading-[1.55] mb-8 flex-1">
-              Sign up with a referral code, upload your music, and you're on
-              the Uptown or Downtown Harlem charts before the weekend.
+              Sign up as an artist and attach your debut song. It goes live
+              the day Unis opens, on the Uptown or Downtown Harlem charts.
             </p>
             <Button
               as="a"
-              href="/#get-access"
-              variant="primary"
+              href={UNIS_LINKS.signup}
+              variant="light"
               size="md"
-              className="bg-white text-brand-navy hover:bg-white/90"
             >
-              Sign up with a referral code
+              Sign up as an artist
               <span aria-hidden>→</span>
             </Button>
           </motion.div>
@@ -85,9 +85,8 @@ export function JurisdictionsFinalCTA() {
               Add your neighborhood to the waitlist.
             </h3>
             <p className="text-text-secondary text-[15px] leading-[1.55] mb-8 flex-1">
-              The more artists and fans in your zip code join the waitlist,
-              the sooner your chain goes live. You'll be notified the day it
-              does.
+              The more artists and fans from your region join the waitlist,
+              the sooner it opens. You&rsquo;ll get an email the day it does.
             </p>
             <Button
               as="a"

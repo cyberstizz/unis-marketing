@@ -1,3 +1,4 @@
+import { UNIS_LINKS } from "../links";
 import { Logo } from "./Logo";
 
 type FooterLink = { label: string; href: string };
@@ -8,9 +9,18 @@ type FooterBarProps = {
   groups: FooterGroup[];
 };
 
+const LEGAL: FooterLink[] = [
+  { label: "Help", href: UNIS_LINKS.help },
+  { label: "Terms", href: UNIS_LINKS.terms },
+  { label: "Privacy", href: UNIS_LINKS.privacy },
+  { label: "Cookies", href: UNIS_LINKS.cookies },
+  { label: "Report infringement", href: UNIS_LINKS.report },
+];
+
 /**
- * Footer appears on both sites with site-specific link groups.
- * Closes out under the PowerToThePeople banner.
+ * Footer for both sites. Link groups come from each site's config; the legal
+ * row always points at the live pages on unismusic.com, which stay open
+ * before launch.
  */
 export function FooterBar({ site, groups }: FooterBarProps) {
   const year = new Date().getFullYear();
@@ -23,8 +33,8 @@ export function FooterBar({ site, groups }: FooterBarProps) {
       <div className="mx-auto" style={{ maxWidth: "var(--max-w)" }}>
         <div className="grid gap-16 lg:gap-24 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] mb-16">
           <div>
-            <a href="/" className="inline-flex items-center gap-3 mb-6">
-              <Logo size={100} />
+            <a href="/" className="inline-flex items-center gap-3 mb-6" aria-label="Home">
+              <Logo height={26} />
               <span className="text-text-muted text-sm font-display tracking-wide">
                 for {site === "artists" ? "Artists" : "Listeners"}
               </span>
@@ -42,7 +52,7 @@ export function FooterBar({ site, groups }: FooterBarProps) {
                 </h3>
                 <ul className="space-y-3">
                   {group.links.map((link) => (
-                    <li key={link.href}>
+                    <li key={`${link.label}-${link.href}`}>
                       <a
                         href={link.href}
                         className="text-[15px] text-text-secondary hover:text-white transition-colors"
@@ -57,18 +67,14 @@ export function FooterBar({ site, groups }: FooterBarProps) {
           </div>
         </div>
         <div className="border-t border-divider pt-8 flex flex-col sm:flex-row justify-between gap-4 text-text-muted text-sm">
-          <span>© {year} Unis. Built in Harlem.</span>
-          <div className="flex gap-6">
-            <a href="/privacy" className="hover:text-white transition-colors">
-              Privacy
-            </a>
-            <a href="/terms" className="hover:text-white transition-colors">
-              Terms
-            </a>
-            <a href="/contact" className="hover:text-white transition-colors">
-              Contact
-            </a>
-          </div>
+          <span>© {year} Unis Music Corporation. Built in Harlem.</span>
+          <nav aria-label="Legal" className="flex flex-wrap gap-x-6 gap-y-2">
+            {LEGAL.map((link) => (
+              <a key={link.label} href={link.href} className="hover:text-white transition-colors">
+                {link.label}
+              </a>
+            ))}
+          </nav>
         </div>
       </div>
     </footer>

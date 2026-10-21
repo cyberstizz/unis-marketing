@@ -33,10 +33,10 @@ export function JurisdictionsHero() {
             <span className="chrome-text">neighborhood</span> is on the map.
           </h1>
           <p className="text-text-secondary text-body-lg max-w-[58ch] mb-10">
-            Unis runs on seven tiers of geographic competition — from your
-            block, up through your city, up to nationwide. You can win in any
-            of them. Your wins are public, permanent, and looked-up-able
-            forever.
+            On Unis you compete in every place you belong to, from your own
+            neighborhood up through your city and state to all of Unis. You
+            can win in any of them, and every win stays on the public record
+            for good.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button as="a" href="#explorer" variant="primary" size="lg">
@@ -66,13 +66,14 @@ export function JurisdictionsHero() {
  */
 function TierChainPreview() {
   const tiers = [
-    { name: "Uptown Harlem", tier: "T7", label: "Sub-neighborhood", accent: "#2563eb" },
-    { name: "Harlem", tier: "T6", label: "Neighborhood", accent: "#3b82f6" },
-    { name: "Uptown Manhattan", tier: "T5", label: "Upper borough", accent: "#6d28d9" },
-    { name: "Manhattan", tier: "T4", label: "Borough", accent: "#8b5cf6" },
-    { name: "New York City", tier: "T3", label: "City", accent: "#8b5cf6" },
+    { name: "Uptown Harlem", tier: "T8", label: "Sub-neighborhood", accent: "#2563eb" },
+    { name: "Harlem", tier: "T7", label: "Neighborhood", accent: "#3b82f6" },
+    { name: "Upper Manhattan", tier: "T6", label: "Area", accent: "#6d28d9" },
+    { name: "Manhattan", tier: "T5", label: "Borough", accent: "#8b5cf6" },
+    { name: "New York City", tier: "T4", label: "City", accent: "#8b5cf6" },
+    { name: "New York City Metro", tier: "T3", label: "Metro", accent: "#a855f7" },
     { name: "New York", tier: "T2", label: "State", accent: "#a855f7" },
-    { name: "Sitewide", tier: "T1", label: "Nationwide", accent: "#f59e0b" },
+    { name: "Unis", tier: "T1", label: "Everyone", accent: "#f59e0b" },
   ];
   // Display top-to-bottom (T1 first in the stack visually on top)
   const displayOrder = [...tiers].reverse();
@@ -97,9 +98,9 @@ function TierChainPreview() {
           Tier chain · Uptown Harlem
         </div>
         <div className="font-display text-white text-[20px] leading-tight tracking-[-0.02em]">
-          One artist. Seven tiers.
+          One artist. Eight places.
           <br />
-          <span className="chrome-text">Seven chances to win.</span>
+          <span className="chrome-text">Eight chances to win.</span>
         </div>
       </div>
 

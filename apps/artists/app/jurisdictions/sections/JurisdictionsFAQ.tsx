@@ -11,11 +11,11 @@ const FAQS: FAQ[] = [
     question: "Which neighborhood am I competing in?",
     answer: (
       <>
-        Every Unis user is tied to a single home jurisdiction based on the
-        zip code they sign up with. You compete, vote, and chart in the chain
-        that starts at your sub-neighborhood and climbs all the way up to
-        Sitewide. One user, one home chain — so votes are never diluted
-        across multiple neighborhoods.
+        Every Unis member belongs to one home jurisdiction, found from the
+        address they give at signup: the most specific neighborhood that
+        contains it. You compete, vote, and chart in the chain that starts
+        there and climbs all the way up to Unis. One person, one home chain,
+        so votes are never spread across neighborhoods.
       </>
     ),
   },
@@ -23,8 +23,8 @@ const FAQS: FAQ[] = [
     question: "Can I rep a neighborhood I don't live in?",
     answer: (
       <>
-        Your home jurisdiction is set by your zip code at signup to keep the
-        charts honest — otherwise the whole system gets gamed by artists
+        Your home jurisdiction is set once, at signup, to keep the charts
+        honest (if you move, contact Unis and it gets corrected) — otherwise the whole system gets gamed by artists
         moving votes into whichever neighborhood they want to dominate.
         However, your music is discoverable across every tier, so listeners
         in other neighborhoods can absolutely find you and support you from
@@ -36,13 +36,15 @@ const FAQS: FAQ[] = [
     question: "How are winners decided at each tier?",
     answer: (
       <>
-        Primary: <strong className="text-white">votes</strong> cast by users
-        in that tier. If two artists tie on votes, the tiebreaker is{" "}
-        <strong className="text-white">plays and likes</strong> from users in
-        that tier. If it's still a tie after that, the tiebreaker is{" "}
-        <strong className="text-white">seniority on Unis</strong> —
-        longer-tenured artists get the edge. This way, even artists without
-        active vote campaigns can win on pure engagement.
+        On <strong className="text-white">total points</strong>. Every vote,
+        play and like in the period earns points: a vote is worth 10 to 250
+        depending on the award, a play 1, a like 5, all added into one number.
+        The highest total wins. Ties go to vote points, then plays, likes,
+        lifetime score, and finally{" "}
+        <strong className="text-white">seniority on Unis</strong>, so every
+        award has exactly one winner. A vote still counts for far more than a
+        play, but an artist the neighborhood is genuinely listening to can win
+        on engagement alone.
       </>
     ),
   },
@@ -50,10 +52,11 @@ const FAQS: FAQ[] = [
     question: "When do awards reset?",
     answer: (
       <>
-        Daily awards roll over at midnight Eastern. Weekly at end of Sunday.
-        Monthly at end of month. Quarterly at end of Q1/Q2/Q3/Q4. Annual at
-        end of calendar year. All times Eastern, all recorded permanently, all
-        looked-up-able forever.
+        At midnight, local time (Eastern, for Harlem). Daily awards close every
+        night; weekly ones cover Monday through Sunday; monthly ones the 1st to
+        the last day; quarterly ones each quarter; midterm ones January–June
+        and July–December; annual ones the calendar year. Every result is
+        recorded permanently.
       </>
     ),
   },
@@ -61,11 +64,11 @@ const FAQS: FAQ[] = [
     question: "What if my neighborhood isn't listed on Unis yet?",
     answer: (
       <>
-        Every neighborhood in America will have a chain on Unis eventually.
-        Right now, Harlem is live. For anywhere else — Compton, Houston, Atlanta,
-        Detroit, etc. — add yourself to the waitlist at unismusic.com/waitlist.
-        When enough signups from your zip code reach our launch threshold, we
-        activate your neighborhood.
+        Unis is built to cover every neighborhood in the country. Right now,
+        Harlem is live. For anywhere else, join the waitlist at
+        unismusic.com/waitlist. A region opens for everyone at once when
+        enough people from it have signed up: 1,000 for a major metro, 500 for
+        a mid-size city, 250 anywhere else.
       </>
     ),
   },

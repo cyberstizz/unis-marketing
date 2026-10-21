@@ -8,6 +8,7 @@ const AWARDS = [
   { interval: "Weekly", lifetime: "52/yr", color: "var(--brand-electric-hover)" },
   { interval: "Monthly", lifetime: "12/yr", color: "var(--accent-violet)" },
   { interval: "Quarterly", lifetime: "4/yr", color: "var(--accent-violet-deep)" },
+  { interval: "Midterm", lifetime: "2/yr", color: "var(--accent-violet)" },
   { interval: "Annual", lifetime: "1/yr", color: "var(--accent-amber)" },
 ];
 
@@ -34,9 +35,9 @@ export function PermanentRecord() {
             <span className="chrome-text">the next day.</span>
           </h2>
           <p className="text-text-secondary text-body-lg">
-            Every Unis award at every tier at every interval gets recorded
-            forever. In 2056, your grandchildren will be able to look up what
-            you won on what block in 2026. Nothing expires. Nothing resets.
+            Every Unis award, in every place, for every period, stays on the
+            record. In 2056, your grandchildren will be able to look up what
+            you won on what block in 2026. Nothing expires.
           </p>
         </motion.div>
 
@@ -65,14 +66,13 @@ export function PermanentRecord() {
               Awards at every interval
             </div>
             <h3 className="font-display font-semibold text-white text-[clamp(22px,2.6vw,32px)] leading-[1.15] tracking-[-0.02em] mb-6">
-              Five award cadences ×{" "}
-              <span className="chrome-text">seven tiers</span>.
+              Six award periods, in{" "}
+              <span className="chrome-text">every place you belong to</span>.
             </h3>
             <p className="text-text-secondary text-[15px] leading-[1.6] mb-6 max-w-[48ch]">
-              That's 35 distinct award categories any artist can win across a
-              single jurisdiction chain — from Song of the Day in your
-              sub-neighborhood to Artist of the Year sitewide. Every single
-              one is public, verifiable, and recorded forever.
+              From Song of the Day in your own neighborhood to Artist of the
+              Year across all of Unis, in Rap, Rock and Pop. Every single one
+              is public, verifiable, and recorded for good.
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">

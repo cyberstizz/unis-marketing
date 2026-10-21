@@ -70,7 +70,7 @@ export function MathHero() {
 function FlowPreview() {
   const nodes = [
     { x: 86, y: 18, label: "Unis", pct: "68¢", color: "#163387" },
-    { x: 86, y: 36, label: "Artist", pct: "15¢", color: "#8b5cf6" },
+    { x: 86, y: 36, label: "Their artist", pct: "15¢", color: "#8b5cf6" },
     { x: 86, y: 54, label: "L1", pct: "10¢", color: "#3b82f6" },
     { x: 86, y: 72, label: "L2", pct: "5¢", color: "#6d28d9" },
     { x: 86, y: 86, label: "L3", pct: "2¢", color: "#a855f7" },
@@ -93,12 +93,12 @@ function FlowPreview() {
 
       <div className="relative mb-4">
         <div className="text-eyebrow uppercase text-brand-electric font-semibold mb-2">
-          Display ad · $1.00
+          A listener&rsquo;s share · $1.00
         </div>
         <div className="font-display text-white text-[20px] leading-tight tracking-[-0.02em]">
-          Drop a dollar in.
+          One listener&rsquo;s dollar
           <br />
-          <span className="chrome-text">Watch where it lands.</span>
+          <span className="chrome-text">of the Community Share.</span>
         </div>
       </div>
 
@@ -203,7 +203,7 @@ function FlowPreview() {
 
       <div className="relative mt-3 pt-3 border-t border-divider-soft text-text-muted text-[11px]">
         <span className="text-brand-electric">●</span>{" "}
-        Interactive version below. Four sources. Every penny tracked.
+        Interactive version below. Four sources, every penny accounted for.
       </div>
     </div>
   );

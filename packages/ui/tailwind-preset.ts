@@ -1,28 +1,30 @@
 type Config = Record<string, unknown>;
 /**
  * Shared Tailwind preset. Apps extend this so their utilities stay in sync
- * with the CSS variables in tokens.css.
+ * with the CSS variables in tokens.css. Colors read the *-rgb channel
+ * variables so opacity modifiers like bg-bg-deep/80 actually render (with
+ * plain var(--x) values Tailwind silently dropped every /NN class).
  */
 const preset: Partial<Config> = {
   theme: {
     extend: {
       colors: {
-        "bg-deep": "var(--bg-deep)",
-        "bg-surface": "var(--bg-surface)",
-        "bg-elevated": "var(--bg-elevated)",
-        "brand-navy": "var(--brand-navy)",
-        "brand-electric": "var(--brand-electric)",
-        "brand-electric-hover": "var(--brand-electric-hover)",
-        "brand-electric-muted": "var(--brand-electric-muted)",
-        "accent-violet": "var(--accent-violet)",
-        "accent-violet-deep": "var(--accent-violet-deep)",
-        "accent-amber": "var(--accent-amber)",
-        "text-primary": "var(--text-primary)",
-        "text-secondary": "var(--text-secondary)",
-        "text-muted": "var(--text-muted)",
-        "text-subtle": "var(--text-subtle)",
-        divider: "var(--divider)",
-        "divider-soft": "var(--divider-soft)",
+        "bg-deep": "rgb(var(--bg-deep-rgb) / <alpha-value>)",
+        "bg-surface": "rgb(var(--bg-surface-rgb) / <alpha-value>)",
+        "bg-elevated": "rgb(var(--bg-elevated-rgb) / <alpha-value>)",
+        "brand-navy": "rgb(var(--brand-navy-rgb) / <alpha-value>)",
+        "brand-electric": "rgb(var(--brand-electric-rgb) / <alpha-value>)",
+        "brand-electric-hover": "rgb(var(--brand-electric-hover-rgb) / <alpha-value>)",
+        "brand-electric-muted": "rgb(var(--brand-electric-muted-rgb) / <alpha-value>)",
+        "accent-violet": "rgb(var(--accent-violet-rgb) / <alpha-value>)",
+        "accent-violet-deep": "rgb(var(--accent-violet-deep-rgb) / <alpha-value>)",
+        "accent-amber": "rgb(var(--accent-amber-rgb) / <alpha-value>)",
+        "text-primary": "rgb(var(--text-primary-rgb) / <alpha-value>)",
+        "text-secondary": "rgb(var(--text-secondary-rgb) / <alpha-value>)",
+        "text-muted": "rgb(var(--text-muted-rgb) / <alpha-value>)",
+        "text-subtle": "rgb(var(--text-subtle-rgb) / <alpha-value>)",
+        divider: "rgb(var(--divider-rgb) / <alpha-value>)",
+        "divider-soft": "rgb(var(--divider-soft-rgb) / <alpha-value>)",
       },
       fontFamily: {
         display: ["var(--font-display)"],

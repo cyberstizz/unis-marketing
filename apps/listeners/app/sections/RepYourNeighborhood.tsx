@@ -1,136 +1,126 @@
-import { PillarSection, CheckBullet } from "@unis/ui";
+"use client";
 
-export function RepYourNeighborhood() {
-  return (
-    <PillarSection
-      id="rep-your-neighborhood"
-      eyebrow="Belonging"
-      headline={
-        <>
-          Find the best music
-          <br />
-          on your block.
-          <br />
-          <span className="chrome-text">Or anywhere else.</span>
-        </>
-      }
-      body={
-        <>
-          Unis is built around where you live. The moment you open the app, you
-          see what's moving in your neighborhood right now. Curious what Harlem
-          sounds like this week? Look it up. Bed-Stuy? Look it up. Every
-          neighborhood in the country has its own living chart, updated by the
-          people who live there.
-        </>
-      }
-      visual={<NeighborhoodVisual />}
-      visualSide="left"
-      cta={{ label: "See how jurisdictions work", href: "/jurisdictions" }}
-    >
-      <CheckBullet title="Local charts, six tiers deep." delay={0}>
-        Sub-neighborhood → neighborhood → city → greater territory → state →
-        sitewide. Drill as deep as you want.
-      </CheckBullet>
-      <CheckBullet title="Look up any neighborhood in America." delay={100}>
-        Planning a trip? See what's popping where you're going, before you get
-        there.
-      </CheckBullet>
-      <CheckBullet title="Support an artist from day one." delay={200}>
-        Every Unis account is tied to one artist you chose to support. A piece
-        of your activity funds their career, automatically. Switch them
-        whenever you want.
-      </CheckBullet>
-      <CheckBullet title="Invite-only community." delay={300}>
-        You got in because someone you know vouched for you. No bots. No fake
-        accounts. No streaming farms. Just real people, real neighborhoods,
-        real taste.
-      </CheckBullet>
-    </PillarSection>
-  );
-}
+import { helpLink, UNIS_LINKS, VisualPanel, type ShowcaseItem } from "@unis/ui";
+import { motion, useInView, useReducedMotion } from "motion/react";
+import { useRef } from "react";
 
-function NeighborhoodVisual() {
-  const hoods = [
-    { name: "Harlem", top: "22%", left: "40%", count: "2,418" },
-    { name: "Washington Heights", top: "10%", left: "22%", count: "1,904" },
-    { name: "Bed-Stuy", top: "52%", left: "70%", count: "1,622" },
-    { name: "South Bronx", top: "8%", left: "68%", count: "1,201" },
-    { name: "Crown Heights", top: "68%", left: "58%", count: "987" },
-    { name: "East Harlem", top: "32%", left: "62%", count: "841" },
-    { name: "Flatbush", top: "82%", left: "50%", count: "673" },
-    { name: "Inwood", top: "6%", left: "32%", count: "512" },
-  ];
+/**
+ * Module 2: place. The chain is Harlem's real one (findpage.jsx
+ * HARLEM_PARENT_CHAIN in unis-sample); voting is live in Harlem, Uptown Harlem
+ * and Downtown Harlem first. Waitlist thresholds match the help center.
+ */
+export const repModule: ShowcaseItem = {
+  id: "rep-your-neighborhood",
+  label: "Rep your neighborhood",
+  headline: (
+    <>
+      Hear what your
+      <br />
+      block is playing.
+    </>
+  ),
+  body: "Unis leads with what's moving where you live, then lets you look in on anywhere else.",
+  checklist: [
+    {
+      title: "Your neighborhood first",
+      text: "Your feed and the Find page open on what's happening where you live.",
+      href: helpLink("jurisdiction-does"),
+    },
+    {
+      title: "Browse any place",
+      text: "Open any neighborhood's charts and past winners, even where you can't vote.",
+      href: helpLink("jurisdiction-page"),
+    },
+    {
+      title: "Find your sound",
+      text: "Browse by subgenre and mood, with music from your own area first.",
+      href: helpLink("sounds"),
+    },
+    {
+      title: "Your city is next",
+      text: "Unis opens one region at a time, once enough people from it join the waitlist.",
+      href: helpLink("waitlist"),
+    },
+  ],
+  cta: { label: "Explore jurisdictions", href: `${UNIS_LINKS.artists}/jurisdictions` },
+  visual: <PlaceVisual />,
+};
+
+const CHAIN = ["Unis", "New York", "New York City Metro", "New York City", "Manhattan", "Upper Manhattan", "Harlem"];
+const HOMES = ["Uptown Harlem", "Downtown Harlem"];
+const WAITLIST = [
+  { label: "Major metros", need: "1,000" },
+  { label: "Mid-size cities", need: "500" },
+  { label: "Everywhere else", need: "250" },
+];
+
+function PlaceVisual() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.4 });
+  const reduce = useReducedMotion();
 
   return (
-    <div
-      className="relative aspect-[4/5] w-full max-w-[520px] mx-auto rounded-2xl overflow-hidden p-8"
-      style={{
-        background:
-          "linear-gradient(135deg, #0a0e1a 0%, #111828 60%, #163387 100%)",
-        border: "1px solid rgba(37, 99, 235, 0.2)",
-      }}
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-40 pointer-events-none"
-        style={{ background: "var(--glow-electric)" }}
-      />
-
-      <div className="relative h-full flex flex-col">
-        <div className="text-eyebrow uppercase text-brand-electric font-semibold mb-2">
-          Live now
-        </div>
-        <div className="font-display text-white text-[26px] leading-[1.1] tracking-[-0.02em] mb-4">
-          Neighborhoods streaming
-          <br />
-          right now.
+    <VisualPanel>
+      <div ref={ref} className="h-full flex flex-col p-6 sm:p-8">
+        <div className="font-display text-white text-[22px] sm:text-[26px] leading-[1.1] tracking-[-0.02em] mb-6">
+          Every place has
+          <span className="block text-text-muted">its own charts.</span>
         </div>
 
-        <div className="relative flex-1">
-          {/* Faint grid backdrop */}
-          <div
-            aria-hidden
-            className="absolute inset-0 opacity-20"
-            style={{
-              backgroundImage:
-                "linear-gradient(to right, rgba(37, 99, 235, 0.3) 1px, transparent 1px), linear-gradient(to bottom, rgba(37, 99, 235, 0.3) 1px, transparent 1px)",
-              backgroundSize: "40px 40px",
-            }}
-          />
-
-          {hoods.map((h, i) => (
-            <div
-              key={h.name}
-              className="absolute flex items-center gap-2"
-              style={{ top: h.top, left: h.left }}
+        <ol className="relative pl-6" aria-label="From Unis down to Harlem">
+          <span aria-hidden className="absolute left-[7px] top-2 bottom-2 w-px bg-white/15" />
+          {CHAIN.map((name, i) => (
+            <motion.li
+              key={name}
+              initial={reduce ? false : { opacity: 0, x: -10 }}
+              animate={inView || reduce ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+              transition={{ duration: 0.5, delay: reduce ? 0 : i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+              className="relative flex items-center justify-between py-1 sm:py-1.5 text-[14px]"
             >
-              <div className="relative">
-                <div
-                  className="w-2.5 h-2.5 rounded-full bg-brand-electric"
-                  style={{
-                    boxShadow: `0 0 0 ${4 + (i % 3) * 3}px rgba(37, 99, 235, 0.2)`,
-                  }}
-                />
-                <div
-                  className="absolute inset-0 rounded-full bg-brand-electric"
-                  style={{
-                    animation: `pulse-${i} 2.5s ease-in-out infinite`,
-                  }}
-                />
-              </div>
-              <div className="text-white text-[11px] whitespace-nowrap">
-                <span className="font-medium">{h.name}</span>
-                <span className="text-text-muted ml-2">{h.count}</span>
-              </div>
-            </div>
+              <span
+                aria-hidden
+                className={
+                  "absolute -left-6 w-[15px] h-[15px] rounded-full border-2 " +
+                  (name === "Harlem" ? "border-brand-electric bg-brand-electric" : "border-white/25 bg-bg-deep")
+                }
+              />
+              <span className={name === "Harlem" ? "text-white font-medium" : "text-text-secondary"}>{name}</span>
+              {name === "Harlem" && (
+                <span className="rounded-full bg-brand-electric/20 text-brand-electric-hover px-2.5 py-0.5 text-[11px] font-medium">
+                  Voting opens first
+                </span>
+              )}
+            </motion.li>
+          ))}
+        </ol>
+
+        <div className="grid grid-cols-2 gap-2 mt-3 pl-6">
+          {HOMES.map((h, i) => (
+            <motion.div
+              key={h}
+              initial={reduce ? false : { opacity: 0, y: 10 }}
+              animate={inView || reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+              transition={{ duration: 0.5, delay: reduce ? 0 : 0.45 + i * 0.08 }}
+              className="rounded-xl bg-brand-electric text-white px-3 py-2.5 text-[13px] font-medium flex items-center gap-2"
+            >
+              <span aria-hidden className="live-dot inline-block w-1.5 h-1.5 rounded-full bg-white text-white" />
+              {h}
+            </motion.div>
           ))}
         </div>
 
-        <div className="text-text-muted text-xs mt-4">
-          <span className="text-brand-electric font-semibold">●</span>{" "}
-          9,358 neighbors listening right now
+        <div className="mt-auto pt-6 border-t border-white/10">
+          <div className="text-text-muted text-[12px] sm:text-[13px] mb-3">Signups a region needs to open</div>
+          <div className="grid grid-cols-3 gap-2">
+            {WAITLIST.map((w) => (
+              <div key={w.label} className="rounded-xl bg-white/[0.04] border border-white/10 p-3">
+                <div className="font-display font-semibold text-white text-[20px] tracking-[-0.02em]">{w.need}</div>
+                <div className="text-text-muted text-[11px] leading-tight mt-1">{w.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </VisualPanel>
   );
 }

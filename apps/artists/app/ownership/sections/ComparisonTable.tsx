@@ -34,25 +34,14 @@ const ROWS: Row[] = [
     ],
   },
   {
-    label: "Personalized signed agreement",
+    label: "Agreement in your name",
     values: [
-      { text: "Yes — downloadable PDF with your name + songs", tone: "win", bold: true },
+      { text: "Yes — downloadable PDF in your name", tone: "win", bold: true },
       { text: "No — clickwrap ToS", tone: "loss" },
       { text: "No — clickwrap ToS", tone: "loss" },
       { text: "No — clickwrap ToS", tone: "loss" },
       { text: "No — clickwrap ToS", tone: "loss" },
       { text: "Yes — but you're signing rights away", tone: "loss" },
-    ],
-  },
-  {
-    label: "Agreement lists your specific songs",
-    values: [
-      { text: "Yes", tone: "win", bold: true },
-      { text: "No", tone: "loss" },
-      { text: "No", tone: "loss" },
-      { text: "No", tone: "loss" },
-      { text: "No", tone: "loss" },
-      { text: "Varies", tone: "neutral" },
     ],
   },
   {
@@ -69,7 +58,7 @@ const ROWS: Row[] = [
   {
     label: "Payout speed on direct sales",
     values: [
-      { text: "2 business days", tone: "win", bold: true },
+      { text: "To your Stripe account at purchase", tone: "win", bold: true },
       { text: "~monthly after accrual", tone: "neutral" },
       { text: "~monthly after accrual", tone: "neutral" },
       { text: "~monthly after accrual", tone: "neutral" },
@@ -80,23 +69,12 @@ const ROWS: Row[] = [
   {
     label: "Artist share of streaming",
     values: [
-      { text: "60% of net, direct", tone: "win", bold: true },
+      { text: "60% of Unis Plus by plays + 15% of supporters' share", tone: "win", bold: true },
       { text: "Pro-rata pool share", tone: "neutral" },
       { text: "Pro-rata pool share", tone: "neutral" },
       { text: "91% of pro-rata share", tone: "neutral" },
       { text: "100% SELECT / 70% free", tone: "neutral" },
       { text: "10–20% after advance recouped", tone: "loss" },
-    ],
-  },
-  {
-    label: "Mechanical royalty handling",
-    values: [
-      { text: "Free. We pay MLC on your behalf.", tone: "win", bold: true },
-      { text: "Extra fee for publishing admin", tone: "loss" },
-      { text: "TuneCore Publishing: extra fee", tone: "loss" },
-      { text: "CDB Boost: 15% forever", tone: "loss" },
-      { text: "Not included", tone: "loss" },
-      { text: "Handled by label, taken from your share", tone: "loss" },
     ],
   },
   {
@@ -113,7 +91,7 @@ const ROWS: Row[] = [
   {
     label: "Delete & walk away anytime",
     values: [
-      { text: "Yes — 30 days notice, no fee", tone: "win", bold: true },
+      { text: "Yes — anytime, no fee", tone: "win", bold: true },
       { text: "Yes (pay to re-upload elsewhere)", tone: "neutral" },
       { text: "Yes (pay to re-upload elsewhere)", tone: "neutral" },
       { text: "Yes (upload fee is sunk)", tone: "neutral" },
@@ -244,8 +222,8 @@ export function ComparisonTable() {
 
         <p className="mt-6 text-text-subtle text-[13px] italic">
           Sources: DistroKid Help Center, TuneCore distribution terms, CD Baby
-          standard agreement, UnitedMasters SELECT terms (2026). Industry
-          royalty rates per CRB Phonorecords IV rulings.
+          standard agreement, UnitedMasters SELECT terms (as reviewed in April
+          2026). Competitor pricing changes often; check their current terms.
         </p>
       </div>
     </section>

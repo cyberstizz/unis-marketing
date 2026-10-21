@@ -1,100 +1,47 @@
-import {
-  NavBar,
-  PillarMarquee,
-  PowerToThePeople,
-  ScrollProgress,
-  FooterBar,
-} from "@unis/ui";
+import { LaunchBanner, PillarMarquee, SubPageShell, UNIS_LINKS } from "@unis/ui";
+import { ARTIST_SHELL } from "./site-config";
 import { Hero } from "./sections/Hero";
+import { Pillars } from "./sections/Pillars";
 import { TheMath } from "./sections/TheMath";
-import { OwnItAll } from "./sections/OwnItAll";
-import { WinYourNeighborhood } from "./sections/WinYourNeighborhood";
-import { GetPaidWhileYouSleep } from "./sections/GetPaidWhileYouSleep";
 import { ArtistWall } from "./sections/ArtistWall";
 import { NewAndNoteworthy } from "./sections/NewAndNoteworthy";
 import { FinalCTA } from "./sections/FinalCTA";
 
-const NAV_LINKS = [
-  { label: "Ownership", href: "#own-it-all" },
-  { label: "Exposure", href: "#win-your-neighborhood" },
-  { label: "Income", href: "#get-paid" },
-  { label: "Artists", href: "#artists" },
-];
-
-const FOOTER_GROUPS = [
-  {
-    title: "Platform",
-    links: [
-      { label: "For artists", href: "/" },
-      { label: "For listeners", href: "https://listeners.unismusic.com" },
-      { label: "How it works", href: "/how-it-works" },
-      { label: "The math", href: "/math" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { label: "Ownership agreement", href: "/ownership" },
-      { label: "Revenue model", href: "/revenue" },
-      { label: "Jurisdictions", href: "/jurisdictions" },
-      { label: "Blog", href: "/blog" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About", href: "/about" },
-      { label: "Careers", href: "/careers" },
-      { label: "Press", href: "/press" },
-      { label: "Support", href: "/support" },
-    ],
-  },
-];
-
+/**
+ * Artists home. Same running order as artists.spotify.com:
+ * hero → jump bands → campaign slot → four modules → transparency →
+ * artists → new & noteworthy → closing call to action.
+ */
 export default function ArtistsHome() {
   return (
-    <>
-      <ScrollProgress />
-      <NavBar
-        site="artists"
-        links={NAV_LINKS}
-        getAccessHref="https://unismusic.com"
-        loginHref="https://unismusic.com/login"
+    <SubPageShell {...ARTIST_SHELL} flushTop>
+      <Hero />
+      <PillarMarquee
+        rows={[
+          { label: "Win your neighborhood", href: "#win-your-neighborhood", style: "solid-white", direction: "left" },
+          { label: "Get paid", href: "#get-paid", style: "outline-blue", direction: "right" },
+          { label: "Know your fans", href: "#know-your-fans", style: "solid-blue", direction: "left" },
+          { label: "Own it all", href: "#own-it-all", style: "outline-blue", direction: "right" },
+        ]}
       />
-      <main>
-        <Hero />
-        <PillarMarquee
-          rows={[
-            {
-              label: "Own it all",
-              href: "#own-it-all",
-              style: "solid-white",
-              direction: "left",
-            },
-            {
-              label: "Win your neighborhood",
-              href: "#win-your-neighborhood",
-              style: "outline-blue",
-              direction: "right",
-            },
-            {
-              label: "Get paid while you sleep",
-              href: "#get-paid",
-              style: "solid-blue",
-              direction: "left",
-            },
-          ]}
-        />
-        <WinYourNeighborhood />
-        <TheMath />
-        <GetPaidWhileYouSleep />
-        <ArtistWall />
-        <OwnItAll />
-        <NewAndNoteworthy />
-        <FinalCTA />
-        <PowerToThePeople />
-      </main>
-      <FooterBar site="artists" groups={FOOTER_GROUPS} />
-    </>
+      <LaunchBanner
+        label="Opening soon in Harlem"
+        headline={
+          <>
+            Be in Harlem&rsquo;s
+            <br />
+            first race.
+          </>
+        }
+        body="Sign up as an artist today and attach your debut song. It goes live the day Unis opens, ready for the neighborhood's first votes."
+        cta={{ label: "Sign up as an artist", href: UNIS_LINKS.signup }}
+        note={{ label: "Not in Harlem? Join the waitlist", href: UNIS_LINKS.waitlist }}
+      />
+      <Pillars />
+      <TheMath />
+      <ArtistWall />
+      <NewAndNoteworthy />
+      <FinalCTA />
+    </SubPageShell>
   );
 }

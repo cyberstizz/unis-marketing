@@ -16,11 +16,11 @@ export function WhyTiersMatter() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
         >
-          <SectionEyebrow>Why seven tiers</SectionEyebrow>
+          <SectionEyebrow>Why every place counts</SectionEyebrow>
           <h2 className="font-display font-semibold text-white mt-6 mb-8 leading-[0.95] tracking-[-0.04em] text-[clamp(40px,5vw,72px)]">
             One chart has one winner.
             <br />
-            <span className="chrome-text">Seven charts have seven.</span>
+            <span className="chrome-text">Every place on Unis has its own.</span>
           </h2>
           <p className="text-text-secondary text-body-lg max-w-[56ch] mb-10">
             The streaming industry runs on one global chart and one global
@@ -30,10 +30,11 @@ export function WhyTiersMatter() {
             own story.
           </p>
           <ul className="space-y-6">
-            <CheckBullet title="Seven shots, not one." delay={0}>
-              You can win at the sub-neighborhood level before you chart in
-              your city. You can chart in your city before you chart in your
-              state. Each win is real, recorded, and public.
+            <CheckBullet title="Eight shots, not one." delay={0}>
+              An Uptown Harlem artist competes in eight places at once, from
+              Uptown Harlem itself up to all of Unis. You can win on your block
+              before you chart in your city. Each win is real, recorded, and
+              public.
             </CheckBullet>
             <CheckBullet title="The local win is the story that sells." delay={100}>
               &ldquo;I was Artist of the Day in Harlem&rdquo; is a story
@@ -41,9 +42,9 @@ export function WhyTiersMatter() {
               11 million artists on Spotify&rdquo; is not.
             </CheckBullet>
             <CheckBullet title="Upward mobility, by design." delay={200}>
-              Dominate your sub-neighborhood and your songs surface in the
-              neighborhood charts. Dominate the neighborhood and they surface
-              in the city charts. Grassroots, but algorithmic.
+              Every vote, play and like in Uptown Harlem also counts in Harlem,
+              Manhattan and every place above it, so a local favorite climbs on
+              its own. Grassroots, all the way up.
             </CheckBullet>
             <CheckBullet title="No payola. No editors. No gatekeepers." delay={300}>
               Every tier is decided by votes, plays, and likes from actual

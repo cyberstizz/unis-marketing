@@ -50,17 +50,16 @@ export function NonExclusivity() {
               doesn't cancel. Your catalog stays exactly where it is.
             </CheckBullet>
             <CheckBullet title="Add Unis to the stack." delay={100}>
-              Upload directly to Unis, get a signed agreement for those
-              specific uploads, and start earning from the Unis community
-              immediately.
+              Upload directly to Unis, download your ownership agreement from
+              your dashboard, and start earning from the Unis community.
             </CheckBullet>
             <CheckBullet title="Stack the income streams." delay={200}>
-              Spotify streaming royalties keep coming. Unis streaming,
-              supporter, referral, paid-tier, and direct-sale income starts
-              stacking on top.
+              Spotify streaming royalties keep coming. Unis supporter, Unis
+              Plus, song-sale and referral income stacks on top.
             </CheckBullet>
             <CheckBullet title="Leave anytime." delay={300}>
-              30 days' notice, no exit fee, no catalog hostage situation.
+              Take a song down or close your account whenever you like. No exit
+              fee, no catalog hostage situation.
             </CheckBullet>
           </ul>
         </motion.div>
@@ -159,9 +158,9 @@ function StackDiagram() {
             <span className="text-white text-[13px] leading-tight">
               Hyper-local exposure.
               <br />
-              Five income streams.
+              Five ways to earn.
               <br />
-              Signed agreement.
+              Agreement in your name.
             </span>
           </div>
         </div>

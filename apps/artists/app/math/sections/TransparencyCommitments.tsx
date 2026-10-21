@@ -6,7 +6,7 @@ import { COMMITMENTS } from "../data";
 
 export function TransparencyCommitments() {
   const now = COMMITMENTS.filter((c) => c.status === "committed-now");
-  const later = COMMITMENTS.filter((c) => c.status === "committed-post-audio");
+  const later = COMMITMENTS.filter((c) => c.status === "committed-with-data");
 
   return (
     <section style={{ padding: "var(--section-py) var(--content-px)" }}>
@@ -26,8 +26,9 @@ export function TransparencyCommitments() {
           <p className="text-text-secondary text-body-lg">
             Spotify publishes aggregate Loud &amp; Clear data once a year.
             We're committing to quarterly, per-jurisdiction, broken out by
-            revenue source. Some commitments activate today. Some activate
-            when audio ads launch and we can track those streams.
+            revenue source. Some commitments start with our first full quarter
+            after launch. The rest start once there&rsquo;s enough listening for
+            the numbers to mean something.
           </p>
         </motion.div>
 
@@ -39,8 +40,8 @@ export function TransparencyCommitments() {
             commitments={now}
           />
           <CommitmentColumn
-            title="Once audio ads launch"
-            subtitle="Activates when Unis finalizes an audio ad partnership and begins serving pre-roll ads."
+            title="Once there's enough data"
+            subtitle="Starts once a jurisdiction has enough listeners and payouts for the figures to be meaningful."
             accent="var(--accent-amber)"
             commitments={later}
             isSoon

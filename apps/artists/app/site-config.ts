@@ -1,13 +1,21 @@
 /**
- * Single source of truth for the Artists site's nav and footer.
- * Imported by the homepage and by every sub-page shell.
+ * Single source of truth for the Artists site's nav, footer and calls to action.
+ * Imported by the home page and by every sub-page.
  */
 
+import { UNIS_LINKS } from "@unis/ui";
+
+/**
+ * Login is hidden before launch (unismusic.com shows the Coming soon page),
+ * so the nav doesn't offer it. On launch day, set this to true and redeploy.
+ */
+const SHOW_LOGIN = false;
+
 export const ARTIST_NAV_LINKS = [
+  { label: "Jurisdictions", href: "/jurisdictions" },
+  { label: "Revenue", href: "/revenue" },
   { label: "Ownership", href: "/ownership" },
-  { label: "Exposure", href: "/jurisdictions" },
-  { label: "Income", href: "/revenue" },
-  { label: "Artists", href: "/#artists" },
+  { label: "The math", href: "/math" },
 ];
 
 export const ARTIST_FOOTER_GROUPS = [
@@ -15,32 +23,43 @@ export const ARTIST_FOOTER_GROUPS = [
     title: "Platform",
     links: [
       { label: "For artists", href: "/" },
-      { label: "For listeners", href: "https://unismusic.com" },
-      { label: "How it works", href: "/how-it-works" },
+      { label: "For listeners", href: UNIS_LINKS.listeners },
+      { label: "How Unis works", href: UNIS_LINKS.help },
       { label: "The math", href: "/math" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { label: "Ownership agreement", href: "/ownership" },
+      { label: "Ownership", href: "/ownership" },
       { label: "Revenue model", href: "/revenue" },
       { label: "Jurisdictions", href: "/jurisdictions" },
-      { label: "Blog", href: "/blog" },
+      { label: "Sample agreement", href: "/sample-agreement.pdf" },
     ],
   },
   {
-    title: "Company",
+    title: "Get in",
     links: [
-      { label: "About", href: "/about" },
-      { label: "Careers", href: "/careers" },
-      { label: "Press", href: "/press" },
-      { label: "Support", href: "/support" },
+      { label: "Sign up", href: UNIS_LINKS.signup },
+      { label: "Join the waitlist", href: UNIS_LINKS.waitlist },
+      { label: "Sponsor Harlem", href: UNIS_LINKS.sponsor },
+      { label: "Help center", href: UNIS_LINKS.help },
     ],
   },
 ];
 
-export const ARTIST_AUTH = {
-  getAccessHref: "https://unismusic.com",
-  loginHref: "/login",
+export const ARTIST_CTAS = {
+  primary: { label: "Sign up", href: UNIS_LINKS.signup },
+  secondary: SHOW_LOGIN ? { label: "Log in", href: UNIS_LINKS.login } : undefined,
+  crossLink: { label: "Unis for listeners", href: UNIS_LINKS.listeners },
+};
+
+/** Everything SubPageShell needs, so each page spreads one object. */
+export const ARTIST_SHELL = {
+  site: "artists" as const,
+  navLinks: ARTIST_NAV_LINKS,
+  footerGroups: ARTIST_FOOTER_GROUPS,
+  primaryCta: ARTIST_CTAS.primary,
+  secondaryCta: ARTIST_CTAS.secondary,
+  crossLink: ARTIST_CTAS.crossLink,
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Button } from "@unis/ui";
+import { Button, UNIS_LINKS } from "@unis/ui";
 
 export function OwnershipFinalCTA() {
   return (
@@ -39,8 +39,8 @@ export function OwnershipFinalCTA() {
           >
             Download a sample agreement
           </Button>
-          <Button as="a" href="/#get-access" variant="secondary" size="lg">
-            Sign up with a referral code
+          <Button as="a" href={UNIS_LINKS.signup} variant="secondary" size="lg">
+            Sign up as an artist
           </Button>
         </div>
         <p className="text-text-muted text-sm">

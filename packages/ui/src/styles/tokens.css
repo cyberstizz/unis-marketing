@@ -25,6 +25,25 @@
   --divider: #1f2937;
   --divider-soft: #374151;
 
+  /* Same colors as RGB channels, so Tailwind opacity modifiers work
+   * (bg-bg-deep/80, border-brand-electric/50 …). Keep in step with the hexes. */
+  --bg-deep-rgb: 10 14 26;
+  --bg-surface-rgb: 17 24 40;
+  --bg-elevated-rgb: 26 35 56;
+  --brand-navy-rgb: 22 51 135;
+  --brand-electric-rgb: 37 99 235;
+  --brand-electric-hover-rgb: 59 130 246;
+  --brand-electric-muted-rgb: 29 78 216;
+  --accent-violet-rgb: 139 92 246;
+  --accent-violet-deep-rgb: 109 40 217;
+  --accent-amber-rgb: 245 158 11;
+  --text-primary-rgb: 255 255 255;
+  --text-secondary-rgb: 209 213 219;
+  --text-muted-rgb: 156 163 175;
+  --text-subtle-rgb: 107 114 128;
+  --divider-rgb: 31 41 55;
+  --divider-soft-rgb: 55 65 81;
+
   /* Chrome gradient — the UNIS wordmark effect. Reuse anywhere a surface
    * should feel metallic/premium. */
   --chrome-gradient: linear-gradient(
@@ -42,6 +61,15 @@
     rgba(37, 99, 235, 0) 60%
   );
 
+  /* Panel surface used by every pinned/showcase visual */
+  --panel-gradient: linear-gradient(
+    145deg,
+    #0a0e1a 0%,
+    #111828 55%,
+    #163387 100%
+  );
+  --panel-border: rgba(37, 99, 235, 0.22);
+
   /* ── Type ── */
   --font-display: "Clash Display", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Satoshi", ui-sans-serif, system-ui, sans-serif;
@@ -50,10 +78,15 @@
   --ease-out-quart: cubic-bezier(0.2, 0.8, 0.2, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
+  /* ── Shape ── */
+  --radius-panel: 28px;
+  --radius-card: 20px;
+
   /* ── Layout ── */
   --max-w: 1400px;
+  --nav-h: 72px;
   --section-py: clamp(80px, 10vw, 160px);
-  --content-px: clamp(24px, 4vw, 80px);
+  --content-px: clamp(20px, 4vw, 80px);
 }
 
 /* ── Base ── */
@@ -72,6 +105,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-feature-settings: "ss01", "cv01";
+  overflow-x: clip;
 }
 
 *,
@@ -83,6 +117,48 @@ body {
 ::selection {
   background: var(--brand-electric);
   color: var(--text-primary);
+}
+
+/* Offset anchor jumps so the fixed nav never covers a section heading.
+ * Lenis reads this value too, so smooth jumps land in the same place. */
+section[id],
+article[id] {
+  scroll-margin-top: calc(var(--nav-h) + 24px);
+}
+
+/* Native smooth anchors only when Lenis isn't running (reduced motion). */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.lenis) {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ── Lenis smooth scroll (copied from lenis/dist/lenis.css) ── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis [data-lenis-prevent],
+.lenis [data-lenis-prevent-wheel],
+.lenis [data-lenis-prevent-touch],
+.lenis [data-lenis-prevent-vertical],
+.lenis [data-lenis-prevent-horizontal] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
 }
 
 /* ── Utility-ish classes used across apps ── */
@@ -105,14 +181,77 @@ body {
   -webkit-text-stroke: 2px var(--brand-electric);
 }
 
+/* Paper grain used by the editorial "math" illustrations */
+.paper-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
 /* Scroll progress bar */
 .scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   height: 2px;
   background: var(--brand-electric);
   transform-origin: 0 50%;
   z-index: 100;
   pointer-events: none;
+}
+
+/* ── Equalizer skyline — the same bars as the Coming soon page ── */
+.eq-bar {
+  transform-origin: 50% 100%;
+  animation: eq-rise var(--dur, 1.6s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+
+@keyframes eq-rise {
+  from {
+    transform: scaleY(var(--from, 0.35));
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* Soft pulse used by "live" dots */
+.live-dot {
+  position: relative;
+}
+
+.live-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: live-ping 2.4s var(--ease-out-quart) infinite;
+}
+
+@keyframes live-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  80%,
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* Hide scrollbars on horizontal rails without losing scroll */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq-bar,
+  .live-dot::after {
+    animation: none;
+  }
 }

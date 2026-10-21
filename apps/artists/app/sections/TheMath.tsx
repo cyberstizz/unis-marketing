@@ -1,184 +1,128 @@
 "use client";
 
-import { motion } from "motion/react";
-import { SectionEyebrow, Button } from "@unis/ui";
+import { Button, ScrubText, SectionEyebrow, VisualPanel } from "@unis/ui";
+import { motion, MotionValue, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useRef } from "react";
 
 /**
- * "The math, unhidden." — the transparency data flex.
- * Replaces Spotify's "Loud & Clear" slot.
- *
- * Illustration is SVG-generated layered circles in the Unis electric palette,
- * labeled with the key revenue percentages. Editorial paper-texture feel on
- * an off-white background to contrast the dark page.
+ * "The math, unhidden." — the transparency moment (Spotify's Loud & Clear
+ * slot). The statement lights up word by word as you scroll, and the circles
+ * grow in step with it. Figures match the in-app Artist Agreement schedule.
  */
 export function TheMath() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.9", "center 0.5"] });
+
   return (
-    <section
-      id="the-math"
-      style={{ padding: "var(--section-py) var(--content-px)" }}
-    >
+    <section ref={ref} id="the-math" style={{ padding: "var(--section-py) var(--content-px)" }}>
       <div
         className="mx-auto grid gap-12 lg:gap-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] items-center"
         style={{ maxWidth: "var(--max-w)" }}
       >
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.9, ease: [0.2, 0.8, 0.2, 1] }}
-        >
-          <MathIllustration />
-        </motion.div>
+        <div className="order-2 lg:order-1 w-full max-w-[560px] mx-auto aspect-square">
+          <MathIllustration progress={scrollYProgress} />
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: [0.2, 0.8, 0.2, 1] }}
-        >
+        <div className="order-1 lg:order-2">
           <SectionEyebrow>Transparency</SectionEyebrow>
-          <h2 className="font-display font-semibold text-white mt-6 mb-8 leading-[0.95] tracking-[-0.04em] text-[clamp(44px,5.5vw,84px)]">
+          <h2 className="font-display font-semibold text-white mt-6 mb-8 leading-[0.95] tracking-[-0.045em] text-[clamp(44px,5.5vw,84px)]">
             The math,
             <br />
             unhidden.
           </h2>
-          <p className="text-text-secondary text-body-lg max-w-[55ch] mb-10">
-            Every dollar that enters Unis has a visible path out. No pro-rata
-            pools. No ghost artists. No algorithm deciding who deserves what.
-            Just a public formula, the same for everyone.
-          </p>
+          <ScrubText
+            className="font-display font-medium text-white text-[clamp(22px,2.2vw,32px)] leading-[1.3] tracking-[-0.015em] max-w-[34ch] mb-10"
+            text="Money your fans spend on you is yours, minus a small fee. Everything Unis earns goes into one pot, and every month that pot is shared out by listening, at percentages anyone can read."
+          />
           <Button as="a" href="/math" variant="secondary" size="md">
             See the full breakdown
             <span aria-hidden>→</span>
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
 }
 
-/**
- * Proportional-circle illustration showing revenue percentages.
- * Inspired by Spotify's Loud & Clear art but built from scratch in the
- * Unis palette: electric blue + violet on an off-white paper texture.
- */
-function MathIllustration() {
-  const circles = [
-    { label: "100%", caption: "masters", cx: 140, cy: 200, r: 100, color: "#163387", delay: 0 },
-    { label: "85%", caption: "direct sales", cx: 320, cy: 130, r: 82, color: "#2563eb", delay: 0.15 },
-    { label: "60%", caption: "audio ads", cx: 420, cy: 260, r: 66, color: "#3b82f6", delay: 0.3 },
-    { label: "50%", caption: "paid tier", cx: 250, cy: 340, r: 58, color: "#6d28d9", delay: 0.45 },
-    { label: "15%", caption: "supporters", cx: 410, cy: 100, r: 36, color: "#8b5cf6", delay: 0.6 },
-  ];
+const CIRCLES = [
+  { label: "100%", caption: "ownership", cx: 150, cy: 210, r: 104, color: "#163387" },
+  { label: "90%", caption: "song sales", cx: 340, cy: 140, r: 88, color: "#2563eb" },
+  { label: "60%", caption: "Unis Plus", cx: 430, cy: 290, r: 66, color: "#3b82f6" },
+  { label: "60%", caption: "audio ads, soon", cx: 260, cy: 360, r: 60, color: "#6d28d9", dashed: true },
+  { label: "15%", caption: "supporters", cx: 470, cy: 120, r: 38, color: "#8b5cf6" },
+];
 
+function MathIllustration({ progress }: { progress: MotionValue<number> }) {
   return (
-    <div
-      className="relative aspect-square w-full max-w-[560px] mx-auto rounded-2xl overflow-hidden"
-      style={{
-        background: "linear-gradient(135deg, #fafaf5 0%, #f4f1e8 100%)",
-      }}
-    >
-      {/* Paper-grain texture */}
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-[0.12] mix-blend-multiply pointer-events-none"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")",
-        }}
-      />
-
-      <svg
-        viewBox="0 0 560 460"
-        className="relative w-full h-full"
-        aria-label="Revenue distribution illustration"
-      >
-        {/* Hand-drawn arrows */}
-        <motion.path
-          d="M 60 60 Q 100 40 140 70"
-          stroke="#1f2937"
-          strokeWidth="1.5"
-          fill="none"
-          strokeLinecap="round"
-          initial={{ pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        />
-        <motion.path
-          d="M 500 400 Q 460 420 420 400"
-          stroke="#1f2937"
-          strokeWidth="1.5"
-          fill="none"
-          strokeLinecap="round"
-          initial={{ pathLength: 0 }}
-          whileInView={{ pathLength: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        />
-
-        {circles.map((c, i) => (
-          <motion.g
-            key={i}
-            initial={{ scale: 0, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{
-              duration: 0.7,
-              delay: c.delay,
-              ease: [0.2, 0.8, 0.2, 1],
-            }}
-            style={{ transformOrigin: `${c.cx}px ${c.cy}px` }}
-          >
-            <circle
-              cx={c.cx}
-              cy={c.cy}
-              r={c.r}
-              fill={c.color}
-              opacity="0.78"
-              style={{ mixBlendMode: "multiply" }}
-            />
-            <text
-              x={c.cx}
-              y={c.cy - 4}
-              textAnchor="middle"
-              fontSize={c.r * 0.38}
-              fontWeight="700"
-              fill="white"
-              style={{
-                fontFamily: "var(--font-display)",
-                letterSpacing: "-0.03em",
-              }}
-            >
-              {c.label}
-            </text>
-            <text
-              x={c.cx}
-              y={c.cy + c.r * 0.28}
-              textAnchor="middle"
-              fontSize={c.r * 0.17}
-              fontWeight="500"
-              fill="white"
-              opacity="0.85"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              {c.caption}
-            </text>
-          </motion.g>
+    <VisualPanel paper>
+      <svg viewBox="0 0 560 480" className="relative w-full h-full" role="img" aria-label="What artists keep: 100% ownership, 90% of song sales, 60% of Unis Plus by plays, 60% of audio ads when they launch, and 15% of each supporter's monthly share.">
+        {CIRCLES.map((c, i) => (
+          <Circle key={c.caption} c={c} progress={progress} index={i} />
         ))}
-
-        {/* Hand annotation */}
         <text
-          x="40"
-          y="440"
-          fontSize="13"
+          x="36"
+          y="456"
+          fontSize="14"
           fill="#374151"
           fontStyle="italic"
           style={{ fontFamily: "var(--font-body)" }}
         >
-          every dollar, tracked.
+          what you keep, in writing.
         </text>
       </svg>
-    </div>
+    </VisualPanel>
+  );
+}
+
+function Circle({
+  c,
+  progress,
+  index,
+}: {
+  c: (typeof CIRCLES)[number];
+  progress: MotionValue<number>;
+  index: number;
+}) {
+  const reduce = useReducedMotion();
+  const start = index * 0.12;
+  const scale = useTransform(progress, [start, start + 0.45], [0, 1], { clamp: true });
+
+  return (
+    <motion.g style={{ scale: reduce ? 1 : scale, transformOrigin: `${c.cx}px ${c.cy}px` }}>
+      <circle
+        cx={c.cx}
+        cy={c.cy}
+        r={c.r}
+        fill={c.color}
+        opacity={c.dashed ? 0.55 : 0.8}
+        stroke={c.dashed ? "#ffffff" : "none"}
+        strokeDasharray={c.dashed ? "5 6" : undefined}
+        strokeWidth={c.dashed ? 2 : 0}
+        style={{ mixBlendMode: "multiply" }}
+      />
+      <text
+        x={c.cx}
+        y={c.cy - 2}
+        textAnchor="middle"
+        fontSize={Math.max(c.r * 0.38, 15)}
+        fontWeight="700"
+        fill="white"
+        style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
+      >
+        {c.label}
+      </text>
+      <text
+        x={c.cx}
+        y={c.cy + Math.max(c.r * 0.3, 14)}
+        textAnchor="middle"
+        fontSize={Math.max(c.r * 0.16, 10)}
+        fontWeight="500"
+        fill="white"
+        opacity="0.9"
+        style={{ fontFamily: "var(--font-body)" }}
+      >
+        {c.caption}
+      </text>
+    </motion.g>
   );
 }

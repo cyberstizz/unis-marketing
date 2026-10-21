@@ -1,138 +1,148 @@
-import { PillarSection, CheckBullet } from "@unis/ui";
+"use client";
 
-export function YouDecide() {
+import { helpLink, VisualPanel, type ShowcaseItem } from "@unis/ui";
+import { motion, useInView, useReducedMotion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+
+/**
+ * Module 1: voting. Rules from the help center ("Voting", "Awards",
+ * "Phone verification"). The ballot is a preview with made-up songs — the
+ * same invented names the Sponsor Harlem page uses in its preview.
+ */
+export const youDecideModule: ShowcaseItem = {
+  id: "you-decide",
+  label: "You decide",
+  headline: (
+    <>
+      The charts
+      <br />
+      listen to you.
+    </>
+  ),
+  body: "No playlist editors. No paid placement. Your neighbors' votes, plays and likes decide who wins, every single day.",
+  checklist: [
+    {
+      title: "Vote where you live",
+      text: "In your neighborhood and every place above it, all the way up to Unis.",
+      href: helpLink("voting-where"),
+    },
+    {
+      title: "Six award periods",
+      text: "Song and Artist of the Day, Week, Month, Quarter, Midterm and Year.",
+      href: helpLink("awards"),
+    },
+    {
+      title: "Listening counts too",
+      text: "Plays and likes add to a song's total next to votes, so what you play matters.",
+      href: helpLink("awards-winner"),
+    },
+    {
+      title: "One person, one vote",
+      text: "Voting needs a verified phone number, so every vote comes from a real neighbor.",
+      href: helpLink("verification"),
+    },
+  ],
+  cta: { label: "How voting works", href: helpLink("voting") },
+  visual: <BallotVisual />,
+};
+
+type Entry = { id: string; song: string; artist: string; points: number };
+
+const START: Entry[] = [
+  { id: "a", song: "Lenox After Dark", artist: "Kay Monroe", points: 412 },
+  { id: "b", song: "Sugar Hill Summer", artist: "Dre Vaughn", points: 396 },
+  { id: "c", song: "125th & Late", artist: "Sol Rivers", points: 371 },
+  { id: "d", song: "Brownstone Steps", artist: "Nia Lowe", points: 344 },
+  { id: "e", song: "Convent Ave", artist: "KT Banks", points: 318 },
+];
+
+/** Small, deterministic bumps so the race moves without randomness. */
+const BUMPS: [string, number][] = [
+  ["b", 24],
+  ["c", 10],
+  ["a", 18],
+  ["d", 40],
+  ["c", 30],
+  ["e", 12],
+  ["a", 26],
+];
+
+function BallotVisual() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.4 });
+  const reduce = useReducedMotion();
+  const [entries, setEntries] = useState(START);
+  const [moving, setMoving] = useState(false);
+  const step = useRef(0);
+
+  useEffect(() => {
+    if (!inView || reduce) return;
+    const id = window.setInterval(() => {
+      const [target, add] = BUMPS[step.current % BUMPS.length]!;
+      step.current += 1;
+      setMoving(true);
+      setEntries((prev) =>
+        prev
+          .map((e) => (e.id === target ? { ...e, points: e.points + add } : e))
+          .sort((x, y) => y.points - x.points)
+      );
+    }, 2200);
+    return () => window.clearInterval(id);
+  }, [inView, reduce]);
+
   return (
-    <PillarSection
-      id="you-decide"
-      eyebrow="Democratic discovery"
-      headline={
-        <>
-          The only charts
-          <br />
-          that listen
-          <br />
-          <span className="chrome-text">to you.</span>
-        </>
-      }
-      body={
-        <>
-          Forget playlist editors. Forget ghost artists filling your chill mix.
-          Forget songs paid into your rotation. On Unis, charts are decided by
-          the people who actually live where the music is made — and your vote
-          counts the same as everyone else's.
-        </>
-      }
-      visual={<VotingVisual />}
-      visualSide="left"
-      cta={{ label: "See how voting works", href: "/voting" }}
-    >
-      <CheckBullet title="Vote in your neighborhood." delay={0}>
-        Pick your song of the day, week, month, quarter, or year. Your vote
-        competes in six jurisdiction tiers from sub-neighborhood to nationwide.
-      </CheckBullet>
-      <CheckBullet title="Don't feel like voting? Your plays still count." delay={100}>
-        Listens and likes feed the tiebreaker system, so even passive listening
-        rewards the artists you care about.
-      </CheckBullet>
-      <CheckBullet title="No payola." delay={200}>
-        No Discovery Mode. No ghost artists. No label money buying slots in
-        your feed.
-      </CheckBullet>
-      <CheckBullet title="Permanent public record." delay={300}>
-        The songs and artists your neighborhood crowns get documented forever —
-        so ten years from now, you can show someone what the block sounded
-        like in 2026.
-      </CheckBullet>
-    </PillarSection>
-  );
-}
-
-function VotingVisual() {
-  const ballot = [
-    { rank: 1, artist: "Mila Reyes", song: "North Side Summer", votes: "2,418" },
-    { rank: 2, artist: "KT Banks", song: "Convent Ave", votes: "2,104" },
-    { rank: 3, artist: "Dee Vance", song: "Brown Paper", votes: "1,877" },
-    { rank: 4, artist: "Obi Ajayi", song: "Morningside", votes: "1,502" },
-    { rank: 5, artist: "Ray Soto", song: "116 Blues", votes: "1,298" },
-  ];
-
-  return (
-    <div
-      className="relative aspect-[4/5] w-full max-w-[520px] mx-auto rounded-2xl overflow-hidden p-8"
-      style={{
-        background:
-          "linear-gradient(135deg, #0a0e1a 0%, #111828 60%, #163387 100%)",
-        border: "1px solid rgba(37, 99, 235, 0.2)",
-      }}
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-30 pointer-events-none"
-        style={{ background: "var(--glow-electric)" }}
-      />
-
-      <div className="relative">
-        <div className="flex items-baseline justify-between mb-2">
-          <div className="text-eyebrow uppercase text-brand-electric font-semibold">
-            Song of the day
-          </div>
-          <div className="text-text-muted text-xs">Live · Harlem</div>
+    <VisualPanel preview>
+      <div ref={ref} className="h-full flex flex-col p-6 sm:p-8 pt-14 sm:pt-14">
+        <div className="flex items-baseline justify-between gap-3">
+          <div className="text-brand-electric text-[13px] font-semibold">Song of the Day</div>
+          <div className="text-text-muted text-[12px]">Uptown Harlem, Rap</div>
         </div>
-        <div className="font-display text-white text-[26px] leading-[1.1] tracking-[-0.02em] mb-6">
-          Decided by 9,499 votes
-          <br />
-          from your neighbors.
+        <div className="font-display text-white text-[22px] sm:text-[26px] leading-[1.1] tracking-[-0.02em] mt-2 mb-6">
+          Decided by your neighbors,
+          <span className="block text-text-muted">live until midnight.</span>
         </div>
 
-        <div className="space-y-2.5">
-          {ballot.map((item, i) => (
-            <div
-              key={item.rank}
-              className="flex items-center gap-3 p-3 rounded-lg"
-              style={{
-                background:
-                  i === 0
-                    ? "rgba(37, 99, 235, 0.18)"
-                    : "rgba(255, 255, 255, 0.03)",
-                border:
-                  i === 0
-                    ? "1px solid rgba(37, 99, 235, 0.4)"
-                    : "1px solid transparent",
-              }}
+        <ol className="space-y-2.5 mt-auto">
+          {entries.map((e, i) => (
+            <motion.li
+              layout={!reduce}
+              key={e.id}
+              transition={{ type: "spring", stiffness: 380, damping: 34 }}
+              className={
+                "flex items-center gap-3 p-3 rounded-xl border " +
+                (i === 0 ? "bg-brand-electric/20 border-brand-electric/50" : "bg-white/[0.03] border-transparent")
+              }
             >
-              <div
-                className="font-display font-semibold text-[18px] tracking-tight w-6"
-                style={{
-                  color: i === 0 ? "var(--brand-electric)" : "var(--text-muted)",
-                }}
+              <span
+                className={
+                  "font-display font-semibold text-[18px] w-6 tabular-nums " +
+                  (i === 0 ? "text-brand-electric" : "text-text-muted")
+                }
               >
-                {item.rank}
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-white text-sm font-medium truncate">
-                  {item.song}
-                </div>
-                <div className="text-text-muted text-xs truncate">
-                  {item.artist}
-                </div>
-              </div>
-              <div className="text-right">
-                <div
-                  className="font-display font-semibold text-sm tracking-tight"
-                  style={{
-                    color: i === 0 ? "var(--brand-electric)" : "var(--text-secondary)",
-                  }}
+                {i + 1}
+              </span>
+              <span className="flex-1 min-w-0">
+                <span className="block text-white text-[14px] font-medium truncate">{e.song}</span>
+                <span className="block text-text-muted text-[12px] truncate">{e.artist}</span>
+              </span>
+              <span className="text-right">
+                <span
+                  className={
+                    "block font-display font-semibold text-[15px] tabular-nums " +
+                    (i === 0 ? "text-brand-electric" : "text-text-secondary")
+                  }
                 >
-                  {item.votes}
-                </div>
-                <div className="text-text-muted text-[10px] uppercase tracking-wider">
-                  votes
-                </div>
-              </div>
-            </div>
+                  {e.points.toLocaleString()}
+                </span>
+                <span className="block text-text-muted text-[10px]">points</span>
+              </span>
+            </motion.li>
           ))}
-        </div>
+        </ol>
+        <p className="text-text-muted text-[12px] mt-4">
+          Votes, plays and likes, added up.{moving ? " Updating as people listen." : ""}
+        </p>
       </div>
-    </div>
+    </VisualPanel>
   );
 }

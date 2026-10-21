@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Button } from "@unis/ui";
+import { Button, UNIS_LINKS } from "@unis/ui";
 
 export function MathFinalCTA() {
   return (
@@ -22,15 +22,13 @@ export function MathFinalCTA() {
         <h2 className="font-display font-semibold text-white leading-[0.95] tracking-[-0.04em] text-[clamp(40px,5.5vw,84px)] mb-8">
           Bookmark this page.
           <br />
-          <span className="chrome-text">
-            The math won't change. The data will.
-          </span>
+          <span className="chrome-text">Every change gets a date.</span>
         </h2>
         <p className="text-text-secondary text-body-lg mb-10 max-w-[52ch] mx-auto">
-          The splits are immutable — they're written into the platform code.
-          The assumptions will be replaced with real platform data once we
-          have statistically significant counts to report on. Every update
-          gets a dated review note. Nothing gets quietly changed.
+          The splits are written into the platform code, and any change is
+          announced ahead of time and only applies going forward. The example
+          figures will be replaced with real platform data once there&rsquo;s
+          enough of it. Every update gets a dated review note.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <Button as="a" href="#simulator" variant="secondary" size="lg">
@@ -46,8 +44,8 @@ export function MathFinalCTA() {
           >
             Download a sample agreement
           </Button>
-          <Button as="a" href="/#get-access" variant="primary" size="lg">
-            Sign up with a referral code
+          <Button as="a" href={UNIS_LINKS.signup} variant="primary" size="lg">
+            Sign up as an artist
           </Button>
         </div>
       </motion.div>

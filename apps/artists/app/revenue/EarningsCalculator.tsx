@@ -6,14 +6,15 @@ import { SectionEyebrow } from "@unis/ui";
 import { AnimatedCounter } from "./AnimatedCounter";
 import { Slider } from "./Slider";
 import {
+  artistReceives,
   CalculatorInputs,
   CalculatorMode,
   computeBreakdown,
   DEFAULT_INPUTS,
-  formatMoney,
   formatPercent,
   inputsFromQueryString,
   inputsToQueryString,
+  MIN_SONG_PRICE,
   REVENUE_ASSUMPTIONS,
 } from "./math";
 
@@ -84,10 +85,11 @@ export function EarningsCalculator() {
             <span className="chrome-text">is actually worth.</span>
           </h2>
           <p className="text-text-secondary text-body-lg">
-            Drag the sliders. Watch the number change. Every dollar below is
-            routed through the same splits encoded in the Unis platform — the
-            15% supporter share on display ads, the 10/5/2% referral chain,
-            the 50/50 paid-tier split, and the 85% direct-sales share.
+            Drag the sliders. Watch the number change. Every dollar below runs
+            through the same rules the Unis platform uses: your 15% of each
+            supporter&rsquo;s monthly Community Share, 60% of Unis Plus by
+            plays, what you keep from song sales, and 10% of your direct
+            referrals&rsquo; shares.
           </p>
         </motion.div>
 
@@ -178,7 +180,7 @@ export function EarningsCalculator() {
 
             <Slider
               label="Supporters"
-              hint="People who've chosen you as their supported artist."
+              hint="People who picked you as the artist they support."
               value={inputs.supporters}
               onChange={(v) => updateInput("supporters", v)}
               min={0}
@@ -188,11 +190,45 @@ export function EarningsCalculator() {
             />
 
             <Slider
-              label="Active-day rate"
-              hint="% of your supporters who open the app each day."
-              value={inputs.activeDayRate}
-              onChange={(v) => updateInput("activeDayRate", v)}
-              min={0.1}
+              label="Plays per listener, per month"
+              hint="Counted plays of any music by each supporter or referral. Up to 50 a day count."
+              value={inputs.playsPerListener}
+              onChange={(v) => updateInput("playsPerListener", v)}
+              min={0}
+              max={REVENUE_ASSUMPTIONS.maxCountedPlaysPerMonth}
+              step={10}
+              formatValue={(v) => v.toLocaleString("en-US")}
+            />
+
+            <Slider
+              label="Community Share per 1,000 plays"
+              hint="What Unis earned that month, divided by every counted play. The help center's example works out to $10."
+              value={inputs.poolPer1000Plays}
+              onChange={(v) => updateInput("poolPer1000Plays", v)}
+              min={0.5}
+              max={10}
+              step={0.1}
+              roundTo="currency"
+              formatValue={(v) => `$${v.toFixed(2)}`}
+            />
+
+            <Slider
+              label="Unis Plus subscribers who play you"
+              hint={`Each pays $${REVENUE_ASSUMPTIONS.plusPrice}/mo; about $${REVENUE_ASSUMPTIONS.plusArtistPool.toFixed(2)} of it goes to the artists they played.`}
+              value={inputs.plusListeners}
+              onChange={(v) => updateInput("plusListeners", v)}
+              min={0}
+              max={2000}
+              logarithmic
+              formatValue={(v) => v.toLocaleString("en-US")}
+            />
+
+            <Slider
+              label="Your share of their plays"
+              hint="Of everything those subscribers played this month, how much was you."
+              value={inputs.plusShareOfPlays}
+              onChange={(v) => updateInput("plusShareOfPlays", v)}
+              min={0.01}
               max={1}
               step={0.01}
               roundTo="percent"
@@ -200,20 +236,8 @@ export function EarningsCalculator() {
             />
 
             <Slider
-              label="Paid tier conversion"
-              hint={`% of your supporters who upgrade to ad-free at $${REVENUE_ASSUMPTIONS.paidTierPrice}/mo.`}
-              value={inputs.paidTierConversion}
-              onChange={(v) => updateInput("paidTierConversion", v)}
-              min={0}
-              max={0.5}
-              step={0.01}
-              roundTo="percent"
-              formatValue={formatPercent}
-            />
-
-            <Slider
               label="Direct referrals"
-              hint="Users you've personally brought to Unis (level 1)."
+              hint="People who signed up with your code (level 1)."
               value={inputs.referralsL1}
               onChange={(v) => updateInput("referralsL1", v)}
               min={0}
@@ -222,23 +246,23 @@ export function EarningsCalculator() {
             />
 
             <Slider
-              label="Monthly direct sales"
-              hint={`Tracks sold directly at $${inputs.directSalePrice.toFixed(2)} each.`}
-              value={inputs.monthlyDirectSales}
-              onChange={(v) => updateInput("monthlyDirectSales", v)}
+              label="Songs sold per month"
+              hint={`At $${inputs.salePrice.toFixed(2)} you keep $${artistReceives(inputs.salePrice).toFixed(2)} of each.`}
+              value={inputs.monthlySales}
+              onChange={(v) => updateInput("monthlySales", v)}
               min={0}
-              max={100}
+              max={200}
               formatValue={(v) => v.toLocaleString("en-US")}
             />
 
             <Slider
-              label="Direct-sale price"
-              hint="What you charge per track (minimum $1.99)."
-              value={inputs.directSalePrice}
-              onChange={(v) => updateInput("directSalePrice", v)}
-              min={1.99}
+              label="Song price"
+              hint={`You set it. The minimum is $${MIN_SONG_PRICE.toFixed(2)}, 5¢ under the iTunes Store.`}
+              value={inputs.salePrice}
+              onChange={(v) => updateInput("salePrice", v)}
+              min={MIN_SONG_PRICE}
               max={9.99}
-              step={0.1}
+              step={0.05}
               roundTo="currency"
               formatValue={(v) => `$${v.toFixed(2)}`}
             />
@@ -271,7 +295,7 @@ export function EarningsCalculator() {
 
                   <Slider
                     label="Monthly audio plays"
-                    hint="Total plays of your songs across all Unis users."
+                    hint="Plays of your songs by people who see ads."
                     value={inputs.monthlyAudioPlays}
                     onChange={(v) => updateInput("monthlyAudioPlays", v)}
                     min={0}
@@ -282,7 +306,7 @@ export function EarningsCalculator() {
 
                   <Slider
                     label="Audio ad fill rate"
-                    hint="% of plays that include a pre-roll ad."
+                    hint="% of those plays that carry an audio ad."
                     value={inputs.audioAdFillRate}
                     onChange={(v) => updateInput("audioAdFillRate", v)}
                     min={0.2}
@@ -308,17 +332,16 @@ export function EarningsCalculator() {
 
         {/* Disclosure */}
         <p className="mt-8 text-text-subtle text-[13px] leading-[1.6] max-w-[80ch] italic">
-          These projections are estimates based on Unis's launch assumptions:
-          ${REVENUE_ASSUMPTIONS.adRevenuePerActiveUserMonthly.toFixed(2)}/month average ad
-          revenue per active user, paid tier at ${REVENUE_ASSUMPTIONS.paidTierPrice}/month.
-          Audio ad projections apply MLC compulsory royalties at{" "}
-          {formatPercent(REVENUE_ASSUMPTIONS.mlcRate)} per 2026 CRB Phonorecords IV
-          rates. Audio ads are not yet available on Unis — the audio tab models
-          earnings <em>once audio ads launch</em> after Unis completes agreements
-          with an audio advertising partner. Actual earnings will depend on
-          platform-wide ad fill rates, geography, and your supporters' activity.
-          Unis will publish real platform averages quarterly once we have
-          statistically significant data.
+          These are estimates, not promises. The Community Share depends on
+          what Unis actually earns each month and on how much everyone listens,
+          so the per-1,000-plays figure will move month to month. Supporter and
+          referral money needs a verified phone number to reach you, and is
+          paid once the month closes (usually the second half of the next
+          month). Song sales land in your Stripe account when they happen; the
+          Community Share can be withdrawn once your balance reaches $50; Stripe
+          pays your bank once a month, on the 1st. Audio ads aren&rsquo;t live
+          yet. The second tab models them once they launch, at an assumed $
+          {REVENUE_ASSUMPTIONS.audioNetPerFill.toFixed(3)} net per filled ad.
         </p>
       </div>
     </section>
@@ -343,40 +366,40 @@ function OutputPanel({
   const tiles = useMemo(() => {
     const base = [
       {
-        key: "display",
-        label: "Display ad supporter share",
-        detail: "15% of supporter ad revenue, daily",
-        amount: breakdown.displaySupporter,
+        key: "supporters",
+        label: "Supporters",
+        detail: "15% of each supporter's monthly Community Share",
+        amount: breakdown.supporters,
         color: "var(--brand-electric)",
       },
       {
-        key: "paid",
-        label: "Paid tier subscriptions",
-        detail: "50% of $5.99/mo · direct",
-        amount: breakdown.paidTier,
+        key: "plus",
+        label: "Unis Plus",
+        detail: "60% of subscribers' fees, by plays",
+        amount: breakdown.plus,
         color: "var(--accent-violet-deep)",
       },
       {
-        key: "direct",
-        label: "Direct sales",
-        detail: "85% · paid in 2 business days",
-        amount: breakdown.directSales,
+        key: "sales",
+        label: "Song sales",
+        detail: "Your price, minus 10% (or card fee + 1¢)",
+        amount: breakdown.sales,
         color: "var(--accent-amber)",
       },
       {
         key: "ref",
         label: "Level 1 referrals",
-        detail: "10% of referred-user ad revenue",
+        detail: "10% of each referral's monthly share",
         amount: breakdown.referralL1,
-        color: "var(--brand-navy)",
+        color: "var(--brand-electric-hover)",
       },
     ];
     if (mode === "with-audio") {
       base.splice(1, 0, {
         key: "audio",
-        label: "Audio ad streaming",
-        detail: "60% of net · after MLC · coming soon",
-        amount: breakdown.audioStreaming,
+        label: "Audio ads",
+        detail: "60% of ads played with your songs · not live yet",
+        amount: breakdown.audio,
         color: "var(--accent-violet)",
       });
     }

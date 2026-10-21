@@ -1,217 +1,185 @@
 /**
  * Revenue math — the single source of truth for the Revenue page.
  *
- * Every projection on the page (calculator, illustrated math blocks, Spotify
- * comparison) runs through these functions. They mirror the splits encoded in
- * the Unis Earnings dashboard code exactly:
+ * Every projection on the page (calculator, worked examples, Spotify
+ * comparison) runs through these functions. They follow the live Unis model,
+ * as published in the help center (unis-sample src/data/helpContent.jsx,
+ * "Earnings and payouts") and the in-app Artist Agreement schedule:
  *
- *   Display ad split:  Unis 68% · Supported Artist 15% · L1 10% · L2 5% · L3 2%
- *   Audio ad split:    Artist 60% · Unis 23% · L1 10% · L2 5% · L3 2% (of net after MLC)
- *   Paid tier split:   Artist 50% · Unis 50%
- *   Direct sales:      Artist 85% · Unis 15%
+ *   Song sales & support   Artist keeps the price minus Unis's fee:
+ *                          10%, or Stripe's card fee + 1¢ if that's higher.
+ *                          Minimum song price $0.94.
+ *   Community Share        Everything Unis earns goes into one monthly pot,
+ *                          divided by counted plays. Each listener's slice
+ *                          splits 15% to their supported artist, 10/5/2% up
+ *                          their referral chain, 68% stays with Unis.
+ *   Unis Plus ($4.99/mo)   60% of the fee after Stripe's fees (≈ $2.70) goes
+ *                          to the artists that subscriber played, by plays.
+ *   Audio ads (not live)   60% of the net from ads played with your songs.
  *
- * All assumptions are labeled as constants and surfaced in the UI disclosure.
+ * Nobody is paid per ad seen, and there are no MLC deductions in this model —
+ * Unis claims no mechanical rights (Terms of Service §3.2).
  */
 
+// ── Fee rule (mirrors unis-sample utils/platformFee.js and the backend) ──
+
+export const MIN_SONG_PRICE = 0.94;
+
+function stripeCardFeeCents(cents: number): number {
+  if (cents <= 0) return 0;
+  return Math.floor((cents * 29 + 999) / 1000) + 30;
+}
+
+/** Unis's fee on a song sale or support payment, in dollars. */
+export function platformFee(price: number): number {
+  const cents = Math.floor(Math.round(price * 100));
+  if (cents <= 0) return 0;
+  const share = Math.round(cents * 0.1);
+  return Math.min(cents, Math.max(share, stripeCardFeeCents(cents) + 1)) / 100;
+}
+
+/** What the artist receives from a payment, in dollars. */
+export function artistReceives(price: number): number {
+  return Math.max(0, Math.round(price * 100) / 100 - platformFee(price));
+}
+
 export const REVENUE_ASSUMPTIONS = {
-  /** Average monthly ad revenue per active user (conservative launch estimate). */
-  adRevenuePerActiveUserMonthly: 0.70,
-
-  /** Paid tier price per month. */
-  paidTierPrice: 5.99,
-
-  /** MLC compulsory royalty rate on audio ad revenue (2026 CRB Phonorecords IV). */
-  mlcRate: 0.153,
-
-  /** Default per-track price if a slider input isn't provided. */
-  defaultTrackPrice: 1.99,
-
-  /** Assumed gross per filled pre-roll audio ad (industry average 2025–2026). */
-  audioAdGrossPerFill: 0.015,
+  /** Unis Plus price per month. */
+  plusPrice: 4.99,
+  /** Artists' 60% of one Plus subscription after Stripe's fees (help center: "$2.70"). */
+  plusArtistPool: 2.7,
+  /** Most counted plays one listener can add in a month (50 a day). */
+  maxCountedPlaysPerMonth: 1500,
+  /** Assumed net per filled audio ad, for the "once audio ads launch" view only. */
+  audioNetPerFill: 0.015,
 } as const;
 
 export const SPLITS = {
-  display: {
+  communityShare: {
     platform: 0.68,
     supporter: 0.15,
-    referralL1: 0.10,
+    referralL1: 0.1,
     referralL2: 0.05,
     referralL3: 0.02,
   },
-  audioNetOfMlc: {
-    artist: 0.60,
-    platform: 0.23,
-    referralL1: 0.10,
-    referralL2: 0.05,
-    referralL3: 0.02,
-  },
-  paidTier: {
-    artist: 0.50,
-    platform: 0.50,
-  },
-  directSales: {
-    artist: 0.85,
-    platform: 0.15,
-  },
+  plus: { artists: 0.6, platform: 0.4 },
+  audio: { artist: 0.6, platform: 0.4 },
 } as const;
 
 // ── Calculator input shape ──
 
 export type CalculatorInputs = {
+  /** People who picked you as their supported artist. */
   supporters: number;
-  /** Fraction 0–1, e.g. 0.4 = 40% of supporters active on any given day. */
-  activeDayRate: number;
-  /** Fraction 0–1 of supporters who have upgraded to paid tier. */
-  paidTierConversion: number;
+  /** Counted plays per supporter/referral per month (any artist, capped at 50/day). */
+  playsPerListener: number;
+  /** What the month's Community Share pot works out to per 1,000 counted plays, in $. */
+  poolPer1000Plays: number;
+  /** Unis Plus subscribers who play your songs. */
+  plusListeners: number;
+  /** Fraction 0–1 of those subscribers' plays that are your songs. */
+  plusShareOfPlays: number;
+  /** People you invited directly (level 1). */
   referralsL1: number;
-  monthlyDirectSales: number;
-  directSalePrice: number;
-  // Only relevant when audio ads are live:
+  monthlySales: number;
+  salePrice: number;
+  // Only used once audio ads are live:
   monthlyAudioPlays: number;
-  /** Fraction 0–1 of plays that include a pre-roll. */
+  /** Fraction 0–1 of plays of your songs that carry an ad. */
   audioAdFillRate: number;
 };
 
 export type CalculatorMode = "at-launch" | "with-audio";
 
 export type StreamBreakdown = {
-  /** Monthly $ for display ad supporter share. */
-  displaySupporter: number;
-  /** Monthly $ for audio ad streaming share (artist's cut on their plays). */
-  audioStreaming: number;
-  /** Monthly $ for paid tier subscription income. */
-  paidTier: number;
-  /** Monthly $ for direct sales. */
-  directSales: number;
-  /** Monthly $ for level-1 referral income. */
+  /** Your 15% of your supporters' monthly Community Share slices. */
+  supporters: number;
+  /** Your part of the 60% Unis Plus pool, by plays. */
+  plus: number;
+  /** What you keep from song sales. */
+  sales: number;
+  /** Your 10% of your direct referrals' slices. */
   referralL1: number;
-  /** Sum of all streams. */
+  /** 60% of audio ads on your songs (only when audio ads are modeled). */
+  audio: number;
   total: number;
 };
 
 // ── Math ──
 
-/**
- * Display-ad supporter income.
- *
- * Each active supporter generates ~$0.70/mo in display ad revenue (assumption).
- * Only "active" supporters (those who open the app) generate revenue — inactive
- * accounts contribute nothing. Artist receives 15% of that.
- *
- * Note: we assume supporters who upgrade to paid tier see no ads, so display
- * revenue from them is zero.
- */
-export function displaySupporterIncome(i: CalculatorInputs): number {
-  const freeSupporters = i.supporters * (1 - i.paidTierConversion);
-  const activeSupporters = freeSupporters * i.activeDayRate;
-  const totalAdRev = activeSupporters * REVENUE_ASSUMPTIONS.adRevenuePerActiveUserMonthly;
-  return totalAdRev * SPLITS.display.supporter;
+function perPlay(i: CalculatorInputs) {
+  return i.poolPer1000Plays / 1000;
 }
 
-/**
- * Audio ad streaming income (only when audio tab is active).
- *
- * Monthly plays × fill rate × gross per fill → gross audio ad revenue from
- * the artist's songs. Subtract MLC, then apply 60% artist split.
- */
-export function audioStreamingIncome(i: CalculatorInputs): number {
-  const filledAds = i.monthlyAudioPlays * i.audioAdFillRate;
-  const gross = filledAds * REVENUE_ASSUMPTIONS.audioAdGrossPerFill;
-  const net = gross * (1 - REVENUE_ASSUMPTIONS.mlcRate);
-  return net * SPLITS.audioNetOfMlc.artist;
+function countedPlays(i: CalculatorInputs) {
+  return Math.min(i.playsPerListener, REVENUE_ASSUMPTIONS.maxCountedPlaysPerMonth);
 }
 
-/**
- * Paid tier subscription income.
- *
- * Every paid supporter contributes $5.99/mo, split 50/50 with Unis.
- */
-export function paidTierIncome(i: CalculatorInputs): number {
-  const paidSupporters = i.supporters * i.paidTierConversion;
-  return paidSupporters * REVENUE_ASSUMPTIONS.paidTierPrice * SPLITS.paidTier.artist;
+/** One listener's monthly slice of the Community Share. */
+export function listenerSlice(i: CalculatorInputs): number {
+  return countedPlays(i) * perPlay(i);
 }
 
-/**
- * Direct sales income.
- * 85% of monthly sale volume.
- */
-export function directSalesIncome(i: CalculatorInputs): number {
-  return i.monthlyDirectSales * i.directSalePrice * SPLITS.directSales.artist;
+export function supporterIncome(i: CalculatorInputs): number {
+  return i.supporters * listenerSlice(i) * SPLITS.communityShare.supporter;
 }
 
-/**
- * Level-1 referral income.
- * You earn 10% of ad revenue generated by users you directly referred.
- * Assumes same active-day rate as supporters (a reasonable proxy).
- */
+export function plusIncome(i: CalculatorInputs): number {
+  return i.plusListeners * REVENUE_ASSUMPTIONS.plusArtistPool * i.plusShareOfPlays;
+}
+
+export function salesIncome(i: CalculatorInputs): number {
+  return i.monthlySales * artistReceives(Math.max(i.salePrice, MIN_SONG_PRICE));
+}
+
 export function referralL1Income(i: CalculatorInputs): number {
-  const activeReferrals = i.referralsL1 * i.activeDayRate;
-  const totalAdRev = activeReferrals * REVENUE_ASSUMPTIONS.adRevenuePerActiveUserMonthly;
-  return totalAdRev * SPLITS.display.referralL1;
+  return i.referralsL1 * listenerSlice(i) * SPLITS.communityShare.referralL1;
 }
 
-/**
- * Compute the full breakdown for a given input + mode.
- */
-export function computeBreakdown(
-  inputs: CalculatorInputs,
-  mode: CalculatorMode
-): StreamBreakdown {
-  const displaySupporter = displaySupporterIncome(inputs);
-  const audioStreaming = mode === "with-audio" ? audioStreamingIncome(inputs) : 0;
-  const paidTier = paidTierIncome(inputs);
-  const directSales = directSalesIncome(inputs);
+export function audioIncome(i: CalculatorInputs): number {
+  return i.monthlyAudioPlays * i.audioAdFillRate * REVENUE_ASSUMPTIONS.audioNetPerFill * SPLITS.audio.artist;
+}
+
+export function computeBreakdown(inputs: CalculatorInputs, mode: CalculatorMode): StreamBreakdown {
+  const supporters = supporterIncome(inputs);
+  const plus = plusIncome(inputs);
+  const sales = salesIncome(inputs);
   const referralL1 = referralL1Income(inputs);
-
-  const total =
-    displaySupporter + audioStreaming + paidTier + directSales + referralL1;
-
+  const audio = mode === "with-audio" ? audioIncome(inputs) : 0;
   return {
-    displaySupporter,
-    audioStreaming,
-    paidTier,
-    directSales,
+    supporters,
+    plus,
+    sales,
     referralL1,
-    total,
+    audio,
+    total: supporters + plus + sales + referralL1 + audio,
   };
 }
 
 // ── URL sharing ──
 
-const PARAM_KEYS: Array<keyof CalculatorInputs> = [
-  "supporters",
-  "activeDayRate",
-  "paidTierConversion",
-  "referralsL1",
-  "monthlyDirectSales",
-  "directSalePrice",
-  "monthlyAudioPlays",
-  "audioAdFillRate",
-];
-
-/** Short param-key map so URLs don't get hideous. */
 const SHORT_KEYS: Record<keyof CalculatorInputs, string> = {
   supporters: "s",
-  activeDayRate: "a",
-  paidTierConversion: "p",
+  playsPerListener: "pl",
+  poolPer1000Plays: "pk",
+  plusListeners: "u",
+  plusShareOfPlays: "us",
   referralsL1: "r",
-  monthlyDirectSales: "d",
-  directSalePrice: "dp",
+  monthlySales: "d",
+  salePrice: "dp",
   monthlyAudioPlays: "ap",
   audioAdFillRate: "af",
 };
+
+const PARAM_KEYS = Object.keys(SHORT_KEYS) as Array<keyof CalculatorInputs>;
 
 const LONG_KEYS: Record<string, keyof CalculatorInputs> = Object.fromEntries(
   Object.entries(SHORT_KEYS).map(([k, v]) => [v, k as keyof CalculatorInputs])
 );
 
-export function inputsToQueryString(
-  inputs: CalculatorInputs,
-  mode: CalculatorMode
-): string {
+export function inputsToQueryString(inputs: CalculatorInputs, mode: CalculatorMode): string {
   const params = new URLSearchParams();
   for (const key of PARAM_KEYS) {
-    // Round to avoid floating-point garbage in URLs
     const val = Math.round(inputs[key] * 10000) / 10000;
     params.set(SHORT_KEYS[key], String(val));
   }
@@ -234,8 +202,7 @@ export function inputsFromQueryString(
       }
     }
   }
-  const modeRaw = params.get("m");
-  const mode: CalculatorMode = modeRaw === "a" ? "with-audio" : "at-launch";
+  const mode: CalculatorMode = params.get("m") === "a" ? "with-audio" : "at-launch";
   return { inputs, mode };
 }
 
@@ -243,13 +210,15 @@ export function inputsFromQueryString(
 
 export const DEFAULT_INPUTS: CalculatorInputs = {
   supporters: 100,
-  activeDayRate: 0.40,
-  paidTierConversion: 0.08,
+  playsPerListener: 300,
+  poolPer1000Plays: 2,
+  plusListeners: 10,
+  plusShareOfPlays: 0.2,
   referralsL1: 25,
-  monthlyDirectSales: 5,
-  directSalePrice: 1.99,
+  monthlySales: 10,
+  salePrice: 0.99,
   monthlyAudioPlays: 5000,
-  audioAdFillRate: 0.60,
+  audioAdFillRate: 0.6,
 };
 
 // ── Helpers ──

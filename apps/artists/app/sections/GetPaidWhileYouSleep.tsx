@@ -1,116 +1,126 @@
-import { PillarSection, CheckBullet } from "@unis/ui";
+"use client";
 
-export function GetPaidWhileYouSleep() {
-  return (
-    <PillarSection
-      id="get-paid"
-      eyebrow="Income"
-      headline={
-        <>
-          Earn from fans
-          <br />
-          who never
-          <br />
-          <span className="chrome-text">press play.</span>
-        </>
-      }
-      body={
-        <>
-          On Unis, every listener picks one artist to support the moment they
-          sign up. Then they keep supporting you whether they stream your music
-          or not. It's patronage, built into the platform — and it stacks with
-          everything else.
-        </>
-      }
-      visual={<IncomeStreams />}
-      visualSide="left"
-      cta={{ label: "See the revenue model", href: "/revenue" }}
-    >
-      <CheckBullet title="Supporter income." delay={0}>
-        Every user backs one artist at signup. A cut of their ad revenue flows
-        to that artist daily, automatically, whether they press play or not.
-      </CheckBullet>
-      <CheckBullet title="Direct subscription income." delay={100}>
-        When a supporter upgrades to ad-free, half their monthly payment goes
-        straight to you. Not pooled. Not pro-rata. Direct.
-      </CheckBullet>
-      <CheckBullet title="Audio ad revenue." delay={200}>
-        60% of net on every pre-roll before your songs.
-      </CheckBullet>
-      <CheckBullet title="Referral income." delay={300}>
-        Bring new users to Unis and earn from their activity, three levels
-        deep. 10% / 5% / 2%.
-      </CheckBullet>
-    </PillarSection>
-  );
-}
+import { helpLink, RollingNumber, VisualPanel, type ShowcaseItem } from "@unis/ui";
+import { motion, useInView, useReducedMotion } from "motion/react";
+import { useRef } from "react";
 
 /**
- * Four income streams represented as stacked horizontal bars —
- * a "revenue vertical garden" showing the compounding nature of the model.
+ * Module 2 of the showcase: income. Every figure matches the help center
+ * (unis-sample src/data/helpContent.jsx, "Earnings and payouts") and the
+ * revenue schedule in the in-app Artist Agreement (artistDashboard.jsx).
  */
-function IncomeStreams() {
-  const streams = [
-    { label: "Supporters", pct: "15%", color: "var(--accent-violet)", width: "38%" },
-    { label: "Paid subscriptions", pct: "50%", color: "var(--accent-violet-deep)", width: "66%" },
-    { label: "Audio ads", pct: "60%", color: "var(--brand-electric)", width: "78%" },
-    { label: "Referrals", pct: "10/5/2%", color: "var(--brand-electric-muted)", width: "48%" },
-    { label: "Direct sales", pct: "85%", color: "var(--brand-navy)", width: "92%" },
-  ];
+export const getPaidModule: ShowcaseItem = {
+  id: "get-paid",
+  label: "Get paid",
+  headline: (
+    <>
+      Get paid every time
+      <br />
+      your supporters listen.
+    </>
+  ),
+  body: "Every listener backs one artist. Each month, 15% of their share of what Unis earns goes to that artist, whatever they were playing. It stacks with everything else here.",
+  checklist: [
+    {
+      title: "Sell songs from $0.94",
+      text: "Fans pay your price. Unis keeps 10%, or only the card fee plus 1¢ on small sales.",
+      href: helpLink("payouts-sales-fee"),
+    },
+    {
+      title: "Unis Plus pays by plays",
+      text: "60% of every $4.99 subscription, after Stripe's fees, goes to the artists that subscriber played.",
+      href: helpLink("payouts-plus"),
+    },
+    {
+      title: "Supporters, every month",
+      text: "15% of each supporter's monthly share of the Community Share comes to you.",
+      href: helpLink("supporter-artist-side"),
+    },
+    {
+      title: "Earn three steps deep",
+      text: "Invite people and get 10%, 5% and 2% of the monthly share down your chain.",
+      href: helpLink("referrals-levels"),
+    },
+  ],
+  cta: { label: "Explore the revenue model", href: "/revenue" },
+  visual: <MoneyVisual />,
+};
+
+type Stream = {
+  label: string;
+  detail: string;
+  value: number;
+  /** Bar length, 0–100 */
+  bar: number;
+  suffix?: string;
+  soon?: boolean;
+};
+
+const STREAMS: Stream[] = [
+  { label: "Song sales and support", detail: "Yours, minus 10% (or card fee + 1¢)", value: 90, bar: 90, suffix: "%" },
+  { label: "Unis Plus", detail: "Of each subscriber's fee, by plays", value: 60, bar: 60, suffix: "%" },
+  { label: "Supporters", detail: "Of each supporter's monthly share", value: 15, bar: 15, suffix: "%" },
+  { label: "Referrals", detail: "10%, 5% and 2%, three steps down", value: 10, bar: 10, suffix: "%" },
+  { label: "Audio ads", detail: "Of ads played with your songs", value: 60, bar: 60, suffix: "%", soon: true },
+];
+
+function MoneyVisual() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.4 });
+  const reduce = useReducedMotion();
 
   return (
-    <div
-      className="relative aspect-[4/5] w-full max-w-[520px] mx-auto rounded-2xl overflow-hidden p-10 flex flex-col justify-center gap-6"
-      style={{
-        background:
-          "linear-gradient(135deg, #0a0e1a 0%, #111828 60%, #163387 100%)",
-        border: "1px solid rgba(37, 99, 235, 0.2)",
-      }}
-    >
-      <div
-        aria-hidden
-        className="absolute inset-0 opacity-40 pointer-events-none"
-        style={{ background: "var(--glow-electric)" }}
-      />
-
-      <div className="relative">
-        <div className="text-eyebrow uppercase text-brand-electric mb-2 font-semibold">
-          Revenue Streams
-        </div>
-        <div className="font-display text-white text-[28px] leading-tight tracking-[-0.02em] mb-8">
+    <VisualPanel>
+      <div ref={ref} className="h-full flex flex-col p-6 sm:p-8">
+        <div className="font-display text-white text-[22px] sm:text-[26px] leading-[1.1] tracking-[-0.02em]">
           Five ways to earn.
-          <br />
-          Stacked. Automatic.
+          <span className="block text-text-muted">One payout a month.</span>
         </div>
 
-        <div className="space-y-4">
-          {streams.map((s, i) => (
-            <div key={s.label}>
-              <div className="flex justify-between items-baseline mb-1.5">
-                <span className="text-white text-sm font-medium">
-                  {s.label}
-                </span>
-                <span
-                  className="font-display font-semibold text-[20px] tracking-[-0.02em]"
-                  style={{ color: s.color }}
-                >
-                  {s.pct}
-                </span>
-              </div>
-              <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                <div
-                  className="h-full rounded-full"
-                  style={{
-                    background: s.color,
-                    width: s.width,
-                    transition: "width 1s var(--ease-out-quart)",
-                  }}
+        <ul className="mt-auto space-y-4 sm:space-y-5">
+          {STREAMS.map((s, i) => (
+            <li key={s.label} className={s.soon ? "opacity-60" : undefined}>
+              <div className="flex items-baseline justify-between gap-3 mb-1.5">
+                <div className="min-w-0">
+                  <div className="text-white text-[14px] sm:text-[15px] font-medium flex items-center gap-2">
+                    {s.label}
+                    {s.soon && (
+                      <span className="rounded-full bg-white/10 px-2 py-0.5 text-[11px] text-text-secondary">
+                        Coming
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-text-muted text-[12px] sm:text-[13px] truncate">{s.detail}</div>
+                </div>
+                <RollingNumber
+                  value={s.value}
+                  suffix={s.suffix}
+                  className="font-display font-semibold text-[22px] sm:text-[26px] tracking-[-0.02em] text-white shrink-0"
                 />
               </div>
-            </div>
+              <div className="h-1.5 rounded-full bg-white/10 overflow-hidden">
+                <motion.div
+                  className="h-full rounded-full origin-left"
+                  style={{
+                    background:
+                      i % 2 === 0
+                        ? "linear-gradient(90deg, var(--brand-electric), var(--brand-electric-hover))"
+                        : "linear-gradient(90deg, var(--accent-violet-deep), var(--accent-violet))",
+                    width: `${s.bar}%`,
+                  }}
+                  initial={reduce ? false : { scaleX: 0 }}
+                  animate={{ scaleX: inView || reduce ? 1 : 0 }}
+                  transition={{ duration: 1, delay: 0.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                />
+              </div>
+            </li>
           ))}
-        </div>
+        </ul>
+
+        <p className="mt-6 pt-5 border-t border-white/10 text-text-secondary text-[13px] sm:text-[14px] leading-[1.5]">
+          Paid through Stripe. Your bank receives it once a month, on the 1st, and Unis covers the payout fees.
+        </p>
       </div>
-    </div>
+    </VisualPanel>
   );
 }

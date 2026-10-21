@@ -1,141 +1,140 @@
-import { PillarSection, CheckBullet } from "@unis/ui";
+"use client";
 
-export function GetPaidToListen() {
-  return (
-    <PillarSection
-      id="get-paid-to-listen"
-      eyebrow="Listener income"
-      headline={
-        <>
-          The first app
-          <br />
-          that pays
-          <br />
-          <span className="chrome-text">you back.</span>
-        </>
-      }
-      body={
-        <>
-          You already sit through ads on every other platform. On Unis, those
-          ads pay you. Invite a few friends and you start earning on every one
-          of their ads too — and on the people they invite, and the people
-          they invite. Three levels deep. No cap. For as long as the app
-          exists.
-        </>
-      }
-      visual={<ReferralTreeVisual />}
-      visualSide="right"
-      cta={{ label: "See the referral math", href: "/referrals" }}
-    >
-      <CheckBullet title="Earn on every referral you bring." delay={0}>
-        10% of their ad revenue comes back to you on Level 1.
-      </CheckBullet>
-      <CheckBullet title="Keep earning as they grow the community." delay={100}>
-        5% on Level 2. 2% on Level 3.
-      </CheckBullet>
-      <CheckBullet title="Cash out at $50." delay={200}>
-        Paid via Stripe, straight to your bank account. No crypto. No points.
-        No gift cards.
-      </CheckBullet>
-      <CheckBullet title="Real money, tracked honestly." delay={300}>
-        Every ad you and your referrals see is logged with the amount it paid.
-        See your breakdown any time.
-      </CheckBullet>
-    </PillarSection>
-  );
-}
+import { helpLink, VisualPanel, type ShowcaseItem } from "@unis/ui";
+import { motion, useInView, useReducedMotion } from "motion/react";
+import { useRef } from "react";
 
 /**
- * Referral-tree visual: you at top, three direct referrals on L1,
- * three on L2, three on L3. Each level labeled with its %.
+ * Module 4: referrals. Listeners never earn from their own listening; they
+ * earn 10/5/2% of the monthly share of the people they bring in, three steps
+ * deep (help center: "Referrals", "Earnings and payouts").
  */
+export const bringModule: ShowcaseItem = {
+  id: "bring-your-people",
+  label: "Bring your people",
+  headline: (
+    <>
+      Bring people in.
+      <br />
+      Get paid when they listen.
+    </>
+  ),
+  body: "You never earn from your own listening. You earn from the people you invite, the people they invite, and one step further.",
+  checklist: [
+    {
+      title: "Three levels",
+      text: "10%, 5% and 2% of their monthly share, for as long as they keep listening.",
+      href: helpLink("referrals-levels"),
+    },
+    {
+      title: "A code that never expires",
+      text: "It's made when you sign up, and there's no cap on how many people can use it.",
+      href: helpLink("referrals-code"),
+    },
+    {
+      title: "Cash out at $50",
+      text: "Withdraw through Stripe. Your bank is paid once a month, on the 1st.",
+      href: helpLink("payouts-getting-paid"),
+    },
+    {
+      title: "Verify your phone",
+      text: "Add a verified number so your share can reach you.",
+      href: helpLink("referrals-when"),
+    },
+  ],
+  cta: { label: "How referrals work", href: helpLink("referrals") },
+  visual: <ReferralTreeVisual />,
+};
+
+const LEVELS = [
+  { y: 230, xs: [140, 280, 420], r: 26, pct: "10%", label: "Who you invite", fill: "#3b82f6" },
+  { y: 350, xs: [80, 180, 250, 330, 400, 490], r: 20, pct: "5%", label: "Who they invite", fill: "#6d28d9" },
+  { y: 460, xs: [60, 150, 230, 320, 410, 500], r: 15, pct: "2%", label: "One step further", fill: "#8b5cf6" },
+];
+
 function ReferralTreeVisual() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.4 });
+  const reduce = useReducedMotion();
+  const show = inView || !!reduce;
+
+  // Connectors: each node links to the nearest node on the level above.
+  const lines: { x1: number; y1: number; x2: number; y2: number; d: number }[] = [];
+  const top = { x: 280, y: 90 };
+  LEVELS[0]!.xs.forEach((x) => lines.push({ x1: top.x, y1: top.y, x2: x, y2: LEVELS[0]!.y, d: 0 }));
+  [1, 2].forEach((li) => {
+    const above = LEVELS[li - 1]!;
+    const level = LEVELS[li]!;
+    level.xs.forEach((x) => {
+      const parent = above.xs.reduce((best, px) => (Math.abs(px - x) < Math.abs(best - x) ? px : best), above.xs[0]!);
+      lines.push({ x1: parent, y1: above.y, x2: x, y2: level.y, d: li });
+    });
+  });
+
   return (
-    <div
-      className="relative aspect-square w-full max-w-[560px] mx-auto rounded-2xl overflow-hidden"
-      style={{
-        background: "radial-gradient(circle at center, #1a2338 0%, #0a0e1a 70%)",
-        border: "1px solid rgba(37, 99, 235, 0.15)",
-      }}
-    >
-      <svg viewBox="0 0 560 560" className="w-full h-full">
-        {/* Tree connectors */}
-        <g stroke="#2563eb" strokeWidth="1" opacity="0.4" fill="none">
-          {/* L0 -> L1 */}
-          <line x1="280" y1="100" x2="140" y2="220" />
-          <line x1="280" y1="100" x2="280" y2="220" />
-          <line x1="280" y1="100" x2="420" y2="220" />
-          {/* L1 -> L2 */}
-          <line x1="140" y1="220" x2="80" y2="340" />
-          <line x1="140" y1="220" x2="170" y2="340" />
-          <line x1="280" y1="220" x2="250" y2="340" />
-          <line x1="280" y1="220" x2="340" y2="340" />
-          <line x1="420" y1="220" x2="400" y2="340" />
-          <line x1="420" y1="220" x2="480" y2="340" />
-          {/* L2 -> L3 */}
-          <line x1="80" y1="340" x2="60" y2="440" />
-          <line x1="170" y1="340" x2="180" y2="440" />
-          <line x1="250" y1="340" x2="260" y2="440" />
-          <line x1="340" y1="340" x2="330" y2="440" />
-          <line x1="400" y1="340" x2="400" y2="440" />
-          <line x1="480" y1="340" x2="500" y2="440" />
-        </g>
+    <VisualPanel>
+      <div ref={ref} className="h-full flex flex-col">
+        <svg viewBox="0 0 560 540" className="w-full flex-1" role="img" aria-label="You at the top. People you invite pay you 10% of their monthly share, the people they invite 5%, and one step further 2%.">
+          {lines.map((l, i) => (
+            <motion.line
+              key={i}
+              x1={l.x1}
+              y1={l.y1}
+              x2={l.x2}
+              y2={l.y2}
+              stroke="#2563eb"
+              strokeWidth="1.2"
+              strokeOpacity="0.5"
+              initial={reduce ? false : { pathLength: 0 }}
+              animate={{ pathLength: show ? 1 : 0 }}
+              transition={{ duration: 0.6, delay: reduce ? 0 : 0.2 + l.d * 0.35 }}
+            />
+          ))}
 
-        {/* You */}
-        <g>
-          <circle cx="280" cy="70" r="34" fill="#2563eb" />
-          <text x="280" y="65" textAnchor="middle" fontSize="11" fontWeight="600" fill="white" style={{ fontFamily: "var(--font-body)", textTransform: "uppercase", letterSpacing: "0.1em" }}>
-            You
-          </text>
-          <text x="280" y="82" textAnchor="middle" fontSize="11" fill="white" opacity="0.8" style={{ fontFamily: "var(--font-body)" }}>
-            earn →
-          </text>
-        </g>
-
-        {/* L1 */}
-        {[140, 280, 420].map((x) => (
-          <g key={`l1-${x}`}>
-            <circle cx={x} cy="240" r="26" fill="#3b82f6" opacity="0.9" />
-            <text x={x} y="244" textAnchor="middle" fontSize="12" fontWeight="700" fill="white" style={{ fontFamily: "var(--font-display)" }}>
-              10%
+          <g>
+            <circle cx={top.x} cy={top.y} r="36" fill="#2563eb" />
+            <text x={top.x} y={top.y + 5} textAnchor="middle" fontSize="15" fontWeight="600" fill="white" style={{ fontFamily: "var(--font-display)" }}>
+              You
             </text>
           </g>
-        ))}
-        <text x="500" y="244" fontSize="11" fill="var(--brand-electric)" fontWeight="600" style={{ fontFamily: "var(--font-body)", textTransform: "uppercase", letterSpacing: "0.12em" }}>
-          L1
-        </text>
 
-        {/* L2 */}
-        {[80, 170, 250, 340, 400, 480].map((x) => (
-          <g key={`l2-${x}`}>
-            <circle cx={x} cy="360" r="20" fill="#6d28d9" opacity="0.85" />
-            <text x={x} y="364" textAnchor="middle" fontSize="10" fontWeight="700" fill="white" style={{ fontFamily: "var(--font-display)" }}>
-              5%
-            </text>
-          </g>
-        ))}
-        <text x="520" y="364" fontSize="11" fill="var(--accent-violet-deep)" fontWeight="600" style={{ fontFamily: "var(--font-body)", textTransform: "uppercase", letterSpacing: "0.12em" }}>
-          L2
-        </text>
+          {LEVELS.map((level, li) => (
+            <g key={level.pct}>
+              {level.xs.map((x, i) => (
+                <motion.g
+                  key={x}
+                  initial={reduce ? false : { scale: 0, opacity: 0 }}
+                  animate={show ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+                  transition={{ duration: 0.45, delay: reduce ? 0 : 0.35 + li * 0.35 + i * 0.04, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ transformOrigin: `${x}px ${level.y}px` }}
+                >
+                  <circle cx={x} cy={level.y} r={level.r} fill={level.fill} opacity="0.92" />
+                  <text
+                    x={x}
+                    y={level.y + level.r * 0.18}
+                    textAnchor="middle"
+                    fontSize={level.r * 0.52}
+                    fontWeight="700"
+                    fill="white"
+                    style={{ fontFamily: "var(--font-display)" }}
+                  >
+                    {level.pct}
+                  </text>
+                </motion.g>
+              ))}
+            </g>
+          ))}
+        </svg>
 
-        {/* L3 */}
-        {[60, 180, 260, 330, 400, 500].map((x) => (
-          <g key={`l3-${x}`}>
-            <circle cx={x} cy="460" r="15" fill="#8b5cf6" opacity="0.75" />
-            <text x={x} y="464" textAnchor="middle" fontSize="9" fontWeight="700" fill="white" style={{ fontFamily: "var(--font-display)" }}>
-              2%
-            </text>
-          </g>
-        ))}
-        <text x="520" y="464" fontSize="11" fill="var(--accent-violet)" fontWeight="600" style={{ fontFamily: "var(--font-body)", textTransform: "uppercase", letterSpacing: "0.12em" }}>
-          L3
-        </text>
-
-        {/* Legend */}
-        <text x="40" y="530" fontSize="12" fill="white" opacity="0.7" style={{ fontFamily: "var(--font-body)" }}>
-          3 levels deep. no cap. forever.
-        </text>
-      </svg>
-    </div>
+        <div className="grid grid-cols-3 gap-2 px-6 sm:px-8 pb-6 sm:pb-8 -mt-2">
+          {LEVELS.map((level) => (
+            <div key={level.pct} className="rounded-xl bg-white/[0.04] border border-white/10 p-3">
+              <div className="font-display font-semibold text-white text-[20px] tracking-[-0.02em]">{level.pct}</div>
+              <div className="text-text-muted text-[11px] leading-tight mt-1">{level.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </VisualPanel>
   );
 }

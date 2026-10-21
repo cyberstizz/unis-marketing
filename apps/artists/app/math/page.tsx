@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { SubPageShell } from "@unis/ui";
-import {
-  ARTIST_NAV_LINKS,
-  ARTIST_FOOTER_GROUPS,
-  ARTIST_AUTH,
-} from "../site-config";
+import { ARTIST_SHELL } from "../site-config";
 import { MathHero } from "./sections/MathHero";
 import { OpenMathMoment } from "./sections/OpenMathMoment";
 import { DollarFlowSimulator } from "./sections/DollarFlowSimulator";
@@ -29,13 +25,7 @@ export const metadata: Metadata = {
 
 export default function MathPage() {
   return (
-    <SubPageShell
-      site="artists"
-      navLinks={ARTIST_NAV_LINKS}
-      footerGroups={ARTIST_FOOTER_GROUPS}
-      getAccessHref={ARTIST_AUTH.getAccessHref}
-      loginHref={ARTIST_AUTH.loginHref}
-    >
+    <SubPageShell {...ARTIST_SHELL}>
       <MathHero />
       <OpenMathMoment />
       <DollarFlowSimulator />

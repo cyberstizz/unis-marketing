@@ -30,12 +30,13 @@ export function FourStreamMoment() {
           <SectionEyebrow>The four-stream model</SectionEyebrow>
         </div>
         <h2 className="font-display font-semibold text-white leading-[1.0] tracking-[-0.04em] text-[clamp(36px,5.5vw,76px)]">
-          Spotify pools your streams.
+          On Spotify, a fan pays you
           <br />
-          Unis pays{" "}
-          <span className="chrome-text">four different ways</span>
+          when they play you.
           <br />
-          to the same artist.
+          On Unis, a fan who backs you
+          <br />
+          <span className="chrome-text">pays you whenever they listen.</span>
         </h2>
       </motion.div>
     </section>

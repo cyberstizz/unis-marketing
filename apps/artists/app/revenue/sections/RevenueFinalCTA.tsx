@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Button } from "@unis/ui";
+import { Button, UNIS_LINKS } from "@unis/ui";
 
 export function RevenueFinalCTA() {
   return (
@@ -27,8 +27,8 @@ export function RevenueFinalCTA() {
           </span>
         </h2>
         <p className="text-text-secondary text-body-lg mb-10 max-w-[52ch] mx-auto">
-          Download the agreement. Sign up with a code. Start accruing the
-          same day.
+          Read the sample agreement. Sign up in Harlem. Your account is ready
+          the day Unis opens.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <Button as="a" href="#calculator" variant="secondary" size="lg">
@@ -44,8 +44,8 @@ export function RevenueFinalCTA() {
           >
             Download a sample agreement
           </Button>
-          <Button as="a" href="/#get-access" variant="primary" size="lg">
-            Sign up with a referral code
+          <Button as="a" href={UNIS_LINKS.signup} variant="primary" size="lg">
+            Sign up as an artist
           </Button>
         </div>
       </motion.div>

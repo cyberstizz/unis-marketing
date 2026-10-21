@@ -17,7 +17,7 @@ const PAYEE_ORDER: PayeeKey[] = [
   "referralL1",
   "referralL2",
   "referralL3",
-  "mlc",
+  "cardFee",
   "unis",
 ];
 

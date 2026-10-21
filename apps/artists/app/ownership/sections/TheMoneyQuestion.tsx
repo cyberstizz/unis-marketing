@@ -6,39 +6,39 @@ import { SectionEyebrow } from "@unis/ui";
 const BLOCKS = [
   {
     number: "01",
-    title: "Unis takes 23% of net streaming revenue.",
+    title: "Unis keeps 68% of the Community Share.",
     body: (
       <>
-        After mechanical royalties are paid to the MLC (a legal requirement —
-        roughly 15.3% of gross), the remaining net revenue splits three ways:{" "}
-        <strong className="text-white">60% to the artist</strong>,{" "}
-        <strong className="text-white">23% to Unis</strong>,{" "}
-        <strong className="text-white">17% to the referral pool</strong>. Unis
-        funds operations from that 23% — not from your rights.
+        Everything Unis earns goes into one pot each month. Each
+        listener&rsquo;s slice splits{" "}
+        <strong className="text-white">15% to the artist they back</strong>{" "}
+        and <strong className="text-white">17% up their referral chain</strong>;
+        Unis runs the platform on the other 68%. Your rights never come into it.
       </>
     ),
   },
   {
     number: "02",
-    title: "Paid subscriptions split 50/50 with the artist.",
+    title: "Unis Plus splits 60/40.",
     body: (
       <>
-        When a Unis user upgrades to ad-free, half their monthly payment goes
-        directly to the artist they've chosen to support. Unis keeps the other
-        half. That's how we fund the platform{" "}
+        60% of each $4.99 subscription, after Stripe&rsquo;s fees, goes to the
+        artists that subscriber played, by plays. Unis&rsquo;s 40% joins the
+        pot. That&rsquo;s how we fund the platform{" "}
         <em>without touching your ownership.</em>
       </>
     ),
   },
   {
     number: "03",
-    title: "Direct sales: 15% platform fee, 85% artist.",
+    title: "Song sales: 10%, or the card fee + 1¢.",
     body: (
       <>
-        When a fan buys a song directly from you on Unis, we take 15% to
-        cover payment processing and platform costs. That's it. Industry
-        standard is 15–30% and most platforms don't pay for 30–90 days.{" "}
-        <strong className="text-white">We pay in two business days.</strong>
+        When a fan buys a song from you, Unis takes 10%, or only the card
+        company&rsquo;s fee plus one cent on smaller prices.{" "}
+        <strong className="text-white">
+          The money reaches your Stripe account when they pay.
+        </strong>
       </>
     ),
   },
@@ -63,7 +63,7 @@ export function TheMoneyQuestion() {
         >
           <SectionEyebrow>The money question</SectionEyebrow>
           <h2 className="font-display font-semibold text-white mt-6 mb-6 leading-[0.95] tracking-[-0.04em] text-[clamp(40px,5vw,72px)]">
-            &ldquo;If artists keep 60%,
+            &ldquo;If artists keep up to 90%,
             <br />
             how does <span className="chrome-text">Unis</span> stay alive?&rdquo;
           </h2>

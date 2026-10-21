@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import { SubPageShell } from "@unis/ui";
-import {
-  ARTIST_NAV_LINKS,
-  ARTIST_FOOTER_GROUPS,
-  ARTIST_AUTH,
-} from "../site-config";
+import { ARTIST_SHELL } from "../site-config";
 import { JurisdictionsHero } from "./sections/JurisdictionsHero";
 import { PlaceMomentClaim } from "./sections/PlaceMomentClaim";
 import { JurisdictionsExplorer } from "./sections/JurisdictionsExplorer";
@@ -17,11 +13,11 @@ import { JurisdictionsFinalCTA } from "./sections/JurisdictionsFinalCTA";
 export const metadata: Metadata = {
   title: "Jurisdictions — Unis for Artists",
   description:
-    "The first music platform where your neighborhood is on the map. Seven tiers of geographic competition, permanent public awards, and launching first in Harlem. Explore the tier chain for any neighborhood in America.",
+    "The first music platform where your neighborhood is on the map. Compete in every place you belong to, from your block to all of Unis, with awards that stay on the record. Opening first in Harlem.",
   openGraph: {
     title: "Jurisdictions — Unis for Artists",
     description:
-      "The first music platform where your neighborhood is on the map. Explore the seven-tier chain for any neighborhood in America.",
+      "The first music platform where your neighborhood is on the map. Opening first in Harlem.",
     type: "article",
     url: "https://artists.unismusic.com/jurisdictions",
   },
@@ -29,13 +25,7 @@ export const metadata: Metadata = {
 
 export default function JurisdictionsPage() {
   return (
-    <SubPageShell
-      site="artists"
-      navLinks={ARTIST_NAV_LINKS}
-      footerGroups={ARTIST_FOOTER_GROUPS}
-      getAccessHref={ARTIST_AUTH.getAccessHref}
-      loginHref={ARTIST_AUTH.loginHref}
-    >
+    <SubPageShell {...ARTIST_SHELL}>
       <JurisdictionsHero />
       <PlaceMomentClaim />
       <JurisdictionsExplorer />

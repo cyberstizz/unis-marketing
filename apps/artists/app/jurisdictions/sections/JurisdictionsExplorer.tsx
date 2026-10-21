@@ -78,10 +78,10 @@ export function JurisdictionsExplorer() {
             <span className="chrome-text">See the whole chain.</span>
           </h2>
           <p className="text-text-secondary text-body-lg">
-            Every neighborhood in America will eventually have a full seven-tier
-            chain on Unis. Harlem is the only one live today. The rest are
-            building toward it — explore what it'll look like when your block
-            gets its turn.
+            Every artist competes in every place they belong to, from their
+            neighborhood up to all of Unis. Harlem is the only place live
+            today. The rest are examples of what it&rsquo;ll look like when
+            your city gets its turn.
           </p>
         </motion.div>
 
@@ -280,8 +280,8 @@ function JurisdictionPicker({
         style={{ borderColor: "var(--divider)" }}
       >
         <span className="text-brand-electric">●</span>{" "}
-        Live in Harlem · Every other neighborhood launches once enough waitlist
-        demand is confirmed.
+        Live in Harlem · Every other region opens once enough people from it
+        join the waitlist.
       </div>
     </div>
   );
@@ -333,7 +333,7 @@ function LiveDot() {
 function TierChainDisplay({ selected }: { selected: JurisdictionChain }) {
   const isLive = selected.status === "live";
 
-  // Render top (T1 Sitewide) to bottom (T7 sub-neighborhood)
+  // Render top (T1 Unis) to bottom (home neighborhood)
   const displayOrder = [...selected.chain].reverse();
 
   return (
@@ -383,7 +383,7 @@ function TierChainDisplay({ selected }: { selected: JurisdictionChain }) {
         </h3>
         <p className="text-text-muted text-[13px] mt-1">
           {isLive
-            ? "Winners shown are live mock data. Real data will appear here once you're signed in."
+            ? "Example winners for illustration. Real winners appear on Unis once Harlem's races open."
             : selected.comingSoonNote}
         </p>
       </div>
@@ -433,9 +433,9 @@ function TierChainDisplay({ selected }: { selected: JurisdictionChain }) {
               When does {selected.displayName} go live?
             </div>
             <p className="text-text-secondary text-[14px] leading-[1.55] mb-4 max-w-[52ch]">
-              When enough people on the waitlist from {selected.displayName}'s
-              zip codes sign up, we roll it out. The more demand we see, the
-              sooner it launches.
+              When enough people from {selected.displayName}&rsquo;s region join
+              the waitlist (1,000 for a major metro, 500 for a mid-size city,
+              250 anywhere else), it opens for everyone at once.
             </p>
             <Button
               as="a"
@@ -480,6 +480,7 @@ function TierRow({
     5: "#6d28d9",
     6: "#3b82f6",
     7: "#2563eb",
+    8: "#2563eb",
   };
   const accent = colorForTier[tier.tier];
 

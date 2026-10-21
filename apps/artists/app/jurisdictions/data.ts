@@ -1,8 +1,10 @@
 /**
  * Jurisdictions data — the single source of truth for the Jurisdictions page.
  *
- * Structure: every supported neighborhood has a complete 7-tier chain, from
- * the sub-neighborhood level at the bottom up to Sitewide at the top.
+ * Structure: every supported neighborhood has a chain from its own
+ * neighborhood at the bottom up to Unis at the top. Harlem's is the real one
+ * (unis-sample findpage.jsx HARLEM_PARENT_CHAIN): eight places for Uptown
+ * and Downtown Harlem. The other cities are illustrative.
  *
  * Harlem is the only jurisdiction currently LIVE. All others are shown in
  * the explorer as "Coming soon" and push the user toward the waitlist at
@@ -15,14 +17,14 @@
 
 export type JurisdictionStatus = "live" | "coming-soon";
 
-export type TierLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export type TierLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 
 export type TierNode = {
   /** Short name shown in the pill (e.g. "Harlem"). */
   name: string;
   /** Longer descriptor shown on hover/expand (e.g. "Neighborhood"). */
   tierLabel: string;
-  /** Tier number, 1 = Sitewide (top), 7 = sub-neighborhood (bottom). */
+  /** Tier number, 1 = Unis (top), higher = more local. */
   tier: TierLevel;
 };
 
@@ -36,7 +38,7 @@ export type JurisdictionChain = {
   status: JurisdictionStatus;
   /** If status is "coming-soon", text for the subtle inline badge. */
   comingSoonNote?: string;
-  /** Chain from bottom (tier 7) up to the top (tier 1). */
+  /** Chain from the home neighborhood (bottom) up to Unis (tier 1). */
   chain: TierNode[];
   /**
    * Mock winner at each tier level, keyed by tier number.
@@ -55,10 +57,10 @@ export type WinnerCard = {
   streakDays: number;
 };
 
-/** Top-level sitewide tier — shared by every chain. */
+/** The top tier — Unis itself — shared by every chain. */
 const SITEWIDE: TierNode = {
-  name: "Sitewide",
-  tierLabel: "Sitewide · Tier 1",
+  name: "Unis",
+  tierLabel: "Everyone · Tier 1",
   tier: 1,
 };
 
@@ -70,44 +72,51 @@ const HARLEM_UPTOWN: JurisdictionChain = {
   region: "NYC",
   status: "live",
   chain: [
-    { name: "Uptown Harlem", tierLabel: "Sub-neighborhood · Tier 7", tier: 7 },
-    { name: "Harlem", tierLabel: "Neighborhood · Tier 6", tier: 6 },
-    { name: "Uptown Manhattan", tierLabel: "Upper borough · Tier 5", tier: 5 },
-    { name: "Manhattan", tierLabel: "Borough · Tier 4", tier: 4 },
-    { name: "New York City", tierLabel: "City · Tier 3", tier: 3 },
+    { name: "Uptown Harlem", tierLabel: "Sub-neighborhood · Tier 8", tier: 8 },
+    { name: "Harlem", tierLabel: "Neighborhood · Tier 7", tier: 7 },
+    { name: "Upper Manhattan", tierLabel: "Area · Tier 6", tier: 6 },
+    { name: "Manhattan", tierLabel: "Borough · Tier 5", tier: 5 },
+    { name: "New York City", tierLabel: "City · Tier 4", tier: 4 },
+    { name: "New York City Metro", tierLabel: "Metro · Tier 3", tier: 3 },
     { name: "New York", tierLabel: "State · Tier 2", tier: 2 },
     SITEWIDE,
   ],
   winners: {
-    7: {
+    8: {
       artist: "Kito Vance",
       song: "Lenox After Dark",
       votes: 412,
       streakDays: 3,
     },
-    6: {
+    7: {
       artist: "Mila Reyes",
       song: "North Side Summer",
       votes: 2418,
       streakDays: 5,
     },
-    5: {
+    6: {
       artist: "Mila Reyes",
       song: "North Side Summer",
       votes: 3104,
       streakDays: 2,
     },
-    4: {
+    5: {
       artist: "Shae Dubois",
       song: "Sugar Hill Sunday",
       votes: 8140,
       streakDays: 1,
     },
-    3: {
+    4: {
       artist: "Obi Ajayi",
       song: "Fourteenth Street",
       votes: 14092,
       streakDays: 4,
+    },
+    3: {
+      artist: "Ana Ruiz",
+      song: "Bridge & Tunnel",
+      votes: 19870,
+      streakDays: 3,
     },
     2: {
       artist: "Terry Klein",
@@ -130,44 +139,51 @@ const HARLEM_DOWNTOWN: JurisdictionChain = {
   region: "NYC",
   status: "live",
   chain: [
-    { name: "Downtown Harlem", tierLabel: "Sub-neighborhood · Tier 7", tier: 7 },
-    { name: "Harlem", tierLabel: "Neighborhood · Tier 6", tier: 6 },
-    { name: "Uptown Manhattan", tierLabel: "Upper borough · Tier 5", tier: 5 },
-    { name: "Manhattan", tierLabel: "Borough · Tier 4", tier: 4 },
-    { name: "New York City", tierLabel: "City · Tier 3", tier: 3 },
+    { name: "Downtown Harlem", tierLabel: "Sub-neighborhood · Tier 8", tier: 8 },
+    { name: "Harlem", tierLabel: "Neighborhood · Tier 7", tier: 7 },
+    { name: "Upper Manhattan", tierLabel: "Area · Tier 6", tier: 6 },
+    { name: "Manhattan", tierLabel: "Borough · Tier 5", tier: 5 },
+    { name: "New York City", tierLabel: "City · Tier 4", tier: 4 },
+    { name: "New York City Metro", tierLabel: "Metro · Tier 3", tier: 3 },
     { name: "New York", tierLabel: "State · Tier 2", tier: 2 },
     SITEWIDE,
   ],
   winners: {
-    7: {
+    8: {
       artist: "Dee Vance",
       song: "110 & Fifth",
       votes: 389,
       streakDays: 2,
     },
-    6: {
+    7: {
       artist: "Mila Reyes",
       song: "North Side Summer",
       votes: 2418,
       streakDays: 5,
     },
-    5: {
+    6: {
       artist: "Mila Reyes",
       song: "North Side Summer",
       votes: 3104,
       streakDays: 2,
     },
-    4: {
+    5: {
       artist: "Shae Dubois",
       song: "Sugar Hill Sunday",
       votes: 8140,
       streakDays: 1,
     },
-    3: {
+    4: {
       artist: "Obi Ajayi",
       song: "Fourteenth Street",
       votes: 14092,
       streakDays: 4,
+    },
+    3: {
+      artist: "Ana Ruiz",
+      song: "Bridge & Tunnel",
+      votes: 19870,
+      streakDays: 3,
     },
     2: {
       artist: "Terry Klein",
@@ -185,15 +201,15 @@ const HARLEM_DOWNTOWN: JurisdictionChain = {
 };
 
 // ── Coming-soon jurisdictions ──────────────────────────────────────────────
-// These include plausible 7-tier chains for illustrative purposes. They
-// demonstrate the model at scale.
+// Illustrative chains for places that aren't open yet. Each opens when enough
+// people from its region join the waitlist; real chains may differ.
 
 const COMPTON: JurisdictionChain = {
   id: "compton",
   displayName: "Compton",
   region: "West",
   status: "coming-soon",
-  comingSoonNote: "Launching 2027+ · Join the waitlist",
+  comingSoonNote: "Opens when its waitlist fills · Join the waitlist",
   chain: [
     { name: "Central Compton", tierLabel: "Sub-neighborhood · Tier 7", tier: 7 },
     { name: "Compton", tierLabel: "Neighborhood · Tier 6", tier: 6 },
@@ -210,7 +226,7 @@ const FISHTOWN: JurisdictionChain = {
   displayName: "Fishtown",
   region: "East",
   status: "coming-soon",
-  comingSoonNote: "Launching 2027+ · Join the waitlist",
+  comingSoonNote: "Opens when its waitlist fills · Join the waitlist",
   chain: [
     { name: "East Fishtown", tierLabel: "Sub-neighborhood · Tier 7", tier: 7 },
     { name: "Fishtown", tierLabel: "Neighborhood · Tier 6", tier: 6 },
@@ -227,7 +243,7 @@ const SOUTHSIDE_CHICAGO: JurisdictionChain = {
   displayName: "South Side Chicago",
   region: "Midwest",
   status: "coming-soon",
-  comingSoonNote: "Launching 2027+ · Join the waitlist",
+  comingSoonNote: "Opens when its waitlist fills · Join the waitlist",
   chain: [
     { name: "Bronzeville", tierLabel: "Sub-neighborhood · Tier 7", tier: 7 },
     { name: "South Side", tierLabel: "Neighborhood · Tier 6", tier: 6 },
@@ -244,7 +260,7 @@ const FIFTH_WARD_HOUSTON: JurisdictionChain = {
   displayName: "Fifth Ward",
   region: "South",
   status: "coming-soon",
-  comingSoonNote: "Launching 2027+ · Join the waitlist",
+  comingSoonNote: "Opens when its waitlist fills · Join the waitlist",
   chain: [
     { name: "Lyons Ave", tierLabel: "Sub-neighborhood · Tier 7", tier: 7 },
     { name: "Fifth Ward", tierLabel: "Neighborhood · Tier 6", tier: 6 },
@@ -261,7 +277,7 @@ const OAKLAND: JurisdictionChain = {
   displayName: "West Oakland",
   region: "West",
   status: "coming-soon",
-  comingSoonNote: "Launching 2027+ · Join the waitlist",
+  comingSoonNote: "Opens when its waitlist fills · Join the waitlist",
   chain: [
     { name: "Lower Bottoms", tierLabel: "Sub-neighborhood · Tier 7", tier: 7 },
     { name: "West Oakland", tierLabel: "Neighborhood · Tier 6", tier: 6 },
@@ -278,7 +294,7 @@ const ATL: JurisdictionChain = {
   displayName: "West End, Atlanta",
   region: "South",
   status: "coming-soon",
-  comingSoonNote: "Launching 2027+ · Join the waitlist",
+  comingSoonNote: "Opens when its waitlist fills · Join the waitlist",
   chain: [
     { name: "Ashview Heights", tierLabel: "Sub-neighborhood · Tier 7", tier: 7 },
     { name: "West End", tierLabel: "Neighborhood · Tier 6", tier: 6 },
@@ -295,7 +311,7 @@ const DETROIT: JurisdictionChain = {
   displayName: "East Side, Detroit",
   region: "Midwest",
   status: "coming-soon",
-  comingSoonNote: "Launching 2027+ · Join the waitlist",
+  comingSoonNote: "Opens when its waitlist fills · Join the waitlist",
   chain: [
     { name: "Jefferson–Chalmers", tierLabel: "Sub-neighborhood · Tier 7", tier: 7 },
     { name: "East Side", tierLabel: "Neighborhood · Tier 6", tier: 6 },

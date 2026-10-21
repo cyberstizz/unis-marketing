@@ -39,11 +39,11 @@ export function TheAgreement() {
             <span className="chrome-text">Read every word.</span>
           </h2>
           <p className="text-text-secondary text-body-lg mb-8 max-w-[52ch]">
-            This is the actual template every Unis artist receives —
-            personalized with their name and the songs they've uploaded,
-            countersigned by Unis, and available to download any time from
-            the artist dashboard. No hidden amendments. No unilateral
-            updates. What you sign is what you have.
+            This is the agreement every Unis artist can download from the
+            artist dashboard, any time, with their name and the date on it.
+            It&rsquo;s the same document for everyone, with the full revenue
+            schedule written in. If Unis ever changes the published terms, the
+            change only applies going forward.
           </p>
           <Button
             as="a"
@@ -56,9 +56,8 @@ export function TheAgreement() {
             Download a sample agreement (PDF)
           </Button>
           <p className="text-text-muted text-sm mt-4 italic">
-            Find a major competitor that will email you a signed agreement
-            naming you, naming your songs, and naming your rights. We'll
-            wait.
+            Find a major competitor that hands you an agreement in your name
+            spelling out your rights and your rates. We&rsquo;ll wait.
           </p>
         </motion.div>
       </div>
@@ -74,11 +73,11 @@ function ContractClauseCard() {
   const clauses = [
     {
       number: "§ 2",
-      title: "Ownership Retained by Artist",
-      highlight: "100% ownership",
+      title: "Ownership of Your Content",
+      highlight: "all right, title, and interest",
       body: (
         <>
-          Artist retains{" "}
+          You retain{" "}
           <mark
             style={{
               background: "rgba(37, 99, 235, 0.18)",
@@ -88,21 +87,21 @@ function ContractClauseCard() {
               fontWeight: 600,
             }}
           >
-            100% ownership
+            all right, title, and interest
           </mark>{" "}
-          of all rights in the sound recordings (masters) and underlying
-          musical compositions (publishing). This Agreement does not transfer
-          any ownership rights to Unis.
+          in and to your Content, including all Master Recordings and
+          underlying compositions you own or control. Nothing in this
+          Agreement transfers ownership of your Content to Unis.
         </>
       ),
     },
     {
-      number: "§ 1",
-      title: "Grant of Non-Exclusive License",
+      number: "§ 3",
+      title: "License Grant",
       highlight: "non-exclusive",
       body: (
         <>
-          Artist hereby grants Unis a{" "}
+          You grant Unis a{" "}
           <mark
             style={{
               background: "rgba(139, 92, 246, 0.2)",
@@ -114,19 +113,19 @@ function ContractClauseCard() {
           >
             non-exclusive
           </mark>
-          , royalty-free, worldwide license to reproduce, distribute, publicly
-          perform, publicly display, and otherwise use the Uploaded Works on
-          the Unis platform.
+          , worldwide, revocable license to host, stream, publicly perform,
+          display and promote your Content on the Platform. This license exists
+          only while your Content remains on the Platform.
         </>
       ),
     },
     {
-      number: "§ 5",
-      title: "Artist Warranties & Termination",
-      highlight: "terminable by Artist",
+      number: "§ 8",
+      title: "Term and Termination",
+      highlight: "at any time",
       body: (
         <>
-          This Agreement is perpetual but{" "}
+          You may remove your Content or close your account{" "}
           <mark
             style={{
               background: "rgba(245, 158, 11, 0.18)",
@@ -136,10 +135,10 @@ function ContractClauseCard() {
               fontWeight: 600,
             }}
           >
-            terminable by Artist with thirty (30) days notice.
-          </mark>{" "}
-          Upon termination, Unis shall cease distribution and the license
-          granted herein shall automatically terminate.
+            at any time
+          </mark>
+          , which ends the license going forward. Payment for amounts already
+          earned survives termination.
         </>
       ),
     },

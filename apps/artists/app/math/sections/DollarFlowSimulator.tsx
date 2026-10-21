@@ -20,14 +20,14 @@ import {
  * Dollar Flow Simulator — the Math page's centerpiece.
  *
  * How it works:
- *  1. User picks a revenue source from four tabs (display / audio / paid / sale).
+ *  1. User picks a revenue source from four tabs (Community Share / Unis Plus / sale / audio).
  *  2. Clicks "Drop $1" (or autoplay is active).
  *  3. 100 SVG particles emit from the source node and animate along paths to
  *     the destination payees, distributed according to the source's split.
  *  4. Each destination has a bucket that counts up (via spring tween) to the
  *     actual dollar share as particles arrive.
  *  5. "Reset" clears buckets and stops any in-flight particles.
- *  6. Current source is encoded in the URL hash (#flow=display) so links are
+ *  6. Current source is encoded in the URL hash (#flow=community) so links are
  *     shareable.
  */
 
@@ -44,7 +44,7 @@ type FlowDestination = {
 const TOTAL_PARTICLES = 100;
 
 export function DollarFlowSimulator() {
-  const [sourceKey, setSourceKey] = useState<SourceKey>("display");
+  const [sourceKey, setSourceKey] = useState<SourceKey>("community");
   const [runId, setRunId] = useState(0);
   const [shareConfirm, setShareConfirm] = useState<string | null>(null);
   const source = SOURCES[sourceKey];
@@ -52,7 +52,7 @@ export function DollarFlowSimulator() {
   // Load source from URL hash on mount
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const match = window.location.hash.match(/#flow=(display|audio|paidTier|directSale)/);
+    const match = window.location.hash.match(/#flow=(community|plus|sale|audio)/);
     if (match) {
       setSourceKey(match[1] as SourceKey);
     }
@@ -122,7 +122,7 @@ export function DollarFlowSimulator() {
             <span className="chrome-text">Watch exactly where it lands.</span>
           </h2>
           <p className="text-text-secondary text-body-lg">
-            Every split shown below is encoded in the Unis platform. The
+            Every split shown below is the one the Unis platform runs. The
             animation is illustrative; the math is exact.
           </p>
         </motion.div>
