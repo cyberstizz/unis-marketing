@@ -22,4 +22,11 @@ export { CardRail, type RailCard } from "./components/CardRail";
 export { ThreeDoors, type Door } from "./components/ThreeDoors";
 export { VisualPanel } from "./components/VisualPanel";
 
+// Sub-page system (Oct 2026, Spotify page-for-page pass)
+export { PageHero } from "./components/PageHero";
+export { VideoSlot } from "./components/VideoSlot";
+export { VideoFeature } from "./components/VideoFeature";
+export { VersusTable, type VersusRow } from "./components/VersusTable";
+export { FaqList, type FaqItem } from "./components/FaqList";
+
 export { UNIS_LINKS, helpLink } from "./links";

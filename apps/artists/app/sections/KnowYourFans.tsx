@@ -41,7 +41,7 @@ export const knowFansModule: ShowcaseItem = {
       href: helpLink("messaging-broadcast"),
     },
   ],
-  cta: { label: "How rankings work", href: helpLink("ranking") },
+  cta: { label: "Explore your dashboard", href: "/dashboard" },
   visual: <DashboardVisual />,
 };
 

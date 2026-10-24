@@ -240,6 +240,27 @@ html.lenis body {
   }
 }
 
+/* ── Windows that light up floor by floor, like equalizer bars (Get heard) ── */
+.window-glow {
+  opacity: 0.14;
+  animation: window-glow var(--dur, 3.2s) ease-in-out var(--delay, 0s) infinite;
+}
+
+@keyframes window-glow {
+  0%,
+  12% {
+    opacity: 0.14;
+  }
+  32%,
+  68% {
+    opacity: 1;
+  }
+  88%,
+  100% {
+    opacity: 0.14;
+  }
+}
+
 /* Hide scrollbars on horizontal rails without losing scroll */
 .no-scrollbar {
   scrollbar-width: none;
@@ -253,5 +274,10 @@ html.lenis body {
   .eq-bar,
   .live-dot::after {
     animation: none;
+  }
+
+  .window-glow {
+    animation: none;
+    opacity: 0.85;
   }
 }

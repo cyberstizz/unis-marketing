@@ -31,7 +31,7 @@ type NavBarProps = {
 /**
  * Fixed top bar. Transparent over the hero, solid once you scroll, tucks away
  * while you scroll down and comes back the moment you scroll up — the way
- * Spotify's marketing nav behaves. Below 768px the links move into a
+ * Spotify's marketing nav behaves. Below 1024px the links move into a
  * full-screen menu.
  */
 export function NavBar({ site, links, primaryCta, secondaryCta, crossLink }: NavBarProps) {
@@ -104,7 +104,7 @@ export function NavBar({ site, links, primaryCta, secondaryCta, crossLink }: Nav
             </span>
           </a>
 
-          <nav aria-label="Main" className="hidden md:flex items-center gap-1">
+          <nav aria-label="Main" className="hidden lg:flex items-center gap-1">
             {links.map((link) => (
               <a
                 key={link.href}
@@ -123,7 +123,7 @@ export function NavBar({ site, links, primaryCta, secondaryCta, crossLink }: Nav
                 href={secondaryCta.href}
                 variant="secondary"
                 size="sm"
-                className="hidden md:inline-flex"
+                className="hidden lg:inline-flex"
               >
                 {secondaryCta.label}
               </Button>
@@ -138,7 +138,7 @@ export function NavBar({ site, links, primaryCta, secondaryCta, crossLink }: Nav
               aria-expanded={open}
               aria-controls="unis-mobile-menu"
               aria-label={open ? "Close menu" : "Open menu"}
-              className="md:hidden relative w-10 h-10 rounded-full border border-white/15 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-electric"
+              className="lg:hidden relative w-10 h-10 rounded-full border border-white/15 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-electric"
             >
               <span
                 aria-hidden
@@ -171,7 +171,7 @@ export function NavBar({ site, links, primaryCta, secondaryCta, crossLink }: Nav
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="md:hidden fixed inset-0 z-40 bg-bg-deep/95 backdrop-blur-2xl flex flex-col"
+            className="lg:hidden fixed inset-0 z-40 bg-bg-deep/95 backdrop-blur-2xl flex flex-col"
             style={{ padding: "calc(var(--nav-h) + 24px) var(--content-px) 32px" }}
             data-lenis-prevent
           >

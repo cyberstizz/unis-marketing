@@ -12,10 +12,11 @@ import { UNIS_LINKS } from "@unis/ui";
 const SHOW_LOGIN = false;
 
 export const ARTIST_NAV_LINKS = [
+  { label: "Get heard", href: "/get-heard" },
   { label: "Jurisdictions", href: "/jurisdictions" },
+  { label: "Know your fans", href: "/dashboard" },
   { label: "Revenue", href: "/revenue" },
   { label: "Ownership", href: "/ownership" },
-  { label: "The math", href: "/math" },
 ];
 
 export const ARTIST_FOOTER_GROUPS = [
@@ -24,16 +25,25 @@ export const ARTIST_FOOTER_GROUPS = [
     links: [
       { label: "For artists", href: "/" },
       { label: "For listeners", href: UNIS_LINKS.listeners },
+      { label: "Get started", href: "/start" },
       { label: "How Unis works", href: UNIS_LINKS.help },
-      { label: "The math", href: "/math" },
     ],
   },
   {
-    title: "Resources",
+    title: "For artists",
     links: [
-      { label: "Ownership", href: "/ownership" },
-      { label: "Revenue model", href: "/revenue" },
+      { label: "Get heard", href: "/get-heard" },
+      { label: "Know your fans", href: "/dashboard" },
+      { label: "Fair play", href: "/fair-play" },
       { label: "Jurisdictions", href: "/jurisdictions" },
+    ],
+  },
+  {
+    title: "Money and rights",
+    links: [
+      { label: "Revenue model", href: "/revenue" },
+      { label: "The math", href: "/math" },
+      { label: "Ownership", href: "/ownership" },
       { label: "Sample agreement", href: "/sample-agreement.pdf" },
     ],
   },

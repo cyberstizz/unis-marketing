@@ -44,7 +44,7 @@ export function FooterBar({ site, groups }: FooterBarProps) {
               lives. Where you live.
             </p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-8">
             {groups.map((group) => (
               <div key={group.title}>
                 <h3 className="text-eyebrow uppercase text-text-muted font-semibold mb-4">

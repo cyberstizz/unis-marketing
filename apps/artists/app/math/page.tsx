@@ -5,6 +5,7 @@ import { MathHero } from "./sections/MathHero";
 import { OpenMathMoment } from "./sections/OpenMathMoment";
 import { DollarFlowSimulator } from "./sections/DollarFlowSimulator";
 import { EverySplit } from "./sections/EverySplit";
+import { SpotifyNumbers } from "./sections/SpotifyNumbers";
 import { AssumptionsLedger } from "./sections/AssumptionsLedger";
 import { TransparencyCommitments } from "./sections/TransparencyCommitments";
 import { PlatformAvailability } from "./sections/PlatformAvailability";
@@ -30,6 +31,7 @@ export default function MathPage() {
       <OpenMathMoment />
       <DollarFlowSimulator />
       <EverySplit />
+      <SpotifyNumbers />
       <AssumptionsLedger />
       <TransparencyCommitments />
       <PlatformAvailability />

@@ -6,6 +6,18 @@ import { CardRail, helpLink, type RailCard } from "@unis/ui";
  */
 const CARDS: RailCard[] = [
   {
+    title: "Get heard without paying for it",
+    description: "No pitch, no paid placement, no algorithm to buy. How a song climbs on Unis.",
+    href: "/get-heard",
+    image: "/03.webp",
+  },
+  {
+    title: "Real people, real plays",
+    description: "Verified votes, plays that mean something, and no stream minimum. The rules, in plain words.",
+    href: "/fair-play",
+    image: "/05.webp",
+  },
+  {
     title: "Why Unis starts in Harlem",
     description: "How a neighborhood gets its own charts, and why Unis opens one place at a time.",
     href: "/jurisdictions",
@@ -26,7 +38,7 @@ const CARDS: RailCard[] = [
   {
     title: "Your fans, block by block",
     description: "What your dashboard shows you about who's listening, and where.",
-    href: "#know-your-fans",
+    href: "/dashboard",
     image: "/jurisdictionAnalytics.webp",
   },
   {

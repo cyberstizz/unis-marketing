@@ -98,7 +98,7 @@ export function ShowcaseModules({ intro, items }: ShowcaseModulesProps) {
                 className="lg:min-h-[100svh] flex flex-col justify-center py-14 lg:py-24"
               >
                 <div className="lg:hidden mb-10">
-                  <div className="relative aspect-[4/5] min-h-[520px] w-full max-w-[520px] mx-auto">{item.visual}</div>
+                  <div className="relative h-[540px] sm:h-auto sm:aspect-[4/5] w-full max-w-[520px] mx-auto">{item.visual}</div>
                 </div>
                 <SectionEyebrow>{item.label}</SectionEyebrow>
                 <h3 className="font-display font-semibold text-white mt-6 mb-6 leading-[0.95] tracking-[-0.04em] text-[clamp(34px,3.9vw,60px)]">

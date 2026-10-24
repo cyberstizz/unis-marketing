@@ -22,8 +22,8 @@ export function Hero() {
           <Button as="a" href={UNIS_LINKS.signup} variant="primary" size="lg">
             Sign up as an artist
           </Button>
-          <Button as="a" href="#get-paid" variant="secondary" size="lg">
-            See how artists get paid
+          <Button as="a" href="/start" variant="secondary" size="lg">
+            How to get started
           </Button>
         </>
       }

@@ -72,6 +72,18 @@ const FAQS: FAQ[] = [
     ),
   },
   {
+    question: "Can fans tip me?",
+    answer: (
+      <>
+        Yes, inside the app. A fan can send you support from your page, and it
+        goes to your Stripe account the moment they pay, minus the same fee as
+        a song sale (10%, or the card fee plus 1&cent; if that&rsquo;s higher).
+        On Spotify, Fan Support is a link that sends fans to an outside
+        service such as Cash App or PayPal.
+      </>
+    ),
+  },
+  {
     question: "Where do I see what I've earned?",
     answer: (
       <>

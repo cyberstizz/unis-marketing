@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SubPageShell } from "@unis/ui";
+import { SubPageShell, VideoFeature } from "@unis/ui";
 import { ARTIST_SHELL } from "../site-config";
 import { RevenueHero } from "./sections/RevenueHero";
 import { FourStreamMoment } from "./sections/FourStreamMoment";
@@ -30,6 +30,13 @@ export default function RevenuePage() {
       <FourStreamMoment />
       <EarningsCalculator />
       <FourStreams />
+      <VideoFeature
+        id="how-you-get-paid"
+        eyebrow="In one minute"
+        headline="How you get paid, explained."
+        src="/videos/how-you-get-paid.mp4"
+        captions="/videos/how-you-get-paid.vtt"
+      />
       <SpotifyComparison />
       <BusinessModel />
       <RevenueFAQ />
