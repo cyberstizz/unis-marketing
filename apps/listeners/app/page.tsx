@@ -1,4 +1,4 @@
-import { LaunchBanner, PillarMarquee, SubPageShell, UNIS_LINKS } from "@unis/ui";
+import { LaunchBanner, PillarMarquee, SubPageShell, UNIS_LINKS, VideoFeature } from "@unis/ui";
 import { LISTENER_SHELL } from "./site-config";
 import { Hero } from "./sections/Hero";
 import { Pillars } from "./sections/Pillars";
@@ -34,6 +34,15 @@ export default function ListenersHome() {
         body="Sign up now and your account is ready the day Unis opens. Your username is yours from today, in every capitalization."
         cta={{ label: "Sign up", href: UNIS_LINKS.signup }}
         note={{ label: "Not in Harlem? Join the waitlist", href: UNIS_LINKS.waitlist }}
+      />
+      {/* The 30-second listener commercial. Hidden until the file is in
+          apps/listeners/public/videos/, then it appears on its own. */}
+      <VideoFeature
+        id="how-unis-works"
+        eyebrow="In 30 seconds"
+        headline="See how Unis works."
+        src="/videos/how-unis-works.mp4"
+        captions="/videos/how-unis-works.vtt"
       />
       <Pillars />
       <TheMath />
