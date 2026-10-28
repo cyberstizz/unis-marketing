@@ -83,7 +83,7 @@ function IncomeStackColumn() {
       tag: undefined as string | undefined,
     },
     {
-      label: "Unis Plus, by plays",
+      label: "Unis Plus",
       share: "60%",
       color: "var(--accent-violet-deep)",
       delay: 0.5,

@@ -14,11 +14,14 @@
  *                          splits 15% to their supported artist, 10/5/2% up
  *                          their referral chain, 68% stays with Unis.
  *   Unis Plus ($4.99/mo)   60% of the fee after Stripe's fees (≈ $2.70) goes
- *                          to the artists that subscriber played, by plays.
+ *                          to artists: 15% (≈ $0.67) to the subscriber's
+ *                          supported artist whatever they played, 45%
+ *                          (≈ $2.02) to the artists they played, by plays.
  *   Audio ads (not live)   60% of the net from ads played with your songs.
  *
- * Nobody is paid per ad seen, and there are no MLC deductions in this model —
- * Unis claims no mechanical rights (Terms of Service §3.2).
+ * Nobody is paid per ad seen. Nothing is deducted from artists for songwriter
+ * royalties (MLC mechanicals, PRO performance fees): whatever Unis owes for
+ * those comes out of Unis's own share.
  */
 
 // ── Fee rule (mirrors unis-sample utils/platformFee.js and the backend) ──
@@ -48,6 +51,10 @@ export const REVENUE_ASSUMPTIONS = {
   plusPrice: 4.99,
   /** Artists' 60% of one Plus subscription after Stripe's fees (help center: "$2.70"). */
   plusArtistPool: 2.7,
+  /** Of that: 15% of the fee to the subscriber's supported artist, whatever they played. */
+  plusSupportedShare: 0.675,
+  /** And 45% of the fee shared among the artists they played, by plays. */
+  plusPlayedPool: 2.025,
   /** Most counted plays one listener can add in a month (50 a day). */
   maxCountedPlaysPerMonth: 1500,
   /** Assumed net per filled audio ad, for the "once audio ads launch" view only. */
@@ -62,7 +69,7 @@ export const SPLITS = {
     referralL2: 0.05,
     referralL3: 0.02,
   },
-  plus: { artists: 0.6, platform: 0.4 },
+  plus: { artists: 0.6, supported: 0.15, played: 0.45, platform: 0.4 },
   audio: { artist: 0.6, platform: 0.4 },
 } as const;
 
@@ -75,6 +82,8 @@ export type CalculatorInputs = {
   playsPerListener: number;
   /** What the month's Community Share pot works out to per 1,000 counted plays, in $. */
   poolPer1000Plays: number;
+  /** Of your supporters, how many have Unis Plus (their 15% comes to you whatever they play). */
+  plusSupporters: number;
   /** Unis Plus subscribers who play your songs. */
   plusListeners: number;
   /** Fraction 0–1 of those subscribers' plays that are your songs. */
@@ -94,7 +103,7 @@ export type CalculatorMode = "at-launch" | "with-audio";
 export type StreamBreakdown = {
   /** Your 15% of your supporters' monthly Community Share slices. */
   supporters: number;
-  /** Your part of the 60% Unis Plus pool, by plays. */
+  /** Unis Plus: 15% from supporters on Plus, plus your part of the 45% by plays. */
   plus: number;
   /** What you keep from song sales. */
   sales: number;
@@ -125,7 +134,9 @@ export function supporterIncome(i: CalculatorInputs): number {
 }
 
 export function plusIncome(i: CalculatorInputs): number {
-  return i.plusListeners * REVENUE_ASSUMPTIONS.plusArtistPool * i.plusShareOfPlays;
+  const supportersOnPlus = Math.min(i.plusSupporters ?? 0, i.supporters);
+  return supportersOnPlus * REVENUE_ASSUMPTIONS.plusSupportedShare
+    + i.plusListeners * REVENUE_ASSUMPTIONS.plusPlayedPool * i.plusShareOfPlays;
 }
 
 export function salesIncome(i: CalculatorInputs): number {
@@ -162,6 +173,7 @@ const SHORT_KEYS: Record<keyof CalculatorInputs, string> = {
   supporters: "s",
   playsPerListener: "pl",
   poolPer1000Plays: "pk",
+  plusSupporters: "ps",
   plusListeners: "u",
   plusShareOfPlays: "us",
   referralsL1: "r",
@@ -212,6 +224,7 @@ export const DEFAULT_INPUTS: CalculatorInputs = {
   supporters: 100,
   playsPerListener: 300,
   poolPer1000Plays: 2,
+  plusSupporters: 10,
   plusListeners: 10,
   plusShareOfPlays: 0.2,
   referralsL1: 25,

@@ -11,12 +11,15 @@
 // Mirrors the live Unis model (help center "Earnings and payouts", the in-app
 // Artist Agreement schedule, and utils/platformFee.js in unis-sample):
 //   Community Share  one listener's monthly slice: 15 / 10 / 5 / 2 / 68
-//   Unis Plus        $4.99: 60% of the fee after Stripe's fees to the artists
-//                    played (≈ $2.70), 40% to Unis (joins the pot)
+//   Unis Plus        $4.99: 60% of the fee after Stripe's fees to artists
+//                    (≈ $2.70: 15% to the subscriber's supported artist,
+//                    45% to the artists played, by plays), 40% to Unis
+//                    (joins the pot)
 //   Song sale        price minus Unis's fee: 10%, or card fee + 1¢
 //   Audio ad         60% artist / 40% Unis (not live yet)
-// Nobody is paid per ad seen, and there is no MLC deduction: Unis claims no
-// mechanical rights (Terms of Service §3.2).
+// Nobody is paid per ad seen. Nothing is deducted from artists for songwriter
+// royalties (MLC mechanicals, PRO performance fees): whatever Unis owes for
+// those comes out of Unis's own share.
 
 export type PayeeKey =
   | "artist"
@@ -117,8 +120,8 @@ export const SOURCES: Record<SourceKey, SourceMeta> = {
     key: "plus",
     label: "Unis Plus",
     tagline:
-      "$4.99 a month for no ads. 60% of the fee after Stripe's fees goes to the artists that subscriber played, by plays.",
-    note: "If a subscriber played nobody that month, the artists' part goes to the artist they support.",
+      "$4.99 a month for no ads. 60% of the fee after Stripe's fees goes to artists: 15% to the subscriber's supported artist, 45% to the artists they played, by plays.",
+    note: "The supported artist's 15% arrives whatever the subscriber played. If they played nobody, all 60% goes to the artist they support.",
     liveStatus: "live",
     gross: 4.99,
     split: {
@@ -199,7 +202,7 @@ export const ASSUMPTIONS: Assumption[] = [
     label: "Unis Plus price",
     value: "$4.99 / month",
     methodology:
-      "Removes every ad for the subscriber. Each month, 60% of the fee after Stripe's card and billing fees (about $2.70) is shared among the artists that subscriber played, by counted plays. Unis's 40% joins the Community Share pot.",
+      "Removes every ad for the subscriber. Each month, 60% of the fee after Stripe's card and billing fees (about $2.70) goes to artists: 15% (about $0.67) to the subscriber's supported artist whatever they played, and 45% (about $2.02) to the artists they played, by counted plays. Unis's 40% joins the Community Share pot.",
     source: "Unis help center, Unis Plus.",
     lastReviewed: "October 2026",
     revisable: true,

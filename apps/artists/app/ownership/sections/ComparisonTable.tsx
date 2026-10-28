@@ -69,7 +69,7 @@ const ROWS: Row[] = [
   {
     label: "Artist share of streaming",
     values: [
-      { text: "60% of Unis Plus by plays + 15% of supporters' share", tone: "win", bold: true },
+      { text: "60% of Unis Plus (15% from your backers + 45% by plays) + 15% of supporters' share", tone: "win", bold: true },
       { text: "Pro-rata pool share", tone: "neutral" },
       { text: "Pro-rata pool share", tone: "neutral" },
       { text: "91% of pro-rata share", tone: "neutral" },

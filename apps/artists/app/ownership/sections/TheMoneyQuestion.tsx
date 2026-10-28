@@ -22,8 +22,9 @@ const BLOCKS = [
     title: "Unis Plus splits 60/40.",
     body: (
       <>
-        60% of each $4.99 subscription, after Stripe&rsquo;s fees, goes to the
-        artists that subscriber played, by plays. Unis&rsquo;s 40% joins the
+        60% of each $4.99 subscription, after Stripe&rsquo;s fees, goes to
+        artists: 15% to the artist that subscriber supports and 45% to the
+        artists they played, by plays. Unis&rsquo;s 40% joins the
         pot. That&rsquo;s how we fund the platform{" "}
         <em>without touching your ownership.</em>
       </>

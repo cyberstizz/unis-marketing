@@ -18,6 +18,9 @@ import {
   REVENUE_ASSUMPTIONS,
 } from "./math";
 
+/** Whole cents, rounded down, matching how the Unis app shows Plus amounts (67¢, $2.02). */
+const centsDown = (dollars: number) => (Math.floor(dollars * 100 + 1e-9) / 100).toFixed(2);
+
 export function EarningsCalculator() {
   const [mode, setMode] = useState<CalculatorMode>("at-launch");
   const [inputs, setInputs] = useState<CalculatorInputs>(DEFAULT_INPUTS);
@@ -87,8 +90,8 @@ export function EarningsCalculator() {
           <p className="text-text-secondary text-body-lg">
             Drag the sliders. Watch the number change. Every dollar below runs
             through the same rules the Unis platform uses: your 15% of each
-            supporter&rsquo;s monthly Community Share, 60% of Unis Plus by
-            plays, what you keep from song sales, and 10% of your direct
+            supporter&rsquo;s monthly Community Share, 15% of every supporter&rsquo;s
+            Unis Plus fee plus 45% of Plus by plays, what you keep from song sales, and 10% of your direct
             referrals&rsquo; shares.
           </p>
         </motion.div>
@@ -213,8 +216,19 @@ export function EarningsCalculator() {
             />
 
             <Slider
+              label="Supporters with Unis Plus"
+              hint={`Each one sends you about $${centsDown(REVENUE_ASSUMPTIONS.plusSupportedShare)} a month, whatever they play.`}
+              value={inputs.plusSupporters}
+              onChange={(v) => updateInput("plusSupporters", v)}
+              min={0}
+              max={2000}
+              logarithmic
+              formatValue={(v) => v.toLocaleString("en-US")}
+            />
+
+            <Slider
               label="Unis Plus subscribers who play you"
-              hint={`Each pays $${REVENUE_ASSUMPTIONS.plusPrice}/mo; about $${REVENUE_ASSUMPTIONS.plusArtistPool.toFixed(2)} of it goes to the artists they played.`}
+              hint={`Each pays $${REVENUE_ASSUMPTIONS.plusPrice}/mo; about $${centsDown(REVENUE_ASSUMPTIONS.plusPlayedPool)} of it is shared among the artists they played.`}
               value={inputs.plusListeners}
               onChange={(v) => updateInput("plusListeners", v)}
               min={0}
@@ -375,7 +389,7 @@ function OutputPanel({
       {
         key: "plus",
         label: "Unis Plus",
-        detail: "60% of subscribers' fees, by plays",
+        detail: "15% from supporters on Plus + 45% by plays",
         amount: breakdown.plus,
         color: "var(--accent-violet-deep)",
       },

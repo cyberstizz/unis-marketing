@@ -55,7 +55,7 @@ const CIRCLES = [
 function MathIllustration({ progress }: { progress: MotionValue<number> }) {
   return (
     <VisualPanel paper>
-      <svg viewBox="0 0 560 480" className="relative w-full h-full" role="img" aria-label="What artists keep: 100% ownership, 90% of song sales, 60% of Unis Plus by plays, 60% of audio ads when they launch, and 15% of each supporter's monthly share.">
+      <svg viewBox="0 0 560 480" className="relative w-full h-full" role="img" aria-label="What artists keep: 100% ownership, 90% of song sales, 60% of Unis Plus (15% from the fans who back you plus 45% by plays), 60% of audio ads when they launch, and 15% of each supporter's monthly share.">
         {CIRCLES.map((c, i) => (
           <Circle key={c.caption} c={c} progress={progress} index={i} />
         ))}

@@ -33,7 +33,7 @@ export const backModule: ShowcaseItem = {
     },
     {
       title: "Unis Plus, $4.99 a month",
-      text: "No ads, and 60% of it goes to the artists you play.",
+      text: "No ads. 15% goes to the artist you back, no matter what, and 45% to the artists you play.",
       href: helpLink("plus-what"),
     },
     {

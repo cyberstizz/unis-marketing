@@ -16,7 +16,7 @@ const BLOCKS = [
     title: "Unis Plus",
     pct: "40%",
     sub: "of each subscription, after Stripe's fees",
-    body: "60% goes to the artists each subscriber played, by plays. Unis's 40% joins the Community Share pot.",
+    body: "60% goes to artists: 15% to the subscriber's supported artist, 45% to the artists they played, by plays. Unis's 40% joins the Community Share pot.",
   },
   {
     number: "03",

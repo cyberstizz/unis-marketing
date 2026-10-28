@@ -64,15 +64,19 @@ export function SpotifyComparison() {
             rows={[
               { label: "They pay Unis Plus", value: "$4.99/mo" },
               {
+                label: "Unis Plus: 15% to the artist they back",
+                value: "$0.67",
+              },
+              {
                 label: "Unis Plus by plays: 20 of their 320 are you",
-                value: "$2.70 × 6.25% = $0.17",
+                value: "$2.02 × 6.25% = $0.13",
               },
               {
                 label: "Supporter share of all 320 plays",
                 value: "15% of $3.20 = $0.48",
               },
             ]}
-            total="~$0.65"
+            total="~$1.28"
             totalLabel="Your take per month · this one fan"
           />
         </motion.div>
@@ -86,12 +90,12 @@ export function SpotifyComparison() {
         >
           <p className="font-display font-semibold text-white tracking-[-0.03em] text-[clamp(28px,4vw,56px)] leading-[1.15] max-w-[22ch] mx-auto">
             About{" "}
-            <span className="chrome-text">8x more</span> per dedicated fan.
+            <span className="chrome-text">16x more</span> per dedicated fan.
           </p>
           <p className="text-text-secondary text-body-lg mt-6 max-w-[60ch] mx-auto">
             Not because Unis is magic, but because a fan who backs you pays you
-            from <em>all</em> of their listening, and their subscription follows
-            their own plays instead of a global pool.
+            from <em>all</em> of their listening, and their subscription pays
+            the artist they back plus their own plays, instead of a global pool.
           </p>
         </motion.div>
 
@@ -101,8 +105,9 @@ export function SpotifyComparison() {
           $0.003–$0.005. The Unis figures assume the month&rsquo;s Community
           Share works out to 1¢ per counted play (the help center&rsquo;s own
           example); the real value depends on what Unis earns each month and
-          will be lower in the early months. Unis Plus artists&rsquo; pool is
-          60% of $4.99 after Stripe&rsquo;s fees, about $2.70.
+          will be lower in the early months. Unis Plus pays artists 60% of $4.99
+          after Stripe&rsquo;s fees, about $2.70: 15% (about $0.67) to the
+          artist the subscriber backs and 45% (about $2.02) by plays.
         </p>
       </div>
     </section>

@@ -97,17 +97,18 @@ const STREAMS: Stream[] = [
   {
     number: "03",
     name: "Unis Plus",
-    tag: "60% of $4.99, after Stripe's fees · by plays",
+    tag: "60% of $4.99, after Stripe's fees · 15% supported + 45% by plays",
     tagColor: "var(--accent-violet-deep)",
-    headline: "Every Plus subscriber pays the artists they actually play.",
+    headline: "Every Plus subscriber pays the artist they back, and the artists they play.",
     accent: "var(--accent-violet-deep)",
     what: (
       <>
         Unis Plus is the ad-free plan at $4.99 a month. Each month,{" "}
         <strong className="text-white">60% of a subscriber&rsquo;s fee</strong>{" "}
-        after Stripe&rsquo;s fees (about $2.70) is shared among the artists that
-        subscriber played, by their counted plays. If they played nobody, it
-        goes to the artist they support.
+        after Stripe&rsquo;s fees (about $2.70) goes to artists: 15% (about
+        $0.67) to the artist they support, whatever they played, and 45% (about
+        $2.02) shared among the artists they played, by their counted plays. If
+        they played nobody, all of it goes to the artist they support.
       </>
     ),
     compare: (
@@ -120,13 +121,13 @@ const STREAMS: Stream[] = [
     ),
     math: (
       <>
-        <div>A subscriber whose plays this month were 25% you:</div>
+        <div>A subscriber who supports you, and whose plays this month were 25% you:</div>
         <div>
-          $2.70 × 25% = <strong className="text-white">$0.68</strong>
+          $0.67 + $2.02 × 25% = <strong className="text-white">$1.18</strong>
         </div>
         <div className="pt-3 mt-3 border-t border-divider">
           40 subscribers like that →{" "}
-          <strong style={{ color: "var(--accent-violet-deep)" }}>$27/month</strong>.
+          <strong style={{ color: "var(--accent-violet-deep)" }}>$47/month</strong>.
         </div>
       </>
     ),

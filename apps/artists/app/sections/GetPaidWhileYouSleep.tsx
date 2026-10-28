@@ -27,8 +27,8 @@ export const getPaidModule: ShowcaseItem = {
       href: helpLink("payouts-sales-fee"),
     },
     {
-      title: "Unis Plus pays by plays",
-      text: "60% of every $4.99 subscription, after Stripe's fees, goes to the artists that subscriber played.",
+      title: "Unis Plus pays your backers' share",
+      text: "60% of every $4.99 subscription, after Stripe's fees, goes to artists: 15% to the artist that subscriber backs, 45% to the artists they played.",
       href: helpLink("payouts-plus"),
     },
     {
@@ -58,7 +58,7 @@ type Stream = {
 
 const STREAMS: Stream[] = [
   { label: "Song sales and support", detail: "Yours, minus 10% (or card fee + 1¢)", value: 90, bar: 90, suffix: "%" },
-  { label: "Unis Plus", detail: "Of each subscriber's fee, by plays", value: 60, bar: 60, suffix: "%" },
+  { label: "Unis Plus", detail: "15% to their artist + 45% by plays", value: 60, bar: 60, suffix: "%" },
   { label: "Supporters", detail: "Of each supporter's monthly share", value: 15, bar: 15, suffix: "%" },
   { label: "Referrals", detail: "10%, 5% and 2%, three steps down", value: 10, bar: 10, suffix: "%" },
   { label: "Audio ads", detail: "Of ads played with your songs", value: 60, bar: 60, suffix: "%", soon: true },
