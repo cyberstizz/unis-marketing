@@ -43,6 +43,7 @@ const ITEMS: ShowcaseItem[] = [
       { title: "Sound and mood tags", text: "A subgenre, an optional second one, one or two moods, and the language.", href: helpLink("sounds-tagging") },
       { title: "Clean versions too", text: "A clean version uploaded right after the explicit one gets the same tags automatically.", href: helpLink("sounds-tagging") },
       { title: "More any time", text: "Upload new songs and videos from your dashboard whenever they're ready." },
+      { title: "Songs you control", text: "No publisher, no covers, no uncleared samples. You confirm it with a checkbox on every upload.", href: helpLink("upload-rights-which") },
     ],
     visual: <UploadScreen />,
   },
@@ -53,7 +54,7 @@ const ITEMS: ShowcaseItem[] = [
     body: "Add a photo, your story and the song people should hear first. Then fill it out with photos, videos, lyrics and your links.",
     checklist: [
       { title: "Featured song", text: "The first track people see and hear on your page." },
-      { title: "Video, no waitlist", text: "Upload performances, covers and music videos from your dashboard." },
+      { title: "Video, no waitlist", text: "Upload performances and music videos of your own songs from your dashboard." },
       { title: "Your links", text: "Instagram, TikTok, X, YouTube and a contact email." },
     ],
     visual: <PageScreen />,
@@ -83,10 +84,11 @@ const ITEMS: ShowcaseItem[] = [
     body: "Everyone who joins with your link adds to your monthly share. Everyone who picks you as their artist adds more, every month they listen.",
     checklist: [
       { title: "15% from supporters", text: "Of each supporter's monthly Community Share slice.", href: helpLink("supporter-artist-side") },
-      { title: "10%, 5% and 2% from referrals", text: "From the people you invite, and the people they invite.", href: helpLink("referrals-levels") },
+      { title: "10%, 5% and 2% from referrals", text: "From the people you invite, and the people they invite.*", href: helpLink("referrals-levels") },
       { title: "Votes from your people", text: "Every verified fan you bring can vote in your races." },
     ],
     cta: { label: "Sign up as an artist", href: UNIS_LINKS.signup },
+    note: "*The people you invite need a verified phone number for their listening to count toward your share.",
     visual: <ShareScreen />,
   },
 ];

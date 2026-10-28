@@ -23,6 +23,8 @@ export type ShowcaseItem = {
   body: ReactNode;
   checklist: { title: string; text: ReactNode; href?: string }[];
   cta?: { label: string; href: string };
+  /** A small side note under the checklist, e.g. the footnote for an asterisk in it. */
+  note?: ReactNode;
   /** The visual for this module. Pinned beside the text on wide screens. */
   visual: ReactNode;
 };
@@ -105,13 +107,16 @@ export function ShowcaseModules({ intro, items }: ShowcaseModulesProps) {
                   {item.headline}
                 </h3>
                 <p className="text-text-secondary text-body-lg max-w-[52ch] mb-9">{item.body}</p>
-                <ul className="space-y-6 mb-10">
+                <ul className={`space-y-6 ${item.note ? "mb-6" : "mb-10"}`}>
                   {item.checklist.map((c, j) => (
                     <CheckBullet key={c.title} title={c.title} href={c.href} delay={j * 90}>
                       {c.text}
                     </CheckBullet>
                   ))}
                 </ul>
+                {item.note && (
+                  <p className="text-text-muted text-[13px] leading-[1.6] max-w-[52ch] mb-10">{item.note}</p>
+                )}
                 {item.cta && (
                   <div>
                     <Button as="a" href={item.cta.href} variant="secondary" size="md">

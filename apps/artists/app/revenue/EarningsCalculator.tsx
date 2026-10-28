@@ -251,7 +251,7 @@ export function EarningsCalculator() {
 
             <Slider
               label="Direct referrals"
-              hint="People who signed up with your code (level 1)."
+              hint="People who signed up with your code (level 1). Their listening counts once they verify a phone number."
               value={inputs.referralsL1}
               onChange={(v) => updateInput("referralsL1", v)}
               min={0}
@@ -349,7 +349,8 @@ export function EarningsCalculator() {
           These are estimates, not promises. The Community Share depends on
           what Unis actually earns each month and on how much everyone listens,
           so the per-1,000-plays figure will move month to month. Supporter and
-          referral money needs a verified phone number to reach you, and is
+          referral money needs a verified phone number to reach you, and the
+          people you refer need one too for their listening to count. It is
           paid once the month closes (usually the second half of the next
           month). Song sales land in your Stripe account when they happen; the
           Community Share can be withdrawn once your balance reaches $50; Stripe

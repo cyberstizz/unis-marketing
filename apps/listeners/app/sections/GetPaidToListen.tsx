@@ -23,7 +23,7 @@ export const bringModule: ShowcaseItem = {
   checklist: [
     {
       title: "Three levels",
-      text: "10%, 5% and 2% of their monthly share, for as long as they keep listening.",
+      text: "10%, 5% and 2% of their monthly share, for as long as they keep listening.*",
       href: helpLink("referrals-levels"),
     },
     {
@@ -43,6 +43,7 @@ export const bringModule: ShowcaseItem = {
     },
   ],
   cta: { label: "How referrals work", href: helpLink("referrals") },
+  note: "*The people you invite need a verified phone number for their listening to count toward your share.",
   visual: <ReferralTreeVisual />,
 };
 

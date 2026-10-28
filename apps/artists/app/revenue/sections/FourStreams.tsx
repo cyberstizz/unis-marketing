@@ -221,11 +221,15 @@ export function FourStreams() {
           <p className="text-text-secondary text-[16px] leading-[1.6] max-w-[72ch]">
             When you bring someone to Unis, you get{" "}
             <strong className="text-white">10%</strong> of their slice of the
-            monthly Community Share for as long as they keep listening. The
+            monthly Community Share for as long as they keep listening.* The
             people they invite earn you <strong className="text-white">5%</strong>,
             and one step further, <strong className="text-white">2%</strong>.
             Every Unis member earns this way, not only artists. Nobody is paid
             for seeing or clicking ads.
+          </p>
+          <p className="mt-4 text-text-muted text-[13px] leading-[1.6] max-w-[72ch]">
+            *The people you invite need a verified phone number for their
+            listening to count toward your share.
           </p>
         </motion.div>
       </div>

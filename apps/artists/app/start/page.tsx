@@ -128,7 +128,7 @@ export default function StartPage() {
           {
             question: "What do I need for my first upload?",
             answer:
-              "The song file and its title. A subgenre is required too, and a mood, a second subgenre and the language help the right listeners find it. You can add lyrics and an ISRC if you have one.",
+              "The song file and its title. A subgenre is required too, and a mood, a second subgenre and the language help the right listeners find it. You can add lyrics and an ISRC if you have one. You'll also tick a box confirming the song is yours to put on Unis: no publisher or publishing administrator, no SESAC or GMR writer, no covers and no uncleared samples.",
           },
         ]}
       />

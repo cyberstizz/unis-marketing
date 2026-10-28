@@ -1,6 +1,6 @@
 import { helpLink, SectionEyebrow, UNIS_LINKS } from "@unis/ui";
 
-type Feature = { name: string; text: string; href: string; link: string };
+type Feature = { name: string; text: string; href: string; link: string; note?: string };
 type Group = { title: string; features: Feature[] };
 
 /**
@@ -106,7 +106,8 @@ const GROUPS: Group[] = [
     features: [
       {
         name: "Bring your people",
-        text: "Earn 10%, 5% and 2% of the monthly shares of people you bring in, three levels deep.",
+        text: "Earn 10%, 5% and 2% of the monthly shares of people you bring in, three levels deep.*",
+        note: "*The people you bring in need a verified phone number for their listening to count toward your share.",
         href: helpLink("referrals"),
         link: "About referrals",
       },
@@ -140,6 +141,7 @@ export function FeatureIndex() {
                   <li key={f.name} className="py-5">
                     <p className="font-display font-semibold text-white text-[20px] leading-[1.2] tracking-[-0.02em]">{f.name}</p>
                     <p className="text-text-secondary text-[15px] leading-[1.6] mt-2 max-w-[48ch]">{f.text}</p>
+                    {f.note && <p className="text-text-muted text-[13px] leading-[1.6] mt-2 max-w-[48ch]">{f.note}</p>}
                     <a
                       href={f.href}
                       className="inline-block mt-3 text-[14px] font-medium text-brand-electric-hover underline decoration-brand-electric/40 underline-offset-4 hover:text-white hover:decoration-white/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-electric rounded-sm"

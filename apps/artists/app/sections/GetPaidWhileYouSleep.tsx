@@ -38,11 +38,12 @@ export const getPaidModule: ShowcaseItem = {
     },
     {
       title: "Earn three steps deep",
-      text: "Invite people and get 10%, 5% and 2% of the monthly share down your chain.",
+      text: "Invite people and get 10%, 5% and 2% of the monthly share down your chain.*",
       href: helpLink("referrals-levels"),
     },
   ],
   cta: { label: "Explore the revenue model", href: "/revenue" },
+  note: "*The people you invite need a verified phone number for their listening to count toward your share.",
   visual: <MoneyVisual />,
 };
 

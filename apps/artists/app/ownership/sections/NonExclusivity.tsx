@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { SectionEyebrow, CheckBullet } from "@unis/ui";
+import { SectionEyebrow, CheckBullet, helpLink } from "@unis/ui";
 
 /**
  * Non-exclusivity section. Unis is additive, not replacement — artists can
@@ -62,6 +62,15 @@ export function NonExclusivity() {
               fee, no catalog hostage situation.
             </CheckBullet>
           </ul>
+          <p className="mt-8 text-text-muted text-[13px] leading-[1.6] max-w-[55ch]">
+            One rule for now: upload songs you control yourself. If a publisher
+            or a publishing administrator like Songtrust handles any part of a
+            song, a writer is with SESAC or GMR, or it&rsquo;s a cover, it
+            can&rsquo;t go on Unis yet.{" "}
+            <a className="underline hover:text-white" href={helpLink("upload-rights-which")}>
+              What you can upload
+            </a>
+          </p>
         </motion.div>
       </div>
     </section>

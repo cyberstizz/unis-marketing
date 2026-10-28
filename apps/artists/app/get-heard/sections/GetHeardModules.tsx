@@ -92,7 +92,7 @@ const ITEMS: ShowcaseItem[] = [
       },
       {
         title: "Referrals, three deep",
-        text: "10%, 5% and 2% of the monthly share of the people your link brings in, and the people they bring.",
+        text: "10%, 5% and 2% of the monthly share of the people your link brings in, and the people they bring.*",
         href: helpLink("referrals-levels"),
       },
       {
@@ -102,6 +102,7 @@ const ITEMS: ShowcaseItem[] = [
       },
     ],
     cta: { label: "See how it pays", href: "/revenue" },
+    note: "*The people you invite need a verified phone number for their listening to count toward your share.",
     visual: <BringVisual />,
   },
   {

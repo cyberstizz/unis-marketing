@@ -52,9 +52,26 @@ const FAQS: FAQ[] = [
       <>
         Yes — performing rights organizations (PROs) collect public performance
         royalties from radio, TV, and live venues, and every artist should be
-        registered with one regardless of platform. Unis claims no rights in
-        your compositions, so your publishing, and how you register and
-        administer it, stays entirely with you.
+        registered with one regardless of platform. Unis claims no ownership of
+        your compositions. When you upload, you give Unis a non-exclusive
+        license to the song itself as well as the recording, so your
+        publishing, and how you register it, stays with you. ASCAP and BMI
+        writers can upload. Unis doesn&rsquo;t pay through PROs yet, so Unis
+        plays won&rsquo;t show on your PRO statements; your Unis income comes
+        from Unis directly.
+      </>
+    ),
+  },
+  {
+    question: "Can I upload a song that has a publisher, or a cover?",
+    answer: (
+      <>
+        Not yet. For now Unis can only take songs you control yourself: no
+        publisher or publishing administrator (like Songtrust or TuneCore
+        Publishing), no writer with SESAC or GMR, no covers and no uncleared
+        samples. You confirm it with a checkbox on every upload. Those songs
+        need licenses Unis doesn&rsquo;t hold yet. If you sign a publishing
+        deal later, take the song down from Unis.
       </>
     ),
   },
