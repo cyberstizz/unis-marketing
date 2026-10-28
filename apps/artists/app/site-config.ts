@@ -25,6 +25,7 @@ export const ARTIST_FOOTER_GROUPS = [
     links: [
       { label: "For artists", href: "/" },
       { label: "For listeners", href: UNIS_LINKS.listeners },
+      { label: "Every feature", href: `${UNIS_LINKS.listeners}/features` },
       { label: "Get started", href: "/start" },
       { label: "How Unis works", href: UNIS_LINKS.help },
     ],

@@ -10,11 +10,16 @@ import { helpLink, UNIS_LINKS } from "@unis/ui";
  */
 const SHOW_LOGIN = false;
 
+/**
+ * Home-page sections are written "/#id" so they work from every page; on the
+ * home page itself they still glide to the section.
+ */
 export const LISTENER_NAV_LINKS = [
-  { label: "Voting", href: "#you-decide" },
-  { label: "Neighborhoods", href: "#rep-your-neighborhood" },
-  { label: "Supporting", href: "#back-an-artist" },
-  { label: "Referrals", href: "#bring-your-people" },
+  { label: "Voting", href: "/#you-decide" },
+  { label: "Neighborhoods", href: "/#rep-your-neighborhood" },
+  { label: "Supporting", href: "/#back-an-artist" },
+  { label: "Referrals", href: "/#bring-your-people" },
+  { label: "Features", href: "/features" },
 ];
 
 export const LISTENER_FOOTER_GROUPS = [
@@ -22,6 +27,7 @@ export const LISTENER_FOOTER_GROUPS = [
     title: "Platform",
     links: [
       { label: "For listeners", href: "/" },
+      { label: "Every feature", href: "/features" },
       { label: "For artists", href: UNIS_LINKS.artists },
       { label: "How Unis works", href: UNIS_LINKS.help },
       { label: "The math", href: `${UNIS_LINKS.artists}/math` },
